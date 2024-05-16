@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class BlockBreaker extends DispenserCloneBase {
+    //Not currently functional because I'm too dumb
     public int size = 9;
     public Text displayName = Text.of("Mining Simulator");
 

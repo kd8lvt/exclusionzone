@@ -41,3 +41,6 @@ replay_*.log
 
 # Project exclude paths
 /output/
+/1.20.4-srcs/
+/remappedSrc/
+/src/main/generated/

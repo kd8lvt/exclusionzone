@@ -19,6 +19,7 @@ import net.minecraft.world.RaycastContext;
 
 @SuppressWarnings("deprecation")
 public class BlockPlacer extends DispenserCloneBase {
+    //Not currently functional because I'm too dumb
     public BlockPlacer() {
         super(new Identifier("exclusionzone","interaction_simulator"), Text.of("Interaction Simulator"));
     }
