@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "  I",
+    " S ",
+    "S  "
+  ],
+  "key": {
+    "I": {"item": "minecraft:amethyst_shard"},
+    "S": {"item": "minecraft:stick"}
+  },
+  "result": {
+    "item": "exclusionzone:glasscutter"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "exclusionzone:block/interaction_simulator",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "exclusionzone:block/interaction_simulator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "exclusionzone:block/interaction_simulator"
+    },
+    "facing=south": {
+      "model": "exclusionzone:block/interaction_simulator",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "exclusionzone:block/interaction_simulator",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "exclusionzone:block/interaction_simulator",
+      "y": 270
+    }
+  }
+}

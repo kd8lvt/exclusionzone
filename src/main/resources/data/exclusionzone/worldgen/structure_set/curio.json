@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "exclusionzone:curio",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 20,
+    "separation": 8,
+    "salt": 1298356981,
+    "frequency": 0.5
+  }
+}

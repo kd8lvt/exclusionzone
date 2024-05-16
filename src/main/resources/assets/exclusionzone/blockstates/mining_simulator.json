@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "exclusionzone:block/mining_simulator",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "exclusionzone:block/mining_simulator",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "exclusionzone:block/mining_simulator"
+    },
+    "facing=south": {
+      "model": "exclusionzone:block/mining_simulator",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "exclusionzone:block/mining_simulator",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "exclusionzone:block/mining_simulator",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "item.doll.squeak": {
+    "subtitle": "Doll squeaks",
+    "sounds": [
+      "exclusionzone:item/doll/squeak_1"
+    ]
+  },
+  "item.doll.chicken": {
+    "subtitle": "Doll honks",
+    "sounds": [
+      "exclusionzone:item/doll/chicken"
+    ]
+  }
+}

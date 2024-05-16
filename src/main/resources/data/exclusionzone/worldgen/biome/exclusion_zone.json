@@ -1,0 +1,80 @@
+{
+  "has_precipitation": false,
+  "temperature": 0.8,
+  "temperature_modifier": "none",
+  "downfall": 0.4,
+  "effects": {
+    "fog_color": 35473,
+    "sky_color": 35505,
+    "water_color": 38321,
+    "water_fog_color": 29045,
+    "particle": {
+      "probability": 0.2,
+      "options": {
+        "type": "minecraft:dust_color_transition",
+        "from_color": [0.1,0.44,0.45],
+        "to_color": [0.2,0.54,0.55],
+        "scale": 0.4
+      }
+    }
+  },
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "features": [],
+  "creature_spawn_probability": 0,
+  "spawners": {
+    "monster": [
+      {
+        "type": "minecraft:spider",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 90
+      },
+      {
+        "type": "minecraft:zombie",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 85
+      },
+      {
+        "type": "minecraft:zombie_villager",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 15
+      },
+      {
+        "type": "minecraft:skeleton",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 90
+      },
+      {
+        "type": "minecraft:creeper",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 70
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 30
+      },
+      {
+        "type": "minecraft:witch",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 15
+      }
+    ]
+  },
+  "spawn_costs": {}
+}
