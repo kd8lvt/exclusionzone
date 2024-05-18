@@ -1,117 +1,113 @@
 package com.kd8lvt.exclusionzone.init.Blocks.entity;
 
+import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.init.Blocks.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
-import net.minecraft.world.RaycastContext;
 import org.apache.commons.lang3.tuple.Pair;
 
-import static net.minecraft.state.property.Properties.DOUBLE_BLOCK_HALF;
 import static net.minecraft.state.property.Properties.FACING;
 
 public class BlockBreakerBE extends DispenserCloneBaseBE {
     public int size = 1;
     public boolean breaking;
     public BlockPointer breakingPointer;
+    public boolean canHarvest;
     protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
+    public ExclusionZoneFakePlayer player;
     public BlockBreakerBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
-        setDisplayName("Interaction Simulator");
+        setDisplayName("Mining Simulator");
     }
-    public void startBreaking(BlockPointer pointer, ItemStack stack) {
+    public void startBreaking(BlockPointer pointer) {
         if (pointer.world().isClient) return;
-        player.setStackInHand(Hand.MAIN_HAND,stack);
+        if (pointer.state().getBlock().equals(Blocks.AIR)) return;
         this.breaking = true;
         this.breakingPointer=pointer;
+        if (this.player == null) this.player = new ExclusionZoneFakePlayer(pointer.world());
+        if (world.canPlayerModifyAt(player, pos) && !this.player.canHarvest(pointer.state())) {
+            this.canHarvest = true;
+        } else if (!world.canPlayerModifyAt(player,pos)) {
+            this.canHarvest = false;
+        } else {
+            if (this.player.getActiveItem().isSuitableFor(pointer.state())) {
+                this.canHarvest = true;
+            } else {
+                this.canHarvest = false;
+            }
+        }
     }
 
-    public void tryBreak() {
+    public float updateBreakProgress() {
+        if (!this.breaking) return -1;
         ServerWorld world = breakingPointer.world();
-        BlockPos clickedPos = breakingPointer.pos().offset(breakingPointer.state().get(FACING),1);
-        //Code stolen nearly verbatim from Create Fabric. Thanks y'all, made my life WAY easier :)
-        RaycastContext rayTraceContext = player.getRaycastContext(breakingPointer.state());
-        BlockHitResult result = world.raycast(rayTraceContext);
-        if (result.getBlockPos() != clickedPos) result = new BlockHitResult(result.getPos(),result.getSide(),clickedPos,result.isInsideBlock());
-        BlockState clickedState = world.getBlockState(clickedPos);
-        Direction face = result.getSide();
-        if (face==null) face = breakingPointer.state().get(FACING).getOpposite();
-
-        if (!world.canPlayerModifyAt(player,clickedPos)) return;
-        if (clickedState.getOutlineShape(world,pos).isEmpty()) {player.blockBreakingProgress = null; return;}
-        ActionResult ar = UseBlockCallback.EVENT.invoker().interact(player,player.getWorld(),player.getActiveHand(),result);
-        float progress = clickedState.calcBlockBreakingDelta(player,player.getWorld(),clickedPos)*16;
+        if (this.player == null) this.player = new ExclusionZoneFakePlayer(world);
+        BlockPos pos = breakingPointer.pos();
+        BlockState clickedState = world.getBlockState(pos);
+        if (!world.canPlayerModifyAt(player, pos)) return -1;
+        if (clickedState.getOutlineShape(world, this.pos).isEmpty()) {player.blockBreakingProgress = null; return -1;}
+        float progress = clickedState.calcBlockBreakingDelta(player,player.getWorld(), pos)*16;
         float before = 0;
         Pair<BlockPos,Float> blockBreakingProgress = player.blockBreakingProgress;
         if (blockBreakingProgress != null) before = blockBreakingProgress.getValue();
         progress+=before;
-        world.playSound(null,clickedPos,clickedState.getSoundGroup().getHitSound(), SoundCategory.NEUTRAL,.25f,1);
-        if (progress >= 1) {
-            tryHarvestBlock(player,player.interactionManager,clickedPos);
-            world.setBlockBreakingInfo(player.getId(),clickedPos,-1);
-            player.blockBreakingProgress = null;
-            return;
-        }
-        if (progress <= 0) {
-            player.blockBreakingProgress = null;
-            return;
-        }
+        player.blockBreakingProgress = Pair.of(pos,progress);
         if ((int)(before*10)!=(int)(progress*10))
-            world.setBlockBreakingInfo(player.getId(),clickedPos,(int)(progress*10));
-        player.blockBreakingProgress = Pair.of(clickedPos,progress);
+            world.setBlockBreakingInfo(player.getId(), pos,(int)(progress*10));
+        return progress;
     }
 
-    public static boolean tryHarvestBlock(ExclusionZoneFakePlayer player, ServerPlayerInteractionManager interactionManager, BlockPos pos) {
+    public static void tryHarvestBlock(BlockBreakerBE be, BlockPos pos) {
+        ExclusionZoneFakePlayer player = be.player;
         ServerWorld world = player.getServerWorld();
         BlockState blockstate = world.getBlockState(pos);
-        GameMode gameMode = interactionManager.getGameMode();
+        GameMode gameMode = player.interactionManager.getGameMode();
 
-        if (!PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(world,player,pos,world.getBlockState(pos), world.getBlockEntity(pos))) return false;
+        if (!PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(world, player, pos, world.getBlockState(pos), world.getBlockEntity(pos))) return;
+        if (player.isBlockBreakingRestricted(world,pos,gameMode)) return;
 
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (player.isBlockBreakingRestricted(world,pos,gameMode))
-            return false;
-
-        ItemStack prevHeldItem = player.getMainHandStack();
-        ItemStack heldItem = prevHeldItem.copy();
-
-        boolean canHarvest = player.canHarvest(blockstate) && player.canModifyBlocks();
-        prevHeldItem.postMine(world,blockstate,pos,player);
-
-        BlockPos posUp = pos.up();
-        BlockState stateUp = world.getBlockState(posUp);
-        if (blockstate.getBlock() instanceof TallPlantBlock && blockstate.get(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER && stateUp.getBlock() == blockstate.getBlock() && stateUp.get(DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-            world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            world.setBlockState(posUp, Blocks.AIR.getDefaultState());
-        } else {
-            blockstate.getBlock().onBreak(world,pos,blockstate,player);
-            if (!world.setBlockState(pos,world.getFluidState(pos).getFluid().getDefaultState().getBlockState())) return true;
+        ItemStack prevHeldItem = player.getStackInHand(player.getActiveHand());
+        if (world.breakBlock(pos,player.canHarvest(blockstate),player)) {
+            prevHeldItem.postMine(world,blockstate,pos,player);
         }
+    }
 
-        blockstate.onBlockBreakStart(world,pos,player);
-        if (!canHarvest) return true;
-
-        Block.getDroppedStacks(blockstate,world,pos,blockEntity,player,prevHeldItem).forEach(player::dropStack);
-        blockstate.getBlock().afterBreak(world,player,pos,blockstate,blockEntity,prevHeldItem);
-        return true;
+    public static <T extends BlockEntity> BlockEntityTicker<T> tick() {
+        return (world, pos, state, be) -> {
+            BlockBreakerBE blockEntity = (BlockBreakerBE)be;
+            if (!blockEntity.breaking) return;
+            float progress = blockEntity.updateBreakProgress();
+            BlockPos targetPos = pos.offset(state.get(FACING),1);
+            BlockState targetState = world.getBlockState(targetPos);
+            ExclusionZoneFakePlayer player = blockEntity.player;
+            if (progress >= 1) {
+                tryHarvestBlock(blockEntity, targetPos);
+                world.setBlockBreakingInfo(player.getId(), targetPos,-1);
+                player.blockBreakingProgress = null;
+                blockEntity.breaking = false;
+                return;
+            }
+            if (progress <= 0) {
+                player.blockBreakingProgress = null;
+                blockEntity.breaking = false;
+                return;
+            }
+            world.playSound(null, targetPos,targetState.getSoundGroup().getHitSound(), SoundCategory.NEUTRAL,.25f,1);
+        };
     }
 
     public BlockBreakerBE(BlockPos pos, BlockState state) {

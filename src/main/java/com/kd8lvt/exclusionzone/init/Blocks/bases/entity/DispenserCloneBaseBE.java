@@ -14,14 +14,9 @@ import net.minecraft.util.math.BlockPos;
 public class DispenserCloneBaseBE extends DispenserBlockEntity {
     public int size = 9;
     public Text displayName;
-    public ExclusionZoneFakePlayer player;
     protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
     protected DispenserCloneBaseBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
-    }
-
-    public boolean playerExists() {
-        return player != null;
     }
 
     public DispenserCloneBaseBE(BlockPos pos, BlockState state) {
@@ -29,10 +24,6 @@ public class DispenserCloneBaseBE extends DispenserBlockEntity {
     }
 
     public void setDisplayName(String dName) {displayName = Text.of(dName);}
-
-    public void setupFakePlayer(ServerWorld world) {
-        player = new ExclusionZoneFakePlayer(world);
-    }
 
     @Override
     public int size() {

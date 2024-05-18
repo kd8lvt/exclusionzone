@@ -1,4 +1,4 @@
 {
-  "values": ["exclusionzone:block_breaker","exclusionzone:amber_block"],
+  "values": ["exclusionzone:mining_simulator","exclusionzone:amber_block"],
   "replace": false
 }

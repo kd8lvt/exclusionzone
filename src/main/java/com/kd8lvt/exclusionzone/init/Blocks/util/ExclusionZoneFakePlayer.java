@@ -28,11 +28,4 @@ public class ExclusionZoneFakePlayer extends FakePlayer {
         return new RaycastContext(rayOrigin,rayTarget, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE,this);
     }
 
-   public static float yawFromVector(Vec3d vec) {
-        return (float) ((3*Math.PI/2+Math.atan2(vec.z,vec.x))/Math.PI*100);
-   }
-
-   public static float pitchFromVector(Vec3d vec) {
-        return (float) ((Math.acos(vec.y))/Math.PI*100);
-   }
 }

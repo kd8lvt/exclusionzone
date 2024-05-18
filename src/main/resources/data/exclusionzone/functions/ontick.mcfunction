@@ -1,4 +1,3 @@
-function exclusionzone:compass/ontick
 function exclusionzone:damage/ontick
 
 execute as @a[name=kd8lvt,scores={exclz_tmp=0}] run tellraw @s {"text":"Exclusion-Zone Has Been Reloaded!"}

@@ -4,10 +4,13 @@ import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.DispenserCloneBase;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.init.Blocks.entity.BlockBreakerBE;
+import com.kd8lvt.exclusionzone.init.Blocks.entity.MufflerBE;
+import com.kd8lvt.exclusionzone.init.Blocks.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -16,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPointer;
@@ -52,24 +56,30 @@ public class BlockBreaker extends DispenserCloneBase {
     @Override
     public ItemStack onDispense(BlockPointer pointer, ItemStack stack1) {
         if (pointer.world().isClient) return stack1;
-        ItemStack stack = stack1.copy();
+        if (pointer.state().getBlock() == Blocks.AIR) return stack1;
+        ServerWorld world = pointer.world();
         BlockBreakerBE be = (BlockBreakerBE) pointer.blockEntity();
-        if (!be.playerExists()) be.setupFakePlayer(pointer.world());
-        Vec3d targetPos = pointer.pos().offset(pointer.state().get(FACING),1).toCenterPos();
-        be.player.teleport(pointer.world(),targetPos.x,targetPos.y,targetPos.z,0,0);
-        be.player.interactionManager.changeGameMode(GameMode.SURVIVAL);
-        be.player.setCurrentHand(Hand.MAIN_HAND);
-        be.player.setInvulnerable(true);
+        if (be.breaking) return stack1;
+        if (be.player == null) be.player = new ExclusionZoneFakePlayer(world);
+        ExclusionZoneFakePlayer player = be.player;
+        Hand hand = player.getActiveHand();
+        BlockPos targetBlockPos = pointer.pos().offset(pointer.state().get(FACING),1);
+        player.getInventory().selectedSlot = 0;
         for (int i=0;i<size;i++) {
-            be.player.getInventory().setStack(i,be.getStack(i));
-            if (be.getStack(i).canBreak(new CachedBlockPosition(pointer.world(),pointer.pos().offset(pointer.state().get(FACING),1),false))) {
-                be.player.getInventory().selectedSlot = 1;
+            ItemStack curStack = be.getStack(i);
+            if (curStack.getCount() <= 0) continue;
+            player.getInventory().setStack(0,curStack);
+            player.getInventory().updateItems();
+            player.setStackInHand(hand,curStack);
+            if (player.canHarvest(world.getBlockState(targetBlockPos))) {
                 break;
             }
         }
-        be.player.getInventory().updateItems();
-        if (!be.breaking) be.startBreaking(pointer,stack);
-        return stack;
+        ItemStack handStack = player.getStackInHand(hand);
+        player.setStackInHand(Hand.MAIN_HAND,handStack);
+        BlockPointer breakPointer = new BlockPointer(world,targetBlockPos,world.getBlockState(targetBlockPos),be);
+        if (!be.breaking) be.startBreaking(breakPointer);
+        return handStack;
     }
 
     @Override
@@ -77,6 +87,7 @@ public class BlockBreaker extends DispenserCloneBase {
         super.neighborUpdate(state,world,pos,sourceBlock,sourcePos,notify);
         if (world.isClient) return;
         BlockBreakerBE be = (BlockBreakerBE) world.getBlockEntity(pos);
+        if (be.player == null) be.player = new ExclusionZoneFakePlayer((ServerWorld)world);
         ItemStack item = be.player.getStackInHand(Hand.MAIN_HAND);
         for (int i=0;i<be.size;i++) {
             if (be.getStack(i).getItem().equals(item.getItem()) && !be.getStack(i).equals(item)) {
@@ -84,5 +95,12 @@ public class BlockBreaker extends DispenserCloneBase {
                 break;
             }
         }
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        if (world.isClient()) return null;
+        return BlockBreakerBE.tick();
     }
 }

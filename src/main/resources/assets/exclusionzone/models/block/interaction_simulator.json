@@ -2,12 +2,12 @@
   "parent": "minecraft:block/block",
   "textures": {
     "back": "minecraft:block/furnace_bottom",
-    "left": "exclusionzone:block/mining_simulator_left",
-    "right": "exclusionzone:block/mining_simulator_right",
-    "top": "exclusionzone:block/mining_simulator_bottom",
-    "bottom": "exclusionzone:block/mining_simulator_bottom",
-    "front": "exclusionzone:block/mining_simulator_front",
-    "particle": "exclusionzone:block/mining_simulator_front"
+    "left": "exclusionzone:block/interaction_simulator_left",
+    "right": "exclusionzone:block/interaction_simulator_right",
+    "top": "exclusionzone:block/interaction_simulator_bottom",
+    "bottom": "exclusionzone:block/interaction_simulator_bottom",
+    "front": "exclusionzone:block/interaction_simulator_front",
+    "particle": "exclusionzone:block/interaction_simulator_front"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

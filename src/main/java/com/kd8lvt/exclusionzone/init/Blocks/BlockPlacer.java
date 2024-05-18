@@ -1,8 +1,10 @@
 package com.kd8lvt.exclusionzone.init.Blocks;
 
+import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.DispenserCloneBase;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.init.Blocks.entity.BlockPlacerBE;
+import com.kd8lvt.exclusionzone.init.Blocks.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
@@ -19,7 +21,6 @@ import net.minecraft.world.RaycastContext;
 
 @SuppressWarnings("deprecation")
 public class BlockPlacer extends DispenserCloneBase {
-    //Not currently functional because I'm too dumb
     public BlockPlacer() {
         super(new Identifier("exclusionzone","interaction_simulator"), Text.of("Interaction Simulator"));
     }
@@ -32,7 +33,7 @@ public class BlockPlacer extends DispenserCloneBase {
     @Override
     public ItemStack onDispense(BlockPointer pointer, ItemStack stack1) {
         BlockPlacerBE be = (BlockPlacerBE) pointer.blockEntity();
-        if (!be.playerExists()) be.setupFakePlayer(pointer.world());
+        if (be.player == null) be.player = new ExclusionZoneFakePlayer(pointer.world());
         be.player.setSneaking(pointer.world().getReceivedRedstonePower(pointer.pos()) < 7);
         ItemStack stack = stack1.copy();
         be.player.changeGameMode(GameMode.SURVIVAL);

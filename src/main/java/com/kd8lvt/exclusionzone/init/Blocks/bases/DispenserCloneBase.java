@@ -86,23 +86,6 @@ public class DispenserCloneBase extends DispenserBlock implements BlockEntityPro
         return ActionResult.CONSUME;
     }
 
-    @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
-        if (world.isClient) return;
-        ((DispenserCloneBaseBE) Objects.requireNonNull(world.getBlockEntity(pos))).setupFakePlayer(Objects.requireNonNull(world.getServer()).getWorld(world.getRegistryKey()));
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return (world1, pos, state1, blockEntity) -> {
-            if (world.isClient) return;
-            if (!((DispenserCloneBaseBE)blockEntity).playerExists()) ((DispenserCloneBaseBE)blockEntity).setupFakePlayer(Objects.requireNonNull(world1.getServer()).getWorld(world1.getRegistryKey()));
-            ((DispenserCloneBaseBE)blockEntity).player.tick();
-        };
-    }
-
     public ItemStack onDispense(BlockPointer pointer, ItemStack stack1) {
         throw new NotImplementedException();
     }
