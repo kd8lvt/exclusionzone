@@ -7,57 +7,27 @@
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:odd_seed",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"A never-before seen seed.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"Its species is an ongoing subject of study.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:odd_seed"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:chipped_carapace",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"The damaged carapace of an arthropod.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"Whatever shed it must have been gigantic...\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:chipped_carapace"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:enormous_tardigrade",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"Your bog-standard tardigrade, but scaled up to gargantuan size.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"It\\'s unclear exactly how this tardigrade became so large,\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"but given the circumstances, you can probably guess.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:enormous_tardigrade"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:hunk_of_amber",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"A chunk of amber, found buried in moss.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"No mosquito to be found, unfortunately.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:hunk_of_amber"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:moss_sample",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"A living sample of the moss that covers the rocky ground of the Exclusion Zone.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"It is incredibly aggressive, taking over small pebbles in mere minutes.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:moss_sample"
         }
       ]
     }

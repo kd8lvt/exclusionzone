@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "exclusionzone:block_breaker"
+          "name": "exclusionzone:mining_simulator"
         }
       ]
     }

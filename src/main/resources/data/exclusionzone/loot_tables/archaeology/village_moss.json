@@ -7,79 +7,37 @@
         {
           "type": "minecraft:item",
           "weight": 25,
-          "name": "exclusionzone:otherworldly_bone",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"It doesn\\'t resemble a bone from any\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"species you recognize, and is\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"covered in tumours. It\\'s probably\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"best to maintain your protective\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"gear extremely thoroughly when\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"in the Exclusion Zone...\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:otherworldly_bone"
         },
         {
           "type": "minecraft:item",
           "weight": 25,
-          "name": "exclusionzone:mysterious_chunk",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"What appears to be a regular chunk\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"of stone hides a fascinating secret.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"When held, it tugs almost imperceptibly\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"towards the Exclusion Zone.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:mysterious_chunk"
         },
         {
           "type": "minecraft:item",
           "weight": 15,
-          "name": "exclusionzone:warped_meat",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"},{\"text\":\"\",\"italic\":false,\"color\":\"dark_purple\"}]','[{\"text\":\"At first glance this hunk of flesh\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"resembles Zombie Flesh, but genetic\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"analysis reveals it is actually\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"something entirely unknown. It has an\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"unsettlingly large amount of DNA in\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"common with Humans.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:warped_meat"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:quickmetal",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"This metal acts as if it is\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"alive, bending and folding\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"without resistance. However,\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"when left unobserved for a\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"few seconds, it will be in the\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"exact shape it was when\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"first unearthed.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:quickmetal"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:odd_seed",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"A never-before seen seed.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"Its species is an ongoing subject of study.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:odd_seed"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:chipped_carapace",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"The damaged carapace of an arthropod.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"Whatever shed it must have been gigantic...\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:chipped_carapace"
         },
         {
           "type": "minecraft:item",
           "weight": 20,
-          "name": "exclusionzone:hunk_of_amber",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{display:{Lore:['[{\"text\":\"Research Notes:\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"A chunk of amber, found buried in moss.\",\"italic\":false,\"color\":\"gray\"}]','[{\"text\":\"No mosquito to be found, unfortunately.\",\"italic\":false,\"color\":\"gray\"}]']}}"
-            }
-          ]
+          "name": "exclusionzone:hunk_of_amber"
         }
       ]
     }

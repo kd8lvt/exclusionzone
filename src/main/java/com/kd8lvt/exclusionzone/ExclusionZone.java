@@ -1,17 +1,18 @@
 package com.kd8lvt.exclusionzone;
 
+import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaWeaponTraits;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.kd8lvt.exclusionzone.init.ModItems;
 import com.kd8lvt.exclusionzone.init.ModPotions;
 import com.kd8lvt.exclusionzone.init.ModSounds;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ScheduleCommand;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class ExclusionZone implements ModInitializer {
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static MinecraftServer Server = null;
 	public static ItemGroup ITEM_GROUP;
+	public static final boolean muttering_debug = false;
 
 	@Override
 	public void onInitialize() {
@@ -45,6 +47,18 @@ public class ExclusionZone implements ModInitializer {
 		ModItems.register();
 		LOGGER.info("[ExclusionZone] Registering Potions...");
 		ModPotions.register();
+
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+			@Override
+			public Identifier getFabricId() {
+				return id("persona_weapon_traits");
+			}
+
+			@Override
+			public void reload(ResourceManager manager) {
+				PersonaWeaponTraits.reload(manager);
+			}
+		});
 	}
 
 	public static void runCommand(String cmd) {

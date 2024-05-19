@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "back": "minecraft:block/furnace_bottom",
+    "back": "minecraft:block/furnace_top",
     "left": "exclusionzone:block/mining_simulator_left",
     "right": "exclusionzone:block/mining_simulator_right",
     "top": "exclusionzone:block/mining_simulator_bottom",
