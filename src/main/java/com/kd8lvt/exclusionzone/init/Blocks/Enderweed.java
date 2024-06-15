@@ -3,21 +3,17 @@ package com.kd8lvt.exclusionzone.init.Blocks;
 import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.kd8lvt.exclusionzone.init.ModItems;
-import net.fabricmc.fabric.api.biome.v1.BiomeModification;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.biome.source.BiomeCoords;
 
 public class Enderweed extends CropBlock {
     public Enderweed() {
@@ -26,8 +22,7 @@ public class Enderweed extends CropBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        if (floor.isOf(Blocks.MOSS_BLOCK) || floor.isOf(ModBlocks.SUS_MOSS)) return true;
-        return false;
+        return floor.isOf(Blocks.MOSS_BLOCK) || floor.isOf(ModBlocks.SUS_MOSS);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.kd8lvt.exclusionzone;
 
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaWeaponTraits;
-import com.kd8lvt.exclusionzone.init.ModBlocks;
-import com.kd8lvt.exclusionzone.init.ModItems;
-import com.kd8lvt.exclusionzone.init.ModPotions;
-import com.kd8lvt.exclusionzone.init.ModSounds;
+import com.kd8lvt.exclusionzone.init.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.item.ItemGroup;
@@ -30,8 +30,8 @@ public class ExclusionZone implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("exclusionzone");
 	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static MinecraftServer Server = null;
-	public static ItemGroup ITEM_GROUP;
 	public static final boolean muttering_debug = false;
+	public static final ToxicBuildupTracker toxTracker = new ToxicBuildupTracker();
 
 	@Override
 	public void onInitialize() {
@@ -39,7 +39,7 @@ public class ExclusionZone implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		ServerLifecycleEvents.SERVER_STARTING.register(server->{Server = server;});
-		LOGGER.info("[ExclusionZone] Registering sounds...");
+		LOGGER.info("[ExclusionZone] Registering Sounds...");
 		ModSounds.register();
 		LOGGER.info("[ExclusionZone] Registering Blocks...");
 		ModBlocks.register();
@@ -47,6 +47,8 @@ public class ExclusionZone implements ModInitializer {
 		ModItems.register();
 		LOGGER.info("[ExclusionZone] Registering Potions...");
 		ModPotions.register();
+		LOGGER.info("[ExclusionZone] Registrering Entities...");
+		ModEntities.register();
 
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
@@ -59,6 +61,17 @@ public class ExclusionZone implements ModInitializer {
 				PersonaWeaponTraits.reload(manager);
 			}
 		});
+
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+			toxTracker.remove(oldPlayer);
+			toxTracker.add(newPlayer);
+		});
+
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> toxTracker.add(handler.getPlayer()));
+
+		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> toxTracker.remove(handler.getPlayer()));
+
+		ServerTickEvents.END_SERVER_TICK.register(server -> toxTracker.onTick(server));
 	}
 
 	public static void runCommand(String cmd) {

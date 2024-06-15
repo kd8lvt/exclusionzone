@@ -1,12 +1,10 @@
 package com.kd8lvt.exclusionzone.init;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.Items.Artifact;
-import com.kd8lvt.exclusionzone.init.Items.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.init.Items.*;
 import com.kd8lvt.exclusionzone.init.Items.Dolls.BoyDoll;
 import com.kd8lvt.exclusionzone.init.Items.Dolls.GirlDoll;
 import com.kd8lvt.exclusionzone.init.Items.Dolls.VillagerDoll;
-import com.kd8lvt.exclusionzone.init.Items.ModFoodComponents;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaMonosword;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaWeaponTraits;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitFastMover;
@@ -36,6 +34,8 @@ public class ModItems {
     public static final Artifact QUICKMETAL = new Artifact();
     public static final Artifact SCRAP_METAL = new Artifact();
     public static final Artifact WARPED_MEAT = new Artifact(new Item.Settings().food(ModFoodComponents.WARPED_MEAT));
+    public static final Artifact INFINITE_STEAK = new InfiniteFoodArtifact();
+    public static final CaroInvictusSummoner CARO_INVICTUS_SPAWNER = new CaroInvictusSummoner();
     public static final BlockItemArtifact ODD_SEED = new BlockItemArtifact(ModBlocks.ENDERWEED);
     public static final Artifact MOSS_SAMPLE = new Artifact();
     public static final Artifact CHIPPED_CARAPACE = new Artifact();
@@ -55,6 +55,7 @@ public class ModItems {
         addToolTip(CHIPPED_CARAPACE,new String[]{"The damaged carapace of an arthropod.","What ever shed it must have been gigantic..."});
         addToolTip(HUNK_OF_AMBER,new String[]{"A chunk of amber, found buried in moss.","No mosquito to be found, unfortunately."});
         addToolTip(ENORMOUS_TARDIGRADE,new String[]{"Your bog-standard tardigrade, but scaled up to gargantuan size.","It's unclear exactly how the tardigrade became so large,","but given the circumstances, you can probably guess."});
+        addToolTip(CARO_INVICTUS_SPAWNER,new String[]{"You feel uneasy just holding it...","If you choose to challenge the beast,","one should be prepared, and sneakily apply to an active Beacon..."});
     }
     public static final ItemGroup.Builder ITEM_GROUP_BUILDER = ItemGroup.create(ItemGroup.Row.TOP,1).displayName(Text.of("Exclusion Zone")).icon(ModItems.MYSTERIOUS_CHUNK::getDefaultStack).entries(ExclusionZone::TabEntryCollector);
     public static final DataComponentType<List<Identifier>> DATA_COMPONENT_PWEAPON_TRAITS = new DataComponentType.Builder<List<Identifier>>().codec(Codec.list(Codec.stringResolver(Identifier::toString,Identifier::new))).build();
@@ -71,6 +72,8 @@ public class ModItems {
                 register(Registries.ITEM,new Identifier("exclusionzone","quickmetal"),QUICKMETAL);
                 register(Registries.ITEM,new Identifier("exclusionzone","scrap_metal"),SCRAP_METAL);
                 register(Registries.ITEM,new Identifier("exclusionzone","warped_meat"),WARPED_MEAT);
+                register(Registries.ITEM,ExclusionZone.id("cito_sanitatem_caro"),INFINITE_STEAK);
+                register(Registries.ITEM,ExclusionZone.id("omen_of_caro_invictus"),CARO_INVICTUS_SPAWNER);
             //Moss Loot
                 register(Registries.ITEM,new Identifier("exclusionzone","odd_seed"),ODD_SEED);
                 register(Registries.ITEM,new Identifier("exclusionzone","moss_sample"),MOSS_SAMPLE);

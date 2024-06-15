@@ -10,5 +10,10 @@
     "sounds": [
       "exclusionzone:item/doll/chicken"
     ]
+  },
+  "mob.caro_invictus.music": {
+    "sounds": [
+      "exclusionzone:mob/caro_invictus/music"
+    ]
   }
 }

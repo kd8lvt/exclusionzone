@@ -53,6 +53,8 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SCRAP_METAL, Models.GENERATED);
         itemModelGenerator.register(ModItems.VILLAGER_DOLL, Models.GENERATED);
         itemModelGenerator.register(ModItems.WARPED_MEAT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.INFINITE_STEAK, Models.GENERATED);
+        itemModelGenerator.register(ModItems.CARO_INVICTUS_SPAWNER, Models.GENERATED);
         itemModelGenerator.register(ModItems.GLASSCUTTER, Models.HANDHELD_ROD);
     }
 }

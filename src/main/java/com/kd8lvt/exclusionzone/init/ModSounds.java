@@ -11,9 +11,13 @@ public class ModSounds {
 
     public static final Identifier DOLL_CHICKEN = new Identifier("exclusionzone:item.doll.chicken");
     public static SoundEvent DOLL_CHICKEN_EVENT = SoundEvent.of(DOLL_CHICKEN);
+
+    public static final Identifier CARO_INVICTUS_MUSIC = new Identifier("exclusionzone:mob.caro_invictus.music");
+    public static SoundEvent CARO_INVICTUS_MUSIC_EVENT = SoundEvent.of(CARO_INVICTUS_MUSIC);
     public static void register() {
         Registry.register(Registries.SOUND_EVENT,DOLL_SQUEAK,DOLL_SQUEAK_EVENT);
         Registry.register(Registries.SOUND_EVENT,DOLL_CHICKEN,DOLL_CHICKEN_EVENT);
+        Registry.register(Registries.SOUND_EVENT,CARO_INVICTUS_MUSIC,CARO_INVICTUS_MUSIC_EVENT);
     }
 
     public static float randPitch() {

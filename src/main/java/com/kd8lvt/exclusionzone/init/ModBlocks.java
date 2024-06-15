@@ -2,14 +2,8 @@ package com.kd8lvt.exclusionzone.init;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.*;
-import com.kd8lvt.exclusionzone.init.Blocks.entity.ExclusionZoneBiomeMakerBE;
-import com.kd8lvt.exclusionzone.init.Blocks.entity.MufflerBE;
-import com.kd8lvt.exclusionzone.init.Blocks.entity.BlockPlacerBE;
-import com.kd8lvt.exclusionzone.init.Blocks.entity.BlockBreakerBE;
-import com.kd8lvt.exclusionzone.init.Blocks.entity.RiftBE;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import com.kd8lvt.exclusionzone.init.Blocks.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BrushableBlock;
@@ -18,8 +12,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -32,7 +24,7 @@ public class ModBlocks {
             .resistance(Blocks.COBBLESTONE.getBlastResistance())
             .hardness(Blocks.COBBLESTONE.getHardness())
             .sounds(BlockSoundGroup.TUFF)
-            .luminance(state->{return 3;})
+            .luminance(state-> 3)
             .nonOpaque()
     );
 
@@ -104,8 +96,7 @@ public class ModBlocks {
         BLOCK_BREAKER_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,ExclusionZone.id("mining_simulator"),FabricBlockEntityTypeBuilder.create(BlockBreakerBE::new,BLOCK_BREAKER).build());
     }
 
-    @SuppressWarnings("rawtypes")
-    public static void register(Registry registry, Identifier identifier, Block block) {
+    public static void register(Registry<Block> registry, Identifier identifier, Block block) {
         BLOCKS.add(block);
         Registry.register(registry,identifier,block);
     }
