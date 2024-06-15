@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.init;
+package com.kd8lvt.exclusionzone;
 
 import com.kd8lvt.exclusionzone.init.Entities.CaroInvictusEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;

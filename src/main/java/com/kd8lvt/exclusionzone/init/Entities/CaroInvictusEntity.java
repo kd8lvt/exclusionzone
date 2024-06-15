@@ -65,10 +65,9 @@ public class CaroInvictusEntity extends HostileEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (amount >= this.getHealth() && !hasDied) {
-            this.setHealth(1);
             this.hasDied = true;
             this.regenning = true;
-            return true;
+            return super.damage(source,this.getHealth()-1);
         }
         return super.damage(source, amount);
     }
@@ -101,6 +100,7 @@ public class CaroInvictusEntity extends HostileEntity {
         }
         if (this.regenning) this.setHealth((float)Math.ceil(this.getMaxHealth()/100)+this.getHealth());
         if (this.regenning) this.updateScale();
+        super.tick();
     }
 
     @Override
