@@ -6,6 +6,7 @@ An incredibly cursed pile of spaghetti code that builds into a more-or-less func
 - A dangerous new custom biome
 - Adds some structures, which create a small pocket of said custom biome in the area
 - Some unique loot items with no purpose besides being display pieces
+- A suspiciously malicious-looking item :eyes:
 - Potion of Milk
 
 ## Mechanics
