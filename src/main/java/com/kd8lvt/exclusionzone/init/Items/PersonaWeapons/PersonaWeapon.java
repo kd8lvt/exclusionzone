@@ -4,7 +4,6 @@ import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTrait;
 import com.kd8lvt.exclusionzone.init.ModItems;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
@@ -15,6 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.network.packet.s2c.play.PositionFlag;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -28,13 +30,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class PersonaWeapon extends SwordItem {
     boolean isHeld = false;
     @Nullable
     Integer prevDamage = this.getComponents().get(DataComponentTypes.DAMAGE);
-    public PersonaWeapon(ToolMaterial toolMaterial, Settings settings) {
+    public PersonaWeapon(ToolMaterial toolMaterial, net.minecraft.item.Item.Settings settings) {
         super(toolMaterial, settings);
     }
 
@@ -160,6 +163,7 @@ public class PersonaWeapon extends SwordItem {
         if (entity.getPos().y <= entity.getEntityWorld().getDimension().minY()) {
             float distFell = entity.fallDistance;
             World world = entity.getEntityWorld();
+            if (!(world instanceof ServerWorld)) return;
             BlockPos pos = entity.getBlockPos().offset(Direction.UP, (int) distFell);
             for (int x=-2;x<2;x++) {
                 for (int y=2;y>-2;y--) {
@@ -167,7 +171,7 @@ public class PersonaWeapon extends SwordItem {
                         BlockPos tmpPos = pos.add(x,y,z);
                         BlockState state = world.getBlockState(tmpPos);
                         if (!state.getCollisionShape(world,tmpPos).isEmpty()) {
-                            newEntity.teleport(tmpPos.getX(), tmpPos.getY(), tmpPos.getZ());
+                            newEntity.teleport((ServerWorld)world,tmpPos.getX(), tmpPos.getY(), tmpPos.getZ(), Set.of(PositionFlag.X,PositionFlag.Y,PositionFlag.Z),0,0);
                             break;
                         }
                     }

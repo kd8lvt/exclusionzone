@@ -42,7 +42,7 @@ public class InfiniteFoodArtifact extends EdibleArtifact {
             }
 
             if (user instanceof PlayerEntity) {
-                ((PlayerEntity) user).getHungerManager().eat(stack);
+                ((PlayerEntity) user).getHungerManager().eat(stack.get(DataComponentTypes.FOOD));
                 ((PlayerEntity) user).incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5f, world.random.nextFloat() * 0.1f + 0.9f);
                 if (user instanceof ServerPlayerEntity) {

@@ -91,7 +91,7 @@ public class ExclusionZone implements ModInitializer {
 	}
 
 	public static Identifier id(String id) {
-		return new Identifier("exclusionzone",id);
+		return Identifier.of("exclusionzone",id);
 	}
 
 	public static void setServer(MinecraftServer server) {

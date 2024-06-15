@@ -1,0 +1,13 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "exclusionzone:cito_sanitatem_caro"
+        }
+      ]
+    }
+  ]
+}

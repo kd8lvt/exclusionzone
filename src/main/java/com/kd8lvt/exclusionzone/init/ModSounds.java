@@ -1,18 +1,19 @@
 package com.kd8lvt.exclusionzone.init;
 
+import com.kd8lvt.exclusionzone.ExclusionZone;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
-    public static final Identifier DOLL_SQUEAK = new Identifier("exclusionzone:item.doll.squeak");
+    public static final Identifier DOLL_SQUEAK = ExclusionZone.id("item.doll.squeak");
     public static SoundEvent DOLL_SQUEAK_EVENT = SoundEvent.of(DOLL_SQUEAK);
 
-    public static final Identifier DOLL_CHICKEN = new Identifier("exclusionzone:item.doll.chicken");
+    public static final Identifier DOLL_CHICKEN = ExclusionZone.id("item.doll.chicken");
     public static SoundEvent DOLL_CHICKEN_EVENT = SoundEvent.of(DOLL_CHICKEN);
 
-    public static final Identifier CARO_INVICTUS_MUSIC = new Identifier("exclusionzone:mob.caro_invictus.music");
+    public static final Identifier CARO_INVICTUS_MUSIC = ExclusionZone.id("mob.caro_invictus.music");
     public static SoundEvent CARO_INVICTUS_MUSIC_EVENT = SoundEvent.of(CARO_INVICTUS_MUSIC);
     public static void register() {
         Registry.register(Registries.SOUND_EVENT,DOLL_SQUEAK,DOLL_SQUEAK_EVENT);

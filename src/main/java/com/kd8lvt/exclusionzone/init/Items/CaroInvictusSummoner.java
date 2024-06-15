@@ -35,7 +35,7 @@ public class CaroInvictusSummoner extends Artifact {
             @Override
             public void run() {
                 CaroInvictusEntity ent = ModEntities.CARO_INVICTUS.spawn(world,context.getBlockPos().offset(Direction.UP,1), SpawnReason.MOB_SUMMONED);
-                world.createExplosion(ent,context.getBlockPos().toCenterPos().getX(),context.getBlockPos().up().toCenterPos().getY(),context.getBlockPos().toCenterPos().getZ(),10f,World.ExplosionSourceType.BLOW);
+                world.createExplosion(ent,context.getBlockPos().toCenterPos().getX(),context.getBlockPos().up().toCenterPos().getY(),context.getBlockPos().toCenterPos().getZ(),10f,World.ExplosionSourceType.TRIGGER);
             }
         }, 12000);
 

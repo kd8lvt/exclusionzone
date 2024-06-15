@@ -12,6 +12,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class ToxicBuildupTracker {
                 }
             }
 
-            if (!key.getServerWorld().getEntitiesByClass(CaroInvictusEntity.class, new Box(key.getBlockPos()), caroInvictusEntity -> caroInvictusEntity.getBlockPos().isWithinDistance(key.getBlockPos(),32)).isEmpty()) increaseTox = true;
+            if (!key.getServerWorld().getEntitiesByClass(CaroInvictusEntity.class, new Box(key.getBlockPos().offset(Direction.DOWN,8).offset(Direction.SOUTH,8).offset(Direction.EAST,8).toCenterPos(),key.getBlockPos().offset(Direction.UP,8).offset(Direction.NORTH,8).offset(Direction.WEST,8).toCenterPos()), caroInvictusEntity -> caroInvictusEntity.hasDied).isEmpty()) increaseTox = true;
 
             if (increaseTox) this.incrementBuildup(key);
             else this.decrementBuildup(key);

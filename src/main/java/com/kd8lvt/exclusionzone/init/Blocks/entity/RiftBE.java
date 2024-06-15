@@ -50,7 +50,7 @@ public class RiftBE extends BlockEntity {
         Vec3d ePos = entity.getPos();
         Vec3d bPos = pos.toCenterPos();
         Vec3d dir = ePos.subtract(bPos).normalize();
-        entity.addVelocity(dir.negate().multiply(0.05*(Math.sqrt(5-ePos.distanceTo(bPos)))));
+        entity.addVelocityInternal(dir.negate().multiply(0.05*(Math.sqrt(5-ePos.distanceTo(bPos)))));
         entity.velocityModified=true;
     }
     private static void damageEntities(BlockPos pos, Entity entity) {

@@ -46,7 +46,7 @@ public class CaroInvictusEntity extends HostileEntity {
     public void updateScale() {
         EntityAttributeInstance inst = this.getAttributeInstance(EntityAttributes.GENERIC_SCALE);
         Objects.requireNonNull(inst).clearModifiers();
-        inst.addTemporaryModifier(new EntityAttributeModifier(EntityAttributes.GENERIC_SCALE.getIdAsString(), this.getHealth()/this.getMaxHealth(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        inst.addTemporaryModifier(new EntityAttributeModifier(EntityAttributes.GENERIC_SCALE.getKey().get().getValue(), this.getHealth()/this.getMaxHealth(), EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     }
 
     public void initCustomGoals() {
@@ -67,6 +67,7 @@ public class CaroInvictusEntity extends HostileEntity {
         if (amount >= this.getHealth() && !hasDied) {
             this.hasDied = true;
             this.regenning = true;
+            this.clearGoals(goal->true);
             return super.damage(source,this.getHealth()-1);
         }
         return super.damage(source, amount);
@@ -95,8 +96,9 @@ public class CaroInvictusEntity extends HostileEntity {
     public void tick() {
         if (this.regenning && this.getHealth() >= this.getMaxHealth()) {
             this.setHealth(this.getMaxHealth());
-            this.getEntityWorld().createExplosion(this,this.getX(),this.getY(),this.getZ(),10f, World.ExplosionSourceType.BLOW);
+            this.getEntityWorld().createExplosion(this,this.getX(),this.getY(),this.getZ(),10f, World.ExplosionSourceType.TRIGGER);
             this.regenning=false;
+            this.initGoals();
         }
         if (this.regenning) this.setHealth((float)Math.ceil(this.getMaxHealth()/100)+this.getHealth());
         if (this.regenning) this.updateScale();

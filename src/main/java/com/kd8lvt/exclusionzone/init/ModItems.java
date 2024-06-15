@@ -12,7 +12,7 @@ import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitKillFocus
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitMadMuttering;
 import com.kd8lvt.exclusionzone.init.Items.Tools.Glasscutter;
 import com.mojang.serialization.Codec;
-import net.minecraft.component.DataComponentType;
+import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
@@ -58,33 +58,33 @@ public class ModItems {
         addToolTip(CARO_INVICTUS_SPAWNER,new String[]{"You feel uneasy just holding it...","If you choose to challenge the beast,","one should be prepared, and sneakily apply to an active Beacon..."});
     }
     public static final ItemGroup.Builder ITEM_GROUP_BUILDER = ItemGroup.create(ItemGroup.Row.TOP,1).displayName(Text.of("Exclusion Zone")).icon(ModItems.MYSTERIOUS_CHUNK::getDefaultStack).entries(ExclusionZone::TabEntryCollector);
-    public static final DataComponentType<List<Identifier>> DATA_COMPONENT_PWEAPON_TRAITS = new DataComponentType.Builder<List<Identifier>>().codec(Codec.list(Codec.stringResolver(Identifier::toString,Identifier::new))).build();
+    public static final ComponentType<List<Identifier>> DATA_COMPONENT_PWEAPON_TRAITS = new ComponentType.Builder<List<Identifier>>().codec(Codec.list(Codec.stringResolver(Identifier::toString,Identifier::of))).build();
     public static ArrayList<Item> ITEMS = new ArrayList<>();
     public static void register() {
         //Artefacts
             //Dolls
-                register(Registries.ITEM,new Identifier("exclusionzone","boy_doll"),BOY_DOLL);
-                register(Registries.ITEM,new Identifier("exclusionzone","girl_doll"),GIRL_DOLL);
-                register(Registries.ITEM,new Identifier("exclusionzone","villager_doll"),VILLAGER_DOLL);
+                register(Registries.ITEM,ExclusionZone.id("boy_doll"),BOY_DOLL);
+                register(Registries.ITEM,ExclusionZone.id("girl_doll"),GIRL_DOLL);
+                register(Registries.ITEM,ExclusionZone.id("villager_doll"),VILLAGER_DOLL);
             //Occult
-                register(Registries.ITEM,new Identifier("exclusionzone","mysterious_chunk"),MYSTERIOUS_CHUNK);
-                register(Registries.ITEM,new Identifier("exclusionzone","otherworldly_bone"),OTHERWORLDLY_BONE);
-                register(Registries.ITEM,new Identifier("exclusionzone","quickmetal"),QUICKMETAL);
-                register(Registries.ITEM,new Identifier("exclusionzone","scrap_metal"),SCRAP_METAL);
-                register(Registries.ITEM,new Identifier("exclusionzone","warped_meat"),WARPED_MEAT);
+                register(Registries.ITEM,ExclusionZone.id("mysterious_chunk"),MYSTERIOUS_CHUNK);
+                register(Registries.ITEM,ExclusionZone.id("otherworldly_bone"),OTHERWORLDLY_BONE);
+                register(Registries.ITEM,ExclusionZone.id("quickmetal"),QUICKMETAL);
+                register(Registries.ITEM,ExclusionZone.id("scrap_metal"),SCRAP_METAL);
+                register(Registries.ITEM,ExclusionZone.id("warped_meat"),WARPED_MEAT);
                 register(Registries.ITEM,ExclusionZone.id("cito_sanitatem_caro"),INFINITE_STEAK);
                 register(Registries.ITEM,ExclusionZone.id("omen_of_caro_invictus"),CARO_INVICTUS_SPAWNER);
             //Moss Loot
-                register(Registries.ITEM,new Identifier("exclusionzone","odd_seed"),ODD_SEED);
-                register(Registries.ITEM,new Identifier("exclusionzone","moss_sample"),MOSS_SAMPLE);
-                register(Registries.ITEM,new Identifier("exclusionzone","chipped_carapace"),CHIPPED_CARAPACE);
-                register(Registries.ITEM,new Identifier("exclusionzone","hunk_of_amber"),HUNK_OF_AMBER);
-                register(Registries.ITEM,new Identifier("exclusionzone","enormous_tardigrade"),ENORMOUS_TARDIGRADE);
+                register(Registries.ITEM,ExclusionZone.id("odd_seed"),ODD_SEED);
+                register(Registries.ITEM,ExclusionZone.id("moss_sample"),MOSS_SAMPLE);
+                register(Registries.ITEM,ExclusionZone.id("chipped_carapace"),CHIPPED_CARAPACE);
+                register(Registries.ITEM,ExclusionZone.id("hunk_of_amber"),HUNK_OF_AMBER);
+                register(Registries.ITEM,ExclusionZone.id("enormous_tardigrade"),ENORMOUS_TARDIGRADE);
             //Tools
-                register(Registries.ITEM,new Identifier("exclusionzone","glasscutter"),GLASSCUTTER);
-                register(Registries.ITEM,new Identifier("exclusionzone","persona_monosword"),PERSONA_MONOSWORD);
+                register(Registries.ITEM,ExclusionZone.id("glasscutter"),GLASSCUTTER);
+                register(Registries.ITEM,ExclusionZone.id("persona_monosword"),PERSONA_MONOSWORD);
         //ItemGroup
-            register(Registries.ITEM_GROUP,new Identifier("exclusionzone","creativetab"),ITEM_GROUP_BUILDER.build());
+            register(Registries.ITEM_GROUP,ExclusionZone.id("creativetab"),ITEM_GROUP_BUILDER.build());
         //Data Component Types
             register(Registries.DATA_COMPONENT_TYPE,ExclusionZone.id("persona_weapon_traits"),DATA_COMPONENT_PWEAPON_TRAITS);
 
@@ -93,16 +93,12 @@ public class ModItems {
         PersonaWeaponTraits.register(ExclusionZone.id("mad_muttering"),new PTraitMadMuttering());
     }
 
+    public static <T> void register(Registry<? super T> registry, Identifier identifier, T item) {
+        Registry.register(registry,identifier,item);
+    }
     public static void register(Registry<Item> registry, Identifier identifier, Item item) {
         Registry.register(registry,identifier,item);
         ITEMS.add(item);
-    }
-    public static void register(Registry<ItemGroup> registry, Identifier identifier, ItemGroup item) {
-        Registry.register(registry,identifier,item);
-    }
-
-    public static void register(Registry<DataComponentType<?>> registry, Identifier identifier, DataComponentType<?> item) {
-        Registry.register(registry,identifier,item);
     }
 
     public static void CreativeTabSetup(ItemGroup.Entries entries) {

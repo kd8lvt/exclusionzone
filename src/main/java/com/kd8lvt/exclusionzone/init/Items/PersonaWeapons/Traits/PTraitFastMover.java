@@ -24,9 +24,9 @@ public class PTraitFastMover extends PTrait {
         super.inventoryTick(stack, world, entity, slot, selected);
         AttributeModifiersComponent comp = stack.getComponents().get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
         ArrayList<AttributeModifiersComponent.Entry> attrs = new ArrayList<>();
-        attrs.add(new AttributeModifiersComponent.Entry(EntityAttributes.GENERIC_MOVEMENT_SPEED,new EntityAttributeModifier("PTraitFastMover",1.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), AttributeModifierSlot.HAND));
+        attrs.add(new AttributeModifiersComponent.Entry(EntityAttributes.GENERIC_MOVEMENT_SPEED,new EntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getKey().get().getValue(),1.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL), AttributeModifierSlot.HAND));
 
-        if (comp != null && comp.modifiers().stream().anyMatch(entry-> entry.modifier().name().equals("PTraitFastMover"))) comp.modifiers().addAll(attrs);
+        if (comp != null && comp.modifiers().stream().anyMatch(entry-> entry.modifier().id().equals(EntityAttributes.GENERIC_MOVEMENT_SPEED.getKey().get().getValue()))) comp.modifiers().addAll(attrs);
         if (comp == null) comp = new AttributeModifiersComponent(attrs,false);
         stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS,comp);
     }

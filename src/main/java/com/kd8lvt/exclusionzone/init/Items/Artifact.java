@@ -1,8 +1,8 @@
 package com.kd8lvt.exclusionzone.init.Items;
 
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -13,7 +13,7 @@ import java.util.List;
 public class Artifact extends Item {
     public List<Text> tt = new ArrayList<>();
     public Artifact() {
-        super(new Settings());
+        super(new net.minecraft.item.Item.Settings());
         this.tt.addAll(Text.of("Research Notes:").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow())));
     }
 

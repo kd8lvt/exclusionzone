@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " s ",
+    "lcl",
+    " e "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:nether_star"
+    },
+    "l": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "c": {
+      "item": "exclusionzone:mysterious_chunk"
+    },
+    "e": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "id": "exclusionzone:omen_of_caro_invictus",
+    "count": 1
+  }
+}
