@@ -1,5 +1,5 @@
 # Exclusion Zone
-An incredibly cursed pile of spaghetti code that builds into a more-or-less functional mod for Fabric 1.20.4
+An incredibly cursed pile of spaghetti code that builds into a more-or-less functional mod for Fabric 1.20.6
 
 ### What does it do?
 - Adds a few utilities that I miss from modded when playing Vanilla
