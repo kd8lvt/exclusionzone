@@ -32,7 +32,6 @@ public class ExclusionZone implements ModInitializer {
 	public static MinecraftServer Server = null;
 	public static final boolean muttering_debug = false;
 	public static final ToxicBuildupTracker toxTracker = new ToxicBuildupTracker();
-
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -49,7 +48,6 @@ public class ExclusionZone implements ModInitializer {
 		ModPotions.register();
 		LOGGER.info("[ExclusionZone] Registrering Entities...");
 		ModEntities.register();
-
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public Identifier getFabricId() {
@@ -71,7 +69,7 @@ public class ExclusionZone implements ModInitializer {
 
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> toxTracker.remove(handler.getPlayer()));
 
-		ServerTickEvents.END_SERVER_TICK.register(server -> toxTracker.onTick(server));
+		ServerTickEvents.END_SERVER_TICK.register(toxTracker::onTick);
 	}
 
 	public static void runCommand(String cmd) {

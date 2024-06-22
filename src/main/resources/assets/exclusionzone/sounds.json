@@ -13,7 +13,22 @@
   },
   "mob.caro_invictus.music": {
     "sounds": [
-      "exclusionzone:mob/caro_invictus/music"
+      {"name": "exclusionzone:mob/caro_invictus/music", "stream": true, "category": "music"}
+    ]
+  },
+  "music.drones.throat_singing_slowed": {
+    "sounds": [
+      {"name":"exclusionzone:music/drones/throat_singing_slowed", "stream": true, "category": "music"}
+    ]
+  },
+  "music.drones.throat_singing_slowed_geiger": {
+    "sounds": [
+      {"name":"exclusionzone:music/drones/throat_singing_slowed_geiger", "stream": true, "category": "music"}
+    ]
+  },
+  "music.drones.throat_singing_slowed_whispers": {
+    "sounds": [
+      {"name":"exclusionzone:music/drones/throat_singing_slowed_whispers", "stream": true, "category": "music"}
     ]
   }
 }

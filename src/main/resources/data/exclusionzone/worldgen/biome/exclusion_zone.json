@@ -18,6 +18,13 @@
       }
     }
   },
+  "music": {
+    "sound": [
+      {"sound_id": "exclusionzone:music.drones.throat_singing_slowed","min_delay": 0,"max_delay": 1,"replace_current_music": true},
+      {"sound_id": "exclusionzone:music.drones.throat_singing_slowed_geiger","min_delay": 0,"max_delay": 1,"replace_current_music": true},
+      {"sound_id": "exclusionzone:music.drones.throat_singing_slowed_whispers","min_delay": 0,"max_delay": 1,"replace_current_music": true}
+    ]
+  },
   "carvers": {
     "air": [],
     "liquid": []
