@@ -20,11 +20,11 @@ import net.minecraft.world.event.GameEvent;
 import java.util.List;
 
 public class InfiniteFoodArtifact extends EdibleArtifact {
-    int toxicBuildupWhenEaten = 600; //In ticks
+    final int toxicBuildupWhenEaten = 600; //In ticks
     public InfiniteFoodArtifact() {
         super(new FoodComponent.Builder().nutrition(8).saturationModifier(12.8f).alwaysEdible().build());
         this.tt.addAll(Text.of("This tumorous mass of rapidly-regenerating flesh").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true)));
-        this.tt.addAll(Text.of("tastes usettlingly similar to a perfectly-cooked steak.").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true)));
+        this.tt.addAll(Text.of("tastes unsettlingly similar to a perfectly-cooked steak.").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true)));
     }
 
     @Override

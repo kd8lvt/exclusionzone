@@ -5,8 +5,9 @@ import com.kd8lvt.exclusionzone.init.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.Objects;
 
 public class MufflerBE extends BlockEntity {
     public MufflerBE(BlockPos pos, BlockState state) {
@@ -14,9 +15,7 @@ public class MufflerBE extends BlockEntity {
     }
 
     public static <T extends BlockEntity> BlockEntityTicker<T> tick() {
-        return (world1, pos, state1, be) -> {
-            ExclusionZone.runCommand("execute in " + be.getWorld().getRegistryKey().getValue().toString() + " positioned " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " run stopsound @a[distance=..16]");
-        };
+        return (world1, pos, state1, be) -> ExclusionZone.runCommand("execute in " + Objects.requireNonNull(be.getWorld()).getRegistryKey().getValue().toString() + " positioned " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " run stopsound @a[distance=..16]");
     }
 
 

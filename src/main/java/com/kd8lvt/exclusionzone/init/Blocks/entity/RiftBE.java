@@ -9,7 +9,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -18,11 +20,12 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RiftBE extends BlockEntity {
-    private static Random random = Random.create();
-    private RiftShape shape;
-    private ArrayList<Entity> entityCache;
+    private static final Random random = Random.create();
+    private final RiftShape shape;
+
     public RiftBE(BlockPos pos, BlockState state) {
         super(ModBlocks.RIFT_BE, pos, state);
         random.setSeed(pos.asLong());
@@ -45,7 +48,7 @@ public class RiftBE extends BlockEntity {
         };
     }
 
-    private static void pullInEntities(BlockPos pos, Entity entity, RiftBE be) {
+    private static void pullInEntities(BlockPos pos, Entity entity, RiftBE ignoredBe) {
         if (entity instanceof ItemEntity) return;
         Vec3d ePos = entity.getPos();
         Vec3d bPos = pos.toCenterPos();
@@ -60,8 +63,8 @@ public class RiftBE extends BlockEntity {
     }
 
     private static void summonParticles(World world, BlockPos pos) {
-        for (int legIdx = 0; ((RiftBE)world.getBlockEntity(pos)).shape.legs.containsKey(legIdx); legIdx++) {
-            RiftLeg leg = ((RiftBE)world.getBlockEntity(pos)).shape.legs.get(legIdx);
+        for (int legIdx = 0; ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.containsKey(legIdx); legIdx++) {
+            RiftLeg leg = ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.get(legIdx);
             for (double i=0d;i<1d;i+=0.05d) {
                 ExclusionZone.runCommand("execute in "+world.getDimensionEntry().getIdAsString()+" positioned "+pos.toCenterPos().x+" "+pos.toCenterPos().y+" "+pos.toCenterPos().z+" run particle dust 0 0 0 1 ~"+leg.endpoint.x*i+" ~"+leg.endpoint.y*i+" ~"+leg.endpoint.z*i+" 0 0 0 0 1 force");
             }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PTraitMadMuttering extends PTrait {
-    ArrayList<String> mutterings = new ArrayList<>();
+    final ArrayList<String> mutterings = new ArrayList<>();
     public PTraitMadMuttering() {
         tt.add(Text.of("Mad Muttering:"));
         tt.add(Text.of("This weapon mutters madness into the mind of the wielder occasionally."));

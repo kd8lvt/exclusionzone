@@ -10,10 +10,10 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class Doll extends Artifact {
-    SoundEvent defaultSound;
-    SoundEvent memeSound;
-    double memeChance;
-    String memeName = null;
+    final SoundEvent defaultSound;
+    final SoundEvent memeSound;
+    final double memeChance;
+    String memeName;
     public Doll(SoundEvent defaultSound, SoundEvent memeSound, double memeChance, String memeName) {
         super();
         this.defaultSound = defaultSound;

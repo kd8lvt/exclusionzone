@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.init.Blocks;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.DispenserCloneBase;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.init.Blocks.entity.BlockPlacerBE;
@@ -19,7 +18,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.RaycastContext;
 
-@SuppressWarnings("deprecation")
 public class BlockPlacer extends DispenserCloneBase {
     public BlockPlacer() {
         super(Identifier.of("exclusionzone","interaction_simulator"), Text.of("Interaction Simulator"));

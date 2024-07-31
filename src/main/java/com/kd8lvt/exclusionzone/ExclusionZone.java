@@ -1,7 +1,8 @@
 package com.kd8lvt.exclusionzone;
 
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaWeaponTraits;
-import com.kd8lvt.exclusionzone.init.*;
+import com.kd8lvt.exclusionzone.init.registries.ModItemRegistry;
+import com.kd8lvt.exclusionzone.init.registries.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -23,12 +24,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@SuppressWarnings("unused")
 public class ExclusionZone implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger("exclusionzone");
-	public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	public final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	public static MinecraftServer Server = null;
 	public static final boolean muttering_debug = false;
 	public static final ToxicBuildupTracker toxTracker = new ToxicBuildupTracker();
@@ -37,17 +39,8 @@ public class ExclusionZone implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		ServerLifecycleEvents.SERVER_STARTING.register(server->{Server = server;});
-		LOGGER.info("[ExclusionZone] Registering Sounds...");
-		ModSounds.register();
-		LOGGER.info("[ExclusionZone] Registering Blocks...");
-		ModBlocks.register();
-		LOGGER.info("[ExclusionZone] Registering Items...");
-		ModItems.register();
-		LOGGER.info("[ExclusionZone] Registering Potions...");
-		ModPotions.register();
-		LOGGER.info("[ExclusionZone] Registrering Entities...");
-		ModEntities.register();
+		ServerLifecycleEvents.SERVER_STARTING.register(server-> Server = server);
+		ModRegistry.registerAll();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override
 			public Identifier getFabricId() {
@@ -76,6 +69,7 @@ public class ExclusionZone implements ModInitializer {
 		if (Server != null) Server.getCommandManager().executeWithPrefix(Server.getCommandSource().withSilent(),cmd);
 	}
 
+	@SuppressWarnings("unused")
 	private static void schedule(String cmd, LocalTime targetTime) {
 		if (Server == null) return;
 		LocalTime currentTime = LocalTime.now();
@@ -96,7 +90,7 @@ public class ExclusionZone implements ModInitializer {
 		Server = server;
 	}
 
-	public static void TabEntryCollector(ItemGroup.DisplayContext displayContext, ItemGroup.Entries entries) {
-		ModItems.CreativeTabSetup(entries);
+	public static void TabEntryCollector(ItemGroup.DisplayContext ignoredDisplayContext, ItemGroup.Entries entries) {
+		ModItemRegistry.CreativeTabSetup(entries);
 	}
 }

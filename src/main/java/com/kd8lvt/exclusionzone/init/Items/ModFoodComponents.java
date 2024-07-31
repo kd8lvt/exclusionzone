@@ -5,7 +5,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
 public class ModFoodComponents {
-    public static FoodComponent WARPED_MEAT = new FoodComponent.Builder()
+    public static final FoodComponent WARPED_MEAT = new FoodComponent.Builder()
             .nutrition(1)
             .saturationModifier(0.0f)
             .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,600,0,false,false,false),1.0f)

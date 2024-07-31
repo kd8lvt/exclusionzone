@@ -1,30 +1,44 @@
 package com.kd8lvt.exclusionzone.init.StatusEffects;
 
-import net.minecraft.entity.Entity;
+import com.kd8lvt.exclusionzone.init.registries.ModStatusEffectRegistry;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.*;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.MilkBucketItem;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.registry.entry.RegistryEntry;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MilkStatusEffect extends StatusEffect {
 
     public MilkStatusEffect() {
-        super(StatusEffectCategory.BENEFICIAL,0xd1d5d0);
+        super(StatusEffectCategory.BENEFICIAL, 0xffffff);
     }
+    @Override
+    public boolean canApplyUpdateEffect(int duration, int amplifier) {return true;}
 
     @Override
-    public boolean isInstant() {
-        return true;
+    public boolean applyUpdateEffect(LivingEntity target, int amplifier) {
+        Map<RegistryEntry<StatusEffect>, StatusEffectInstance> effects = target.getActiveStatusEffects();
+        effects.forEach((effect,instance)->{
+            if (effect.value().isBeneficial()) return;
+            if (amplifier < instance.getAmplifier()) return;
+            if (amplifier >= instance.getAmplifier()) {
+                target.setStatusEffect(new StatusEffectInstance(effect,instance.getDuration()-(((amplifier-instance.getAmplifier())+1)*5),instance.getAmplifier()),target);
+                lowerTime(target,((((instance.getAmplifier())+1)*2)-(amplifier+1))*2);
+                return;
+            }
+            if (amplifier+1 < instance.getAmplifier()) {
+                target.setStatusEffect(new StatusEffectInstance(effect,instance.getDuration(),amplifier+1),target);
+                lowerTime(target,60*(((instance.getAmplifier())-(amplifier))+1));
+            }
+        });
+        return super.applyUpdateEffect(target,amplifier);
     }
 
-    @Override
-    public void applyInstantEffect(@Nullable Entity source, @Nullable Entity attacker, LivingEntity target, int amplifier, double proximity) {
-        Items.MILK_BUCKET.finishUsing(new ItemStack(Items.MILK_BUCKET),target.getWorld(),target);
+    private static void lowerTime(LivingEntity target,int amount) {
+        StatusEffectInstance self = Objects.requireNonNull(target.getStatusEffect(ModStatusEffectRegistry.MILK));
+        target.setStatusEffect(new StatusEffectInstance(ModStatusEffectRegistry.MILK,self.getDuration()-amount,self.getAmplifier(),self.isAmbient(),self.shouldShowParticles(),self.shouldShowIcon()),target);
     }
 }

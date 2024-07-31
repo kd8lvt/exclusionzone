@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Artifact extends Item {
-    public List<Text> tt = new ArrayList<>();
+    public final List<Text> tt = new ArrayList<>();
     public Artifact() {
         super(new net.minecraft.item.Item.Settings());
         this.tt.addAll(Text.of("Research Notes:").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow())));

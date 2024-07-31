@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits;
 
-import com.kd8lvt.exclusionzone.init.ModPotions;
+import com.kd8lvt.exclusionzone.init.ModStatusEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -12,7 +12,7 @@ public class PTraitKillFocused extends PTraitPotionEffect {
         this.tt = new ArrayList<>();
         this.doesAmplifierStack=true;
         this.doesTimeStack=true;
-        this.status = ModPotions.KILL_FOCUS;
+        this.status = ModStatusEffects.KILL_FOCUS;
         tt.add(Text.of("Kill-Focused:"));
         tt.add(Text.of("This weapon instills a sense of focus into"));
         tt.add(Text.of("the wielder when they strike down their opponent."));

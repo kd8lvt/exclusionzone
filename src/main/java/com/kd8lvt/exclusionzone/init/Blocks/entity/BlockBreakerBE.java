@@ -1,20 +1,17 @@
 package com.kd8lvt.exclusionzone.init.Blocks.entity;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.Blocks.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.init.Blocks.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
@@ -23,11 +20,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import static net.minecraft.state.property.Properties.FACING;
 
 public class BlockBreakerBE extends DispenserCloneBaseBE {
-    public int size = 1;
+    public final int size = 1;
     public boolean breaking;
     public BlockPointer breakingPointer;
-    public boolean canHarvest;
-    protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
     public ExclusionZoneFakePlayer player;
     public BlockBreakerBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
@@ -38,18 +33,6 @@ public class BlockBreakerBE extends DispenserCloneBaseBE {
         if (pointer.state().getBlock().equals(Blocks.AIR)) return;
         this.breaking = true;
         this.breakingPointer=pointer;
-        if (this.player == null) this.player = new ExclusionZoneFakePlayer(pointer.world());
-        if (world.canPlayerModifyAt(player, pos) && !this.player.canHarvest(pointer.state())) {
-            this.canHarvest = true;
-        } else if (!world.canPlayerModifyAt(player,pos)) {
-            this.canHarvest = false;
-        } else {
-            if (this.player.getActiveItem().isSuitableFor(pointer.state())) {
-                this.canHarvest = true;
-            } else {
-                this.canHarvest = false;
-            }
-        }
     }
 
     public float updateBreakProgress() {

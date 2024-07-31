@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class ToxicBuildupTracker {
     private final HashMap<ServerPlayerEntity,Integer> tox = new HashMap<>();
 
+    @SuppressWarnings("unused")
     public void onTick(MinecraftServer server) {
         server.getPlayerManager().getPlayerList().forEach(player->{
             if (!this.tox.containsKey(player)) this.tox.put(player,0);
@@ -73,14 +75,17 @@ public class ToxicBuildupTracker {
         if (buildup > 2000) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER,200,0,true,false,false));
     }
 
+    @SuppressWarnings("unused")
     public void add(ServerPlayerEntity entity) {
         tox.put(entity, 0);
     }
 
+    @SuppressWarnings("unused")
     public int remove(ServerPlayerEntity entity) {
         return tox.remove(entity);
     }
 
+    @SuppressWarnings("unused")
     public int get(ServerPlayerEntity entity) {
         return tox.get(entity);
     }
@@ -93,7 +98,8 @@ public class ToxicBuildupTracker {
         return tox.replace(entity,tox.get(entity),(tox.get(entity)!=null?tox.get(entity):0)+1);
     }
 
-    public boolean incrementBuildup(ServerPlayerEntity entity,int delta) {
+    @SuppressWarnings("unused")
+    public boolean incrementBuildup(ServerPlayerEntity entity, int delta) {
         return tox.replace(entity,tox.get(entity),(tox.get(entity)!=null?tox.get(entity):0)+delta);
     }
 
@@ -101,7 +107,8 @@ public class ToxicBuildupTracker {
         return tox.replace(entity,tox.get(entity),(tox.get(entity)!=null?tox.get(entity):0)-1);
     }
 
-    public boolean decrementBuildup(ServerPlayerEntity entity,int delta) {
+    @SuppressWarnings("unused")
+    public boolean decrementBuildup(ServerPlayerEntity entity, int delta) {
         return tox.replace(entity,tox.get(entity),(tox.get(entity)!=null?tox.get(entity):0)-delta);
     }
 }

@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 public class PersonaWeapon extends SwordItem {
     boolean isHeld = false;
     @Nullable
-    Integer prevDamage = this.getComponents().get(DataComponentTypes.DAMAGE);
+    final Integer prevDamage = this.getComponents().get(DataComponentTypes.DAMAGE);
     public PersonaWeapon(ToolMaterial toolMaterial, net.minecraft.item.Item.Settings settings) {
         super(toolMaterial, settings);
     }

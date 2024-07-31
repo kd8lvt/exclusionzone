@@ -5,9 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -21,12 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.NotImplementedException;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 public class DispenserCloneBase extends DispenserBlock implements BlockEntityProvider {
     Text displayName = Text.of("Dispenser Clone (You should never see this!)");
+    @SuppressWarnings("unused")
     Identifier id;
     public DispenserCloneBase(Identifier id, Text interfaceName) {
         super(Block.Settings.copy(Blocks.DISPENSER));

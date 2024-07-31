@@ -6,6 +6,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 
+@SuppressWarnings({"FieldCanBeLocal", "unused", "CommentedOutCode"})
 public class CaroInvictusModel extends PlayerEntityModel<CaroInvictusEntity> {
     private final ModelPart head;
     private final ModelPart headwear;

@@ -1,18 +1,16 @@
 package com.kd8lvt.exclusionzone.init.Blocks.bases.entity;
 
-import com.kd8lvt.exclusionzone.init.Blocks.util.ExclusionZoneFakePlayer;
-import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
+@SuppressWarnings("unused")
 public class DispenserCloneBaseBE extends DispenserBlockEntity {
-    public int size = 9;
+    public final int size = 9;
     public Text displayName;
     protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(size, ItemStack.EMPTY);
     protected DispenserCloneBaseBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {

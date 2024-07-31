@@ -76,6 +76,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
         );
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void shapeless(RecipeExporter exporter, RecipeCategory category, Item[] inputs, Item output) {
         ShapelessRecipeJsonBuilder builder = ShapelessRecipeJsonBuilder.create(category,output)
                 .criterion(FabricRecipeProvider.hasItem(output),FabricRecipeProvider.conditionsFromItem(output));
@@ -96,6 +97,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
         builder.offerTo(exporter);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void shapedTags(RecipeExporter exporter, RecipeCategory category, Item output, HashMap<Character, TagKey<Item>> inputs, String[] patternStrs) {
         ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(category, output)
                 .criterion(FabricRecipeProvider.hasItem(output),FabricRecipeProvider.conditionsFromItem(output));

@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@SuppressWarnings({"EmptyMethod", "unused"})
 public class PTrait {
     public List<Text> tt = new ArrayList<>();
-    public HashMap<PersonaWeaponFunctionEvents,Identifier> functions = new HashMap<>();
+    public final HashMap<PersonaWeaponFunctionEvents,Identifier> functions = new HashMap<>();
     public PTrait(Identifier id, JsonObject json) {
         if (json.has("functions")) {
             List<JsonElement> evts = JsonHelper.getArray(json,"events").asList();
@@ -45,10 +46,15 @@ public class PTrait {
     public PTrait() {}
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {}
+    @SuppressWarnings("EmptyMethod")
     public void onDurabilityLost(ItemStack stack, World world, Entity entity, int slot, boolean selected) {}
+    @SuppressWarnings("EmptyMethod")
     public void onHeld(ItemStack stack, World world, Entity entity, int slot) {}
+    @SuppressWarnings("EmptyMethod")
     public void onUnHeld(ItemStack stack, World world, Entity entity, int slot) {}
+    @SuppressWarnings("EmptyMethod")
     public void onUseOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {}
+    @SuppressWarnings("EmptyMethod")
     public void onUseOnBlock(ItemUsageContext context) {}
     public void onHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {}
 }

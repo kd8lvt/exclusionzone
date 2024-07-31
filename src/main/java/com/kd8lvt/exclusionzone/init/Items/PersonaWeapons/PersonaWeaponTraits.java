@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class PersonaWeaponTraits {
-    public static HashMap<Identifier, PTrait> TRAITS = new HashMap<>();
+    public static final HashMap<Identifier, PTrait> TRAITS = new HashMap<>();
     private static final HashMap<Identifier,PTrait> javaTraits = new HashMap<>();
 
     public static void register(Identifier id, PTrait pTrait) {

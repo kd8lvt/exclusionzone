@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockItemArtifact extends AliasedBlockItem {
-    public List<Text> tt = new ArrayList<>();
+    public final List<Text> tt = new ArrayList<>();
     public BlockItemArtifact(Block block) {
         super(block,new net.minecraft.item.Item.Settings());
     }

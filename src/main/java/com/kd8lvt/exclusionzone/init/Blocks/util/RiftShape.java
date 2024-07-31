@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RiftShape {
-    public HashMap<Integer, RiftLeg> legs = new HashMap<>();
-    Random random;
+    public final HashMap<Integer, RiftLeg> legs = new HashMap<>();
+    final Random random;
     public RiftShape(Random _random) {
         random = _random;
         int size = random.nextBetween(4,8);

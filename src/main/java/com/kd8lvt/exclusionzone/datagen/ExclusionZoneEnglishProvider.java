@@ -1,20 +1,12 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.ModItems;
-import com.kd8lvt.exclusionzone.init.ModPotions;
+import com.kd8lvt.exclusionzone.init.ModStatusEffects;
+import com.kd8lvt.exclusionzone.init.registries.ModItemRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
 
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
@@ -25,12 +17,16 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
-        for (Item item: ModItems.ITEMS) {
+        for (Item item: ModItemRegistry.ITEMS) {
             //For whatever reason this also includes the mod blocks (except Enderweed, which I don't really care about)
             translationBuilder.add(item,toTitleCase(item.getTranslationKey().replace("item.exclusionzone.","").replace("block.exclusionzone.","").replaceAll("_"," ")));
         }
-        translationBuilder.add(ModPotions.MILK,"Milk");
-        translationBuilder.add(Potion.finishTranslationKey(Optional.of(RegistryEntry.of(ModPotions.MILK_POTION)),"Milk"),"Milk");
+        translationBuilder.add(ModStatusEffects.MILK,"Cleansing");
+        translationBuilder.add(ModStatusEffects.KILL_FOCUS,"Focused");
+        translationBuilder.add("item.minecraft.potion.effect.milk","Potion of Cleansing"); //Surely this can be done cleaner
+        translationBuilder.add("item.minecraft.splash_potion.effect.milk","Splash Potion of Cleansing");
+        translationBuilder.add("item.minecraft.lingering_potion.effect.milk","Lingering Potion of Cleansing");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect.milk","Tipped Arrow of Cleansing");
     }
 
     public static String toTitleCase(String input) {
