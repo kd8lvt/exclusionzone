@@ -2,18 +2,18 @@ package com.kd8lvt.exclusionzone.init.Items.PersonaWeapons;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Items;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.TagKey;
 
 public class PersonaMonosword extends PersonaWeapon {
     public PersonaMonosword() {
-        super(new PersonaMonoswordMaterial(), new net.minecraft.item.Item.Settings());
+        super(new PersonaMonoswordMaterial(), new net.minecraft.item.Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(new PersonaMonoswordMaterial(),2,-2.2f)));
     }
 }
 
 class PersonaMonoswordMaterial implements ToolMaterial {
-
     @Override
     public int getDurability() {
         return 8192;
@@ -26,7 +26,7 @@ class PersonaMonoswordMaterial implements ToolMaterial {
 
     @Override
     public float getAttackDamage() {
-        return 8;
+        return 3;
     }
 
     @Override

@@ -30,26 +30,50 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
     public void generate(RecipeExporter exporter) {
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.OTHERWORLDLY_BONE},Items.BONE_MEAL);
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER}, ModBlocks.AMBER_BLOCK.asItem());
-
-        HashMap<Character,Item> blockBreakerInputs = new HashMap<>();
-        ArrayList<String> blockBreakerPatternStrs = new ArrayList<>();
-        blockBreakerInputs.put('p',Items.DIAMOND_PICKAXE);
-        blockBreakerInputs.put('d', Blocks.DISPENSER.asItem());
-        blockBreakerInputs.put('s',Blocks.COBBLESTONE.asItem());
-        blockBreakerInputs.put('r',Items.REDSTONE);
-        blockBreakerPatternStrs.add("sps");
-        blockBreakerPatternStrs.add("sds");
-        blockBreakerPatternStrs.add("srs");
-        shaped(exporter,RecipeCategory.MISC,ModBlocks.BLOCK_BREAKER.asItem(),blockBreakerInputs,blockBreakerPatternStrs.toArray(new String[3]));
-
-        HashMap<Character,TagKey<Item>> mufflerInputs = new HashMap<>();
-        ArrayList<String> mufflerPatternStrs = new ArrayList<>();
-        mufflerInputs.put('w', ItemTags.WOOL);
-        mufflerInputs.put('p', ItemTags.PLANKS);
-        mufflerPatternStrs.add("www");
-        mufflerPatternStrs.add("wpw");
-        mufflerPatternStrs.add("www");
-        shapedTags(exporter,RecipeCategory.MISC,ModBlocks.MUFFLER.asItem(),mufflerInputs,mufflerPatternStrs.toArray(new String[3]));
+        shaped( //Block Breaker Recipe
+            exporter,
+            RecipeCategory.MISC,
+            ModBlocks.BLOCK_BREAKER.asItem(),
+            new HashMap<>(){{ //Inputs Key
+                put('p',Items.DIAMOND_PICKAXE);
+                put('d', Blocks.DISPENSER.asItem());
+                put('s',Blocks.COBBLESTONE.asItem());
+                put('r',Items.REDSTONE);
+            }},
+            new ArrayList<String>(){{ //Pattern
+                add("sps");
+                add("sds");
+                add("srs");
+            }}.toArray(new String[3])
+        );
+        shapedTags( //Muffler Recipe
+            exporter,
+            RecipeCategory.MISC,
+            ModBlocks.MUFFLER.asItem(),
+            new HashMap<>(){{ //Input Key
+                put('w',ItemTags.WOOL);
+                put('p',ItemTags.PLANKS);
+            }},
+            new ArrayList<String>(){{ //Pattern
+                add("www");
+                add("wpw");
+                add("www");
+            }}.toArray(new String[3])
+        );
+        shaped(
+            exporter,
+            RecipeCategory.TOOLS,
+            ModItems.GLASSCUTTER,
+            new HashMap<>(){{
+                put('s',Items.STICK);
+                put('a',Items.AMETHYST_SHARD);
+            }},
+            new ArrayList<String>(){{
+                add("  a");
+                add(" s ");
+                add("s  ");
+            }}.toArray(new String[3])
+        );
     }
 
     private void shapeless(RecipeExporter exporter, RecipeCategory category, Item[] inputs, Item output) {
