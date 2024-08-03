@@ -1,5 +1,6 @@
 package com.kd8lvt.exclusionzone.datagen;
 
+import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.kd8lvt.exclusionzone.init.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -28,9 +29,12 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
+        ExclusionZone.LOGGER.info("Recipe: Otherworldly Bone->Bone Meal");
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.OTHERWORLDLY_BONE},Items.BONE_MEAL);
+        ExclusionZone.LOGGER.info("Recipe: Amber Block");
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER}, ModBlocks.AMBER_BLOCK.asItem());
-        shaped( //Block Breaker Recipe
+        ExclusionZone.LOGGER.info("Recipe: Block Breaker");
+        shaped(
             exporter,
             RecipeCategory.MISC,
             ModBlocks.BLOCK_BREAKER.asItem(),
@@ -46,6 +50,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add("srs");
             }}.toArray(new String[3])
         );
+        ExclusionZone.LOGGER.info("Recipe: Muffler");
         shapedTags( //Muffler Recipe
             exporter,
             RecipeCategory.MISC,
@@ -60,6 +65,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add("www");
             }}.toArray(new String[3])
         );
+        ExclusionZone.LOGGER.info("Recipe: Glasscutter");
         shaped(
             exporter,
             RecipeCategory.TOOLS,
