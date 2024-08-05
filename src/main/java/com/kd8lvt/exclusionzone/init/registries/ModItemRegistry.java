@@ -10,6 +10,7 @@ import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.PersonaWeaponTraits;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitFastMover;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitKillFocused;
 import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitMadMuttering;
+import com.kd8lvt.exclusionzone.init.Items.PersonaWeapons.Traits.PTraitLightweight;
 import com.kd8lvt.exclusionzone.init.Items.Tools.Glasscutter;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.kd8lvt.exclusionzone.init.RegistryUtil;
@@ -47,9 +48,11 @@ public class ModItemRegistry {
     public static RegistryEntry<Item> ENORMOUS_TARDIGRADE;
     public static RegistryEntry<Item> GLASSCUTTER;
     public static RegistryEntry<Item> PERSONA_MONOSWORD;
+    public static RegistryEntry<Item> MAGNET;
     public static final Style ttStyle = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow());
     public static RegistryEntry<ItemGroup> ITEM_GROUP;
     public static ComponentType<List<Identifier>> DATA_COMPONENT_PWEAPON_TRAITS;
+    public static ComponentType<Boolean> DATA_COMPONENT_MAGNET_ENABLED;
 
     public static void register() {
         //Artefacts
@@ -74,6 +77,7 @@ public class ModItemRegistry {
         //Tools
         GLASSCUTTER = RegistryUtil.register("glasscutter", new Glasscutter());
         PERSONA_MONOSWORD = RegistryUtil.register("persona_monosword", new PersonaMonosword());
+        MAGNET = RegistryUtil.register("magnet",new Magnet(6));
         //ItemGroup
         ITEM_GROUP = RegistryUtil.register("creativetab", ItemGroup.create(ItemGroup.Row.TOP, 1).displayName(Text.of("Exclusion Zone")).icon(MYSTERIOUS_CHUNK.value()::getDefaultStack).entries(ExclusionZone::TabEntryCollector).build());
         //Data Component Types
@@ -81,7 +85,9 @@ public class ModItemRegistry {
         PersonaWeaponTraits.register(ExclusionZone.id("fast_mover"), new PTraitFastMover());
         PersonaWeaponTraits.register(ExclusionZone.id("kill_focused"), new PTraitKillFocused());
         PersonaWeaponTraits.register(ExclusionZone.id("mad_muttering"), new PTraitMadMuttering());
+        PersonaWeaponTraits.register(ExclusionZone.id("lightweight"), new PTraitLightweight());
 
+        DATA_COMPONENT_MAGNET_ENABLED = Registry.register(Registries.DATA_COMPONENT_TYPE, ExclusionZone.id("magnet_enabled"), new ComponentType.Builder<Boolean>().codec(Codec.BOOL).build());
 
         addToolTip((Artifact) MYSTERIOUS_CHUNK.value(), new String[]{"What appears to be a regular chunk", "of stone hides a fascinating secret.", "When held, it tugs almost imperceptibly", "towards the Exclusion Zone."});
         addToolTip((Artifact) OTHERWORLDLY_BONE.value(), new String[]{"It doesn't resemble a bone from any", "species you recognize, and is", "covered in tumors. It's probably", "best to maintain your protective", "gear extremely thoroughly when", "in the Exclusion Zone..."});
@@ -94,6 +100,7 @@ public class ModItemRegistry {
         addToolTip((Artifact) HUNK_OF_AMBER.value(), new String[]{"A chunk of amber, found buried in moss.", "No mosquito to be found, unfortunately."});
         addToolTip((Artifact) ENORMOUS_TARDIGRADE.value(), new String[]{"Your bog-standard tardigrade, but scaled up to gargantuan size.", "It's unclear exactly how the tardigrade became so large,", "but given the circumstances, you can probably guess."});
         addToolTip((Artifact) CARO_INVICTUS_SPAWNER.value(), new String[]{"You feel uneasy just holding it...", "If you choose to challenge the beast,", "one should be prepared, and sneakily apply to an active Beacon..."});
+        addToolTip((Artifact) MAGNET.value(), new String[]{"This finely-carved Mysterious Chunk resembles a horseshoe magnet.","Sneak-right-click to toggle it on/off."});
     }
 
     public static void CreativeTabSetup(ItemGroup.Entries entries) {

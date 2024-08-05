@@ -31,8 +31,37 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
     public void generate(RecipeExporter exporter) {
         ExclusionZone.LOGGER.info("Recipe: Otherworldly Bone->Bone Meal");
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.OTHERWORLDLY_BONE},Items.BONE_MEAL);
-        ExclusionZone.LOGGER.info("Recipe: Amber Block");
-        shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER,ModItems.HUNK_OF_AMBER}, ModBlocks.AMBER_BLOCK.asItem());
+        ExclusionZone.LOGGER.info("Recipe: Magnet");
+        shaped(
+            exporter,
+            RecipeCategory.MISC,
+            ModItems.MAGNET,
+            new HashMap<>(){{
+                put('c',ModItems.MYSTERIOUS_CHUNK);
+                put('e',Items.ENDER_PEARL);
+                put('a',Items.AMETHYST_SHARD);
+                put('s',Items.STICK);
+            }},
+            new ArrayList<String>(){{
+                add("  s");
+                add(" a ");
+                add("ce ");
+            }}.toArray(new String[3]));
+        ExclusionZone.LOGGER.info("Recipe: Persona Monosword");
+        shaped(
+                exporter,
+                RecipeCategory.MISC,
+                ModItems.PERSONA_MONOSWORD,
+                new HashMap<>(){{
+                    put('g',ModItems.GLASSCUTTER);
+                    put('e',Items.ENDER_EYE);
+                    put('a',Items.AMETHYST_SHARD);
+                }},
+                new ArrayList<String>(){{
+                    add("  a");
+                    add("ea ");
+                    add("ge ");
+                }}.toArray(new String[3]));
         ExclusionZone.LOGGER.info("Recipe: Block Breaker");
         shaped(
             exporter,

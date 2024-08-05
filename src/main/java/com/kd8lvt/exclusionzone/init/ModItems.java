@@ -29,9 +29,11 @@ public class ModItems {
     public static Item ENORMOUS_TARDIGRADE;
     public static Item GLASSCUTTER;
     public static Item PERSONA_MONOSWORD;
+    public static Item MAGNET;
     public static final Style ttStyle = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow());
     public static ItemGroup ITEM_GROUP;
     public static ComponentType<List<Identifier>> DATA_COMPONENT_PWEAPON_TRAITS;
+    public static ComponentType<Boolean> DATA_COMPONENT_MAGNET_ENABLED;
 
     public static void ready() {
         BOY_DOLL = ModItemRegistry.BOY_DOLL.value();
@@ -51,8 +53,10 @@ public class ModItems {
         ENORMOUS_TARDIGRADE = ModItemRegistry.ENORMOUS_TARDIGRADE.value();
         GLASSCUTTER = ModItemRegistry.GLASSCUTTER.value();
         PERSONA_MONOSWORD = ModItemRegistry.PERSONA_MONOSWORD.value();
+        MAGNET = ModItemRegistry.MAGNET.value();
 
         ITEM_GROUP = ModItemRegistry.ITEM_GROUP.value();
         DATA_COMPONENT_PWEAPON_TRAITS = ModItemRegistry.DATA_COMPONENT_PWEAPON_TRAITS;
+        DATA_COMPONENT_MAGNET_ENABLED = ModItemRegistry.DATA_COMPONENT_MAGNET_ENABLED;
     }
 }

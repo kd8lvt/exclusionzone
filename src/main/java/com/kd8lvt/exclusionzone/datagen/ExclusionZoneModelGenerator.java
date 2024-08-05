@@ -3,6 +3,7 @@ package com.kd8lvt.exclusionzone.datagen;
 import com.kd8lvt.exclusionzone.init.Blocks.Enderweed;
 import com.kd8lvt.exclusionzone.init.ModBlocks;
 import com.kd8lvt.exclusionzone.init.ModItems;
+import com.kd8lvt.exclusionzone.init.registries.ModBlockRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
@@ -10,6 +11,7 @@ import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 import net.minecraft.item.Item;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.Map;
 
@@ -27,8 +29,8 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.MUFFLER);
         blockStateModelGenerator.registerBrushableBlock(ModBlocks.SUS_MOSS);
         //Why did I not do this initially lol
-        for (Map.Entry<String, Block> entry : ModBlocks.SUS_CONCRETE_POWDERS.entrySet()) {
-            blockStateModelGenerator.registerBrushableBlock(entry.getValue());
+        for (Map.Entry<String, RegistryEntry<Block>> entry : ModBlockRegistry.SUS_CONCRETE_POWDERS.entrySet()) {
+            blockStateModelGenerator.registerBrushableBlock(entry.getValue().value());
         }
     }
 
@@ -51,6 +53,7 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         generated(ModItems.CARO_INVICTUS_SPAWNER);
         handheldRod(ModItems.GLASSCUTTER);
         handheldRod(ModItems.PERSONA_MONOSWORD);
+        generated(ModItems.MAGNET);
     }
 
     public void generated(Item item) {

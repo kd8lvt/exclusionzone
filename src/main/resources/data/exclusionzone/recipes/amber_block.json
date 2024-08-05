@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "exclusionzone:hunk_of_amber"
+    },
+    {
+      "item": "exclusionzone:hunk_of_amber"
+    },
+    {
+      "item": "exclusionzone:hunk_of_amber"
+    },
+    {
+      "item": "exclusionzone:hunk_of_amber"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "exclusionzone:amber_block"
+  }
+}

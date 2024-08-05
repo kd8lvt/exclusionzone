@@ -48,7 +48,9 @@ public class PersonaWeapon extends SwordItem {
         List<Identifier> comp = comps.get(ModItems.DATA_COMPONENT_PWEAPON_TRAITS);
         if (comp == null) comp = new ArrayList<>();
         for (int i=0;i<traitsToGen;i++) {
-            comp.add(PersonaWeaponTraits.TRAITS.keySet().toArray(new Identifier[]{})[random.nextBetween(0,PersonaWeaponTraits.TRAITS.size()-1)]);
+            Identifier tryAdd = PersonaWeaponTraits.TRAITS.keySet().toArray(new Identifier[]{})[random.nextBetween(0,PersonaWeaponTraits.TRAITS.size()-1)];
+            if (comp.contains(tryAdd)) continue;
+            comp.add(tryAdd);
         }
         List<Identifier> finalComp = comp;
         stack.apply(ModItems.DATA_COMPONENT_PWEAPON_TRAITS,comp, edit-> finalComp);
