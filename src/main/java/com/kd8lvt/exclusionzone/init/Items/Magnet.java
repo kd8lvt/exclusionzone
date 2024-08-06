@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.TypedActionResult;
@@ -27,10 +29,16 @@ public class Magnet extends Artifact {
         return Boolean.TRUE.equals(stack.get(ModItems.DATA_COMPONENT_MAGNET_ENABLED));
     }
 
+    public void toggle(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
+        stack.applyChanges(ComponentChanges.builder().add(ModItems.DATA_COMPONENT_MAGNET_ENABLED, !isAttracting(stack)).build());
+        //if (world.isClient) return;
+        world.playSound(user, user.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), SoundCategory.PLAYERS,1f,(isAttracting(stack)?1.5f:0.5f));
+    }
+
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
-        if (user.isSneaking()) stack.applyChanges(ComponentChanges.builder().add(ModItems.DATA_COMPONENT_MAGNET_ENABLED, !isAttracting(stack)).build());
+        if (user.isSneaking()) toggle(world,user,hand);
         return super.use(world, user, hand);
     }
 

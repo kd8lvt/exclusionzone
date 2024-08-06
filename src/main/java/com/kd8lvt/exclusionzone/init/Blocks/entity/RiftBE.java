@@ -66,7 +66,7 @@ public class RiftBE extends BlockEntity {
         for (int legIdx = 0; ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.containsKey(legIdx); legIdx++) {
             RiftLeg leg = ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.get(legIdx);
             for (double i=0d;i<1d;i+=0.05d) {
-                ExclusionZone.runCommand("execute in "+world.getDimensionEntry().getIdAsString()+" positioned "+pos.toCenterPos().x+" "+pos.toCenterPos().y+" "+pos.toCenterPos().z+" run particle dust{color:[0,0,0],scale:1.0} ~"+leg.endpoint.x*i+" ~"+leg.endpoint.y*i+" ~"+leg.endpoint.z*i+" 0 0 0 0 1 force");
+                ExclusionZone.runCommand("execute in "+world.getDimensionEntry().getIdAsString()+" positioned "+pos.toCenterPos().x+" "+pos.toCenterPos().y+" "+pos.toCenterPos().z+" run particle dust{color:[0f,"+(1-(i))/2+"f,"+(1-(i))/2+"f],scale:1.0} ~"+leg.endpoint.x*i+" ~"+leg.endpoint.y*i+" ~"+leg.endpoint.z*i+" 0 0 0 0 1 force");
             }
         }
     }
