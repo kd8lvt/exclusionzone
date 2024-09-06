@@ -1,0 +1,14 @@
+- Configurable Magnum Torch
+  - Allow selecting a specific mob/set of mobs to be prevented from spawning
+  - Eg. Allow all hostile mobs but creepers, or allow only passive mobs
+  - Also, a configurable range between 1 and 64-or-so blocks. Idk. Balance is hard.
+  - Vanilla Compat options for the configuring part, because lord knows that'll be a pain
+    - A configuration item that can switch modes between the mob types & tags?
+      - Upside: it's flexible and can be used for other blocks in the future
+      - Downside: it's clunky
+    - A filter based on mob drops??? It'd be done in a crafting table? I guess?
+      - Upside: Less clunky than a wrench-like item
+      - Downside: Less flexible than the config item. Probably also would be more difficult to make work for other future blocks
+    - Or maybe you rclick the magnum torch on the mob to allow/deny, shift-rclick for tag?
+      - Upside: Intuitive-ish and doesn't require an additional item
+      - Downside: Requires an example of the mob/tag you want to configure at the time of configuring
