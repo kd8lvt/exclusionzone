@@ -63,7 +63,6 @@ public class PersonaWeapon extends SwordItem {
             consumer.accept(PersonaWeaponTraits.TRAITS.get(traitId));
         }
     }
-
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         boolean shouldDamageItem = super.postHit(stack, target, attacker);

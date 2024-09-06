@@ -8,15 +8,19 @@ import net.minecraft.registry.entry.RegistryEntry;
 public class PTraitPotionEffect extends PTrait {
     boolean doesTimeStack = false;
     boolean doesAmplifierStack = false;
-    StatusEffect status;
+
+    public PTraitPotionEffect() {
+        super();
+    }
+
+    public StatusEffect getStatus() {return null;}
 
     public void applyStatus(LivingEntity entity, int duration, int amplifier) {
-        RegistryEntry<StatusEffect> statusReg = RegistryEntry.of(this.status);
-        StatusEffectInstance entityStatus = entity.getStatusEffect(statusReg);
+        StatusEffectInstance entityStatus = entity.getStatusEffect(RegistryEntry.of(getStatus()));
         if (entityStatus != null) {
             if (doesTimeStack) duration += entityStatus.getDuration();
             if (doesAmplifierStack) amplifier += entityStatus.getAmplifier();
         }
-        entity.addStatusEffect(new StatusEffectInstance(statusReg, duration, amplifier - 1));
+        entity.setStatusEffect(new StatusEffectInstance(RegistryEntry.of(getStatus()), duration, amplifier - 1),entity);
     }
 }

@@ -11,11 +11,7 @@ public class KillFocusStatusEffect extends StatusEffect {
         super(StatusEffectCategory.BENEFICIAL,0x770000);
 
         this.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, ExclusionZone.id("killfocused_attack_speed"),0.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, ExclusionZone.id("killfocused_movtement_speed"),0.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        this.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, ExclusionZone.id("killfocused_movement_speed"),0.5, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         this.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, ExclusionZone.id("killfocused_damage"),1, EntityAttributeModifier.Operation.ADD_VALUE);
-    }
-    @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return true;
     }
 }
