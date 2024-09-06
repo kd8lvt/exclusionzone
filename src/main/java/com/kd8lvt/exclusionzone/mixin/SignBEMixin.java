@@ -19,7 +19,7 @@ import java.util.List;
 
 @Mixin(SignBlockEntity.class)
 public class SignBEMixin {
-    @Inject(at=@At("RETURN"),method="Lnet/minecraft/block/entity/SignBlockEntity;getTextWithMessages(Lnet/minecraft/entity/player/PlayerEntity;Ljava/util/List;Lnet/minecraft/block/entity/SignText;)Lnet/minecraft/block/entity/SignText;",cancellable = true)
+    @Inject(at=@At("RETURN"),method= "getTextWithMessages(Lnet/minecraft/entity/player/PlayerEntity;Ljava/util/List;Lnet/minecraft/block/entity/SignText;)Lnet/minecraft/block/entity/SignText;",cancellable = true)
     void exclusionzone$getTextWithMessages(PlayerEntity player, List<FilteredMessage> messages, SignText text, CallbackInfoReturnable<SignText> cir) {
         if (!(Date.from(Instant.now()).getMonth() == Calendar.APRIL && Date.from(Instant.now()).getDay() == 1)) return;
         SignText newText = new SignText();

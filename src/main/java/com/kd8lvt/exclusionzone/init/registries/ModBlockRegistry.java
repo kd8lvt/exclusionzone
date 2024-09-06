@@ -7,7 +7,6 @@ import com.kd8lvt.exclusionzone.init.RegistryUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.BrushableBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -17,10 +16,13 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ModBlockRegistry {
     public static final String[] VANILLA_COLORS = new String[]{"pink", "red", "brown", "orange", "yellow", "lime", "green", "cyan", "light_blue", "blue", "magenta", "purple", "black", "gray", "light_gray", "white"};
+    public static List<Block> SUS_BLOCKS = new ArrayList<>();
     public static RegistryEntry<Block> SUS_MOSS;
     public static RegistryEntry<Block> AMBER_BLOCK;
     public static RegistryEntry<Block> BLOCK_BREAKER;
@@ -36,6 +38,7 @@ public class ModBlockRegistry {
     public static RegistryEntry<BlockEntityType<?>> MUFFLER_BE;
     public static RegistryEntry<BlockEntityType<?>> BLOCK_PLACER_BE;
     public static RegistryEntry<BlockEntityType<?>> BLOCK_BREAKER_BE;
+    public static RegistryEntry<BlockEntityType<?>> EZ_BRUSHABLE_BLOCK_BE;
 
     public static void register() {
         SUS_MOSS = registerBlockWithItem("suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));
@@ -63,6 +66,7 @@ public class ModBlockRegistry {
         MUFFLER_BE = RegistryUtil.register("muffler", FabricBlockEntityTypeBuilder.create(MufflerBE::new, MUFFLER.value()).build());
         BLOCK_PLACER_BE = RegistryUtil.register("interaction_simulator", FabricBlockEntityTypeBuilder.create(BlockPlacerBE::new, BLOCK_PLACER.value()).build());
         BLOCK_BREAKER_BE = RegistryUtil.register("mining_simulator", FabricBlockEntityTypeBuilder.create(BlockBreakerBE::new, BLOCK_BREAKER.value()).build());
+        EZ_BRUSHABLE_BLOCK_BE = RegistryUtil.register("brushable_block",FabricBlockEntityTypeBuilder.create(EZBrushableBlockEntity::new, SUS_BLOCKS.toArray(Block[]::new)).build());
     }
 
 
@@ -88,8 +92,10 @@ public class ModBlockRegistry {
      * @param baseBlock Block to generate a BrushableBlock for
      * @return BrushableBlock corresponding to the given Block
      */
-    public static BrushableBlock brushableBlockGenerator(Block baseBlock) {
-        return new BrushableBlock(baseBlock, SoundEvents.ITEM_BRUSH_BRUSHING_GENERIC, baseBlock.getDefaultState().getSoundGroup().getPlaceSound(), Block.Settings.create().sounds(baseBlock.getDefaultState().getSoundGroup()).hardness(baseBlock.getHardness()).resistance(baseBlock.getBlastResistance()));
+    public static EZBrushableBlock brushableBlockGenerator(Block baseBlock) {
+        EZBrushableBlock ret = new EZBrushableBlock(baseBlock, SoundEvents.ITEM_BRUSH_BRUSHING_GENERIC, baseBlock.getDefaultState().getSoundGroup().getPlaceSound(), Block.Settings.create().sounds(baseBlock.getDefaultState().getSoundGroup()).hardness(baseBlock.getHardness()).resistance(baseBlock.getBlastResistance()));
+        SUS_BLOCKS.add(ret);
+        return ret;
     }
 
 

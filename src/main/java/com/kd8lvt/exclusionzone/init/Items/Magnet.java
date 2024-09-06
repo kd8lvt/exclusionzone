@@ -21,7 +21,7 @@ import java.util.List;
 public class Magnet extends Artifact {
     int range;
     public Magnet(int range) {
-        super(new Settings().rarity(Rarity.UNCOMMON).component(ModItems.DATA_COMPONENT_MAGNET_ENABLED,false).maxCount(1));
+        super(new net.minecraft.item.Item.Settings().rarity(Rarity.UNCOMMON).component(ModItems.DATA_COMPONENT_MAGNET_ENABLED,false).maxCount(1));
         this.range = range;
     }
 
