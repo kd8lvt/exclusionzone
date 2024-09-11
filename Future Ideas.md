@@ -12,3 +12,7 @@
     - Or maybe you rclick the magnum torch on the mob to allow/deny, shift-rclick for tag?
       - Upside: Intuitive-ish and doesn't require an additional item
       - Downside: Requires an example of the mob/tag you want to configure at the time of configuring
+- Guster Jar
+  - Jar that shoots wind
+  - Yes, it's a minish cap reference
+  - Usable with Elytra to provide constant acceleration
