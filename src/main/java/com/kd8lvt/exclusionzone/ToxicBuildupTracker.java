@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone;
 
-import com.kd8lvt.exclusionzone.init.Entities.CaroInvictusEntity;
+import com.kd8lvt.exclusionzone.init.entities.CaroInvictusEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.mixin;
 
-import com.kd8lvt.exclusionzone.init.registries.ModStatusEffectRegistry;
+import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.block.entity.SignText;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,11 +19,11 @@ import java.util.List;
 
 @Mixin(SignBlockEntity.class)
 public class SignBEMixin {
-    @Inject(at=@At("RETURN"),method="Lnet/minecraft/block/entity/SignBlockEntity;getTextWithMessages(Lnet/minecraft/entity/player/PlayerEntity;Ljava/util/List;Lnet/minecraft/block/entity/SignText;)Lnet/minecraft/block/entity/SignText;",cancellable = true)
+    @Inject(at=@At("RETURN"),method= "getTextWithMessages(Lnet/minecraft/entity/player/PlayerEntity;Ljava/util/List;Lnet/minecraft/block/entity/SignText;)Lnet/minecraft/block/entity/SignText;",cancellable = true)
     void exclusionzone$getTextWithMessages(PlayerEntity player, List<FilteredMessage> messages, SignText text, CallbackInfoReturnable<SignText> cir) {
         if (!(Date.from(Instant.now()).getMonth() == Calendar.APRIL && Date.from(Instant.now()).getDay() == 1)) return;
         SignText newText = new SignText();
-        if (player.hasStatusEffect(ModStatusEffectRegistry.MILK)) {
+        if (player.hasStatusEffect(ModStatusEffects.getEntry("milk"))) {
             for (int i=0; i < messages.size(); i++) {
                 ArrayList<String> words = new ArrayList<>(List.of(text.getMessage(i,false).getString().split(" ")));
                 for (int j=0;j<words.size();j++) {

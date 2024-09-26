@@ -2,19 +2,14 @@ package com.kd8lvt.exclusionzone.datagen;
 
 import com.google.gson.JsonObject;
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.Blocks.Enderweed;
-import com.kd8lvt.exclusionzone.init.Blocks.FluidPipeBlock;
-import com.kd8lvt.exclusionzone.init.ModBlocks;
-import com.kd8lvt.exclusionzone.init.ModItems;
-import com.kd8lvt.exclusionzone.init.registries.ModBlockRegistry;
+import com.kd8lvt.exclusionzone.init.blocks.Enderweed;
+import com.kd8lvt.exclusionzone.init.blocks.FluidPipeBlock;
+import com.kd8lvt.exclusionzone.registry.ModBlocks;
+import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.item.Item;
-import net.minecraft.registry.entry.RegistryEntry;
-
-import java.util.Map;
 
 public class ExclusionZoneModelGenerator extends FabricModelProvider {
 
@@ -25,46 +20,46 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerCrop(ModBlocks.ENDERWEED, Enderweed.AGE,1, 1, 2, 2, 4, 5, 5, 6);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.AMBER_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.MUFFLER);
-        BlockStateVariantMap pipe_variants = BlockStateVariantMap.create(FluidPipeBlock.POWER,FluidPipeBlock.POWERED).register((i,b)->BlockStateVariant.create().put(VariantSettings.MODEL, ExclusionZone.id("block/fluid_pipe")));
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.FLUID_PIPE).coordinate(pipe_variants));
-        blockStateModelGenerator.modelCollector.accept(ExclusionZone.id("block/fluid_pipe"),()->{
+        blockStateModelGenerator.registerCrop(ModBlocks.get("enderweed"), Enderweed.AGE,1, 1, 2, 2, 4, 5, 5, 6);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("amber_block"));
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("muffler"));
+        BlockStateVariantMap pipe_variants = BlockStateVariantMap.create(FluidPipeBlock.POWER,FluidPipeBlock.POWERED).register((i,b)->BlockStateVariant.create().put(VariantSettings.MODEL, ExclusionZone.id("blocks/fluid_pipe")));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.get("fluid_pipe")).coordinate(pipe_variants));
+        blockStateModelGenerator.modelCollector.accept(ExclusionZone.id("blocks/fluid_pipe"),()->{
             JsonObject ret = new JsonObject();
-            ret.addProperty("parent","minecraft:block/cube_all");
+            ret.addProperty("parent","minecraft:blocks/cube_all");
             JsonObject textures = new JsonObject();
-            textures.addProperty("all","exclusionzone:block/fluid_pipe");
+            textures.addProperty("all","exclusionzone:blocks/fluid_pipe");
             ret.add("textures",textures);
             return ret;
         });
-        blockStateModelGenerator.registerBrushableBlock(ModBlocks.SUS_MOSS);
+        blockStateModelGenerator.registerBrushableBlock(ModBlocks.get("archaeology/suspicious_moss"));
         //Why did I not do this initially lol
-        for (Map.Entry<String, RegistryEntry<Block>> entry : ModBlockRegistry.SUS_CONCRETE_POWDERS.entrySet()) {
-            blockStateModelGenerator.registerBrushableBlock(entry.getValue().value());
+        for (String color : ModBlocks.VANILLA_COLORS) {
+            blockStateModelGenerator.registerBrushableBlock(ModBlocks.get("archaeology/suspicious_"+color+"_concrete_powder"));
         }
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemGen = itemModelGenerator;
-        generated(ModItems.BOY_DOLL);
-        generated(ModItems.GIRL_DOLL);
-        generated(ModItems.OTHERWORLDLY_BONE);
-        generated(ModItems.CHIPPED_CARAPACE);
-        generated(ModItems.ENORMOUS_TARDIGRADE);
-        generated(ModItems.HUNK_OF_AMBER);
-        generated(ModItems.MOSS_SAMPLE);
-        generated(ModItems.MYSTERIOUS_CHUNK);
-        generated(ModItems.QUICKMETAL);
-        generated(ModItems.SCRAP_METAL);
-        generated(ModItems.VILLAGER_DOLL);
-        generated(ModItems.WARPED_MEAT);
-        generated(ModItems.INFINITE_STEAK);
-        generated(ModItems.CARO_INVICTUS_SPAWNER);
-        handheldRod(ModItems.GLASSCUTTER);
-        handheldRod(ModItems.PERSONA_MONOSWORD);
-        generated(ModItems.MAGNET);
+        generated(ModItems.get("boy_doll"));
+        generated(ModItems.get("girl_doll"));
+        generated(ModItems.get("otherworldly_bone"));
+        generated(ModItems.get("chipped_carapace"));
+        generated(ModItems.get("enormous_tardigrade"));
+        generated(ModItems.get("hunk_of_amber"));
+        generated(ModItems.get("moss_sample"));
+        generated(ModItems.get("mysterious_chunk"));
+        generated(ModItems.get("quickmetal"));
+        generated(ModItems.get("scrap_metal"));
+        generated(ModItems.get("villager_doll"));
+        generated(ModItems.get("warped_meat"));
+        generated(ModItems.get("cito_sanitatem_caro"));
+        generated(ModItems.get("omen_of_caro_invictus"));
+        handheldRod(ModItems.get("glasscutter"));
+        handheldRod(ModItems.get("persona_monosword"));
+        generated(ModItems.get("magnet"));
     }
 
     public void generated(Item item) {

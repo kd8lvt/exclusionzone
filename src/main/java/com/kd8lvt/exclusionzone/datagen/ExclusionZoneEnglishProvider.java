@@ -1,9 +1,9 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.init.Items.Artifact;
-import com.kd8lvt.exclusionzone.init.Items.BlockItemArtifact;
-import com.kd8lvt.exclusionzone.init.ModStatusEffects;
-import com.kd8lvt.exclusionzone.init.registries.ModItemRegistry;
+import com.kd8lvt.exclusionzone.init.items.Artifact;
+import com.kd8lvt.exclusionzone.init.items.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.registry.ModRegistries;
+import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.item.Item;
@@ -20,7 +20,7 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
-        for (Item item: ModItemRegistry.ITEMS) {
+        for (Item item: ModRegistries.ITEMS.ENTRIES_BY_VALUE.keySet()) {
             //For whatever reason this also includes the mod blocks (except Enderweed, which I don't really care about)
             translationBuilder.add(item,toTitleCase(item.getTranslationKey().replaceAll("_"," ")));
             if (item instanceof Artifact artifact) {
@@ -33,8 +33,8 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
                 }
             }
         }
-        translationBuilder.add(ModStatusEffects.MILK,"Cleansing");
-        translationBuilder.add(ModStatusEffects.KILL_FOCUS,"Focused");
+        translationBuilder.add(ModStatusEffects.get("milk"),"Cleansing");
+        translationBuilder.add(ModStatusEffects.get("kill_focus"),"Focused");
         translationBuilder.add("item.minecraft.potion.effect.milk","Potion of Cleansing"); //Surely this can be done cleaner
         translationBuilder.add("item.minecraft.splash_potion.effect.milk","Splash Potion of Cleansing");
         translationBuilder.add("item.minecraft.lingering_potion.effect.milk","Lingering Potion of Cleansing");
