@@ -1,5 +1,7 @@
 package com.kd8lvt.exclusionzone.datagen;
 
+import com.kd8lvt.exclusionzone.init.Items.Artifact;
+import com.kd8lvt.exclusionzone.init.Items.BlockItemArtifact;
 import com.kd8lvt.exclusionzone.init.ModStatusEffects;
 import com.kd8lvt.exclusionzone.init.registries.ModItemRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -17,9 +19,19 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
         for (Item item: ModItemRegistry.ITEMS) {
             //For whatever reason this also includes the mod blocks (except Enderweed, which I don't really care about)
-            translationBuilder.add(item,toTitleCase(item.getTranslationKey().replace("item.exclusionzone.","").replace("block.exclusionzone.","").replaceAll("_"," ")));
+            translationBuilder.add(item,toTitleCase(item.getTranslationKey().replaceAll("_"," ")));
+            if (item instanceof Artifact artifact) {
+                for (int i =0;i<artifact.tt.size();i++) {
+                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.tt.get(i).getString());
+                }
+            } else if (item instanceof BlockItemArtifact artifact) {
+                for (int i =0;i<artifact.tt.size();i++) {
+                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.tt.get(i).getString());
+                }
+            }
         }
         translationBuilder.add(ModStatusEffects.MILK,"Cleansing");
         translationBuilder.add(ModStatusEffects.KILL_FOCUS,"Focused");
@@ -33,7 +45,10 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
         StringBuilder titleCase = new StringBuilder(input.length());
         boolean nextTitleCase = true;
 
-        for (char c:input.toCharArray()) {
+        String target_str = input;
+        if (input.indexOf(".") > 0) target_str = input.split("\\.")[input.split("\\.").length-1];
+
+        for (char c:target_str.toCharArray()) {
             if (Character.isSpaceChar(c)) {
                 nextTitleCase = true;
             } else if (nextTitleCase) {

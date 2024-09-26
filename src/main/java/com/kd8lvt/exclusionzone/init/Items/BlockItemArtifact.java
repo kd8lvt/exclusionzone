@@ -9,6 +9,8 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.kd8lvt.exclusionzone.init.registries.ModItemRegistry.ttStyle;
+
 public class BlockItemArtifact extends AliasedBlockItem {
     public final List<Text> tt = new ArrayList<>();
     public BlockItemArtifact(Block block) {
@@ -17,7 +19,11 @@ public class BlockItemArtifact extends AliasedBlockItem {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.addAll(this.tt);
+        ArrayList<Text> notes = new ArrayList<>(Text.stringifiedTranslatable("tooltips.exclusionzone.research_notes.header").getWithStyle(ttStyle));
+        for (int i=0;i<this.tt.size();i++) {
+            notes.addAll(Text.translatable(getTranslationKey()+".research_notes_"+i).getWithStyle(ttStyle));
+        }
+        tooltip.addAll(notes);
         super.appendTooltip(stack, context, tooltip, type);
     }
 }

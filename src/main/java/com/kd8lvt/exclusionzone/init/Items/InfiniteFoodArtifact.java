@@ -11,9 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
@@ -23,8 +20,6 @@ public class InfiniteFoodArtifact extends EdibleArtifact {
     final int toxicBuildupWhenEaten = 600; //In ticks
     public InfiniteFoodArtifact() {
         super(new FoodComponent.Builder().nutrition(8).saturationModifier(12.8f).alwaysEdible().build());
-        this.tt.addAll(Text.of("This tumorous mass of rapidly-regenerating flesh").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true)));
-        this.tt.addAll(Text.of("tastes unsettlingly similar to a perfectly-cooked steak.").getWithStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true)));
     }
 
     @Override

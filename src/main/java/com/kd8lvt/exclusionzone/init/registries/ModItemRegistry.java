@@ -89,18 +89,7 @@ public class ModItemRegistry {
 
         DATA_COMPONENT_MAGNET_ENABLED = Registry.register(Registries.DATA_COMPONENT_TYPE, ExclusionZone.id("magnet_enabled"), new ComponentType.Builder<Boolean>().codec(Codec.BOOL).build());
 
-        addToolTip((Artifact) MYSTERIOUS_CHUNK.value(), new String[]{"What appears to be a regular chunk", "of stone hides a fascinating secret.", "When held, it tugs almost imperceptibly", "towards the Exclusion Zone."});
-        addToolTip((Artifact) OTHERWORLDLY_BONE.value(), new String[]{"It doesn't resemble a bone from any", "species you recognize, and is", "covered in tumors. It's probably", "best to maintain your protective", "gear extremely thoroughly when", "in the Exclusion Zone..."});
-        addToolTip((Artifact) QUICKMETAL.value(), new String[]{"This metal acts as if it is", "alive, bending and folding", "without resistance. However,", "when left unobserved for a", "few seconds, it will be in the", "exact shape it was when", "first unearthed."});
-        addToolTip((Artifact) SCRAP_METAL.value(), new String[]{"A shard from a metal tool head,", "or perhaps just some slag left", "over from smithing something.", "Either way it has large value", "for learning about the society", "that lived in the Exclusion Zone."});
-        addToolTip((Artifact) WARPED_MEAT.value(), new String[]{"At first glance", "resembles Zombie Flesh, but genetic", "analysis reveals it is actually", "somethign entirely unknown. It has an", "unsettlingly large amount of DNA in", "common with Humans."});
-        addToolTip(((BlockItemArtifact)ODD_SEED.value()), new String[]{"A never-before seen seed.", "Its species is an ongoing subject of study."});
-        addToolTip((Artifact) MOSS_SAMPLE.value(), new String[]{"A living sample of moss that covers the rocky ground of the Exclusion Zone.", "It is incredibly aggressive, taking over small pebbles in mere minutes."});
-        addToolTip((Artifact) CHIPPED_CARAPACE.value(), new String[]{"The damaged carapace of an arthropod.", "What ever shed it must have been gigantic..."});
-        addToolTip((Artifact) HUNK_OF_AMBER.value(), new String[]{"A chunk of amber, found buried in moss.", "No mosquito to be found, unfortunately."});
-        addToolTip((Artifact) ENORMOUS_TARDIGRADE.value(), new String[]{"Your bog-standard tardigrade, but scaled up to gargantuan size.", "It's unclear exactly how the tardigrade became so large,", "but given the circumstances, you can probably guess."});
-        addToolTip((Artifact) CARO_INVICTUS_SPAWNER.value(), new String[]{"You feel uneasy just holding it...", "If you choose to challenge the beast,", "one should be prepared, and sneakily apply to an active Beacon..."});
-        addToolTip((Artifact) MAGNET.value(), new String[]{"This finely-carved Mysterious Chunk resembles a horseshoe magnet.","Sneak-right-click to toggle it on/off."});
+        generateTooltips();
     }
 
     public static void CreativeTabSetup(ItemGroup.Entries entries) {
@@ -124,5 +113,85 @@ public class ModItemRegistry {
         for (String str : strs) {
             addTooltip(item, str);
         }
+    }
+
+    private static void generateTooltips() {
+        addToolTip((Artifact) MYSTERIOUS_CHUNK.value(), new String[]{
+                "What appears to be a regular chunk of stone hides a fascinating secret.",
+                "When held, it tugs almost imperceptibly towards the Exclusion Zone."
+        });
+        addToolTip((Artifact) OTHERWORLDLY_BONE.value(), new String[]{
+                "Despite being covered in tumors, this bone is unmistakably human in origin.",
+                "It's probably best to maintain your protective gear extremely thoroughly",
+                "when in the Exclusion Zone, lest you end up like this bone's previous owner."
+        });
+        addToolTip((Artifact) QUICKMETAL.value(), new String[]{
+                "This metal acts as if it is alive, bending and folding without resistance.",
+                "However, when left unobserved for a few seconds, it will be in the exact shape it was when first unearthed."
+        });
+        addToolTip((Artifact) SCRAP_METAL.value(), new String[]{
+                "A shard from a metal tool head, or perhaps just some slag left over from smithing something.",
+                "Either way it has large value in learning about the society that lived in the Exclusion Zone."
+        });
+        addToolTip((Artifact) WARPED_MEAT.value(), new String[]{
+                "At first glance this scrap resembles Zombie Flesh, but genetic analysis reveals it is actually something entirely unknown.",
+                "Whatever it was in life, it shared an unsettlingly large amount of DNA with humans."
+        });
+        addToolTip(((BlockItemArtifact)ODD_SEED.value()), new String[]{
+                "A never-before seen seed. Its species is an ongoing subject of study.",
+                "Should you wish to plant it, doing so in Moss is likely to be most effective.",
+                "However, be warned that it is packed with extremely high amounts of the toxins prevalent",
+                "in its natural habitat, which will likely be released as it grows."
+        });
+        addToolTip((Artifact) MOSS_SAMPLE.value(), new String[]{
+                "A living sample of moss that covers the rocky ground of the Exclusion Zone.",
+                "It is incredibly aggressive, taking over small rocks in mere minutes."
+        });
+        addToolTip((Artifact) CHIPPED_CARAPACE.value(), new String[]{
+                "The damaged carapace of an arthropod.",
+                "Whatever shed it must have been gigantic..."
+        });
+        addToolTip((Artifact) HUNK_OF_AMBER.value(), new String[]{
+                "A chunk of amber, found buried in moss.",
+                "No mosquito to be found, unfortunately."
+        });
+        addToolTip((Artifact) ENORMOUS_TARDIGRADE.value(), new String[]{
+                "Echiniscoides sigismundi, scaled up to an even more gargantuan size.",
+                "It's unclear exactly how this tardigrade became so large.",
+                "Though, given the circumstances, your guess is probably accurate."
+        });
+        addToolTip((Artifact) CARO_INVICTUS_SPAWNER.value(), new String[]{
+                "You feel uneasy just holding it...",
+                "If you choose to challenge the beast, make sure you're well-armed.",
+                "To initiate the ritual, sneakily apply to an active Beacon, and wait..."
+        });
+        addToolTip((Artifact) INFINITE_STEAK.value(), new String[]{
+                "Translation: Rapidly Regenerating Flesh",
+                "A squirming mass of rapidly regenerating flesh.",
+                "Surprisingly, the taste is almost identical to a perfectly cooked steak.",
+                "It is, however, absolutely riddled with the Exclusion Zone's toxins,",
+                "so eating from it too often would be detrimental to your health."
+        });
+        addToolTip((Artifact) MAGNET.value(), new String[]{
+                "This finely-carved Mysterious Chunk resembles a horseshoe magnet.",
+                "Sneak-right-click to toggle it on/off."
+        });
+        addToolTip((Artifact) BOY_DOLL.value(), new String[]{
+                "A discarded children's toy.",
+                "Judging from the colors, this one is meant to be a boy."
+        });
+        addToolTip((Artifact) GIRL_DOLL.value(), new String[]{
+                "A discarded children's toy.",
+                "Judging from the colors, this one is meant to be a girl."
+        });
+        addToolTip((Artifact) VILLAGER_DOLL.value(), new String[]{
+                "A discarded children's toy.",
+                "This one has an enormous nose!"
+        });
+        addToolTip((Artifact) GLASSCUTTER.value(),new String[]{
+                "An incredibly sharp blade made from Amethyst, designed to",
+                "carefully remove material from its surroundings.",
+                "Don't cut yourself!"
+        });
     }
 }

@@ -9,6 +9,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -36,10 +38,7 @@ public class PTrait {
             }
         }
         if (json.has("tooltip")) {
-            Object[] strs = JsonHelper.getArray(json,"tooltip").asList().toArray();
-            for (Object str:strs) {
-                tt.add(Text.of(str.toString()));
-            }
+            tt.add(Text.Serialization.fromJson(JsonHelper.getArray(json,"tooltip").getAsString(), (RegistryWrapper.WrapperLookup) Registries.REGISTRIES.getReadOnlyWrapper()));
         }
     }
 

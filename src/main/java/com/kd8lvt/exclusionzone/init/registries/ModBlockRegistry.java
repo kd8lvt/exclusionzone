@@ -26,6 +26,7 @@ public class ModBlockRegistry {
     public static RegistryEntry<Block> BLOCK_BREAKER;
     public static RegistryEntry<Block> BLOCK_PLACER;
     public static RegistryEntry<Block> MUFFLER;
+    public static RegistryEntry<Block> FLUID_PIPE;
 
     public static RegistryEntry<Block> ENDERWEED;
     public static final HashMap<String, RegistryEntry<Block>> SUS_CONCRETE_POWDERS = new HashMap<>();
@@ -36,33 +37,38 @@ public class ModBlockRegistry {
     public static RegistryEntry<BlockEntityType<?>> MUFFLER_BE;
     public static RegistryEntry<BlockEntityType<?>> BLOCK_PLACER_BE;
     public static RegistryEntry<BlockEntityType<?>> BLOCK_BREAKER_BE;
+    public static RegistryEntry<BlockEntityType<?>> FLUID_PIPE_BE;
 
     public static void register() {
-        SUS_MOSS = registerBlockWithItem("suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));
         AMBER_BLOCK = registerBlockWithItem("amber_block", new Block(Block.Settings.create().resistance(Blocks.COBBLESTONE.getBlastResistance()).hardness(Blocks.COBBLESTONE.getHardness()).sounds(BlockSoundGroup.TUFF).luminance(state -> 3).nonOpaque()));
         BLOCK_BREAKER = registerBlockWithItem("mining_simulator", new BlockBreaker());
         BLOCK_PLACER = registerBlockWithItem("interaction_simulator", new BlockPlacer());
         MUFFLER = registerBlockWithItem("muffler", new Muffler());
+        FLUID_PIPE = registerBlockWithItem("fluid_pipe",new FluidPipeBlock());
         EXCLUSION_ZONE_BIOME_MAKER = RegistryUtil.register("exclusion_zone_biome_maker", new ExclusionZoneBiomeMaker());
         RIFT = RegistryUtil.register("rift", new RiftBlock());
-        ENDERWEED = RegistryUtil.register("enderweed", new Enderweed());
-        //Sus Concrete Powders\\
+        ENDERWEED = RegistryUtil.register("plant/enderweed", new Enderweed());
+
+        //Archaeology\\
+        SUS_MOSS = registerBlockWithItem("archaeology/suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));
         for (String color : VANILLA_COLORS) {
             SUS_CONCRETE_POWDERS.put(
                     color,
                     registerBlockWithItem(
-                            "suspicious_" + color + "_concrete_powder",
+                            "archaeology/suspicious_" + color + "_concrete_powder",
                             brushableBlockGenerator(Registries.BLOCK.get(Identifier.ofVanilla(color + "_concrete_powder")))
                     )
             );
         }
 
-        //Block Entities
+        //Block Entities\\
         EXCLUSION_ZONE_BIOME_MAKER_BE = RegistryUtil.register("exclusionzonemaker", FabricBlockEntityTypeBuilder.create(ExclusionZoneBiomeMakerBE::new, EXCLUSION_ZONE_BIOME_MAKER.value()).build());
         RIFT_BE = RegistryUtil.register("rift", FabricBlockEntityTypeBuilder.create(RiftBE::new, RIFT.value()).build());
         MUFFLER_BE = RegistryUtil.register("muffler", FabricBlockEntityTypeBuilder.create(MufflerBE::new, MUFFLER.value()).build());
         BLOCK_PLACER_BE = RegistryUtil.register("interaction_simulator", FabricBlockEntityTypeBuilder.create(BlockPlacerBE::new, BLOCK_PLACER.value()).build());
         BLOCK_BREAKER_BE = RegistryUtil.register("mining_simulator", FabricBlockEntityTypeBuilder.create(BlockBreakerBE::new, BLOCK_BREAKER.value()).build());
+        FLUID_PIPE_BE = RegistryUtil.register("fluid_pipe", FabricBlockEntityTypeBuilder.create(FluidPipeBE::new, FLUID_PIPE.value()).build());
+
     }
 
 
