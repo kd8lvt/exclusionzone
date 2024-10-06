@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -28,6 +29,7 @@ public class ModRegistries {
     public static final ModRegistry<StatusEffect> STATUS_EFFECTS = new ModRegistry<>(Registries.STATUS_EFFECT);
     public static final ModRegistry<Potion> POTIONS = new ModRegistry<>(Registries.POTION);
     public static final ModRegistry<EntityType<?>> ENTITIES = new ModRegistry<>(Registries.ENTITY_TYPE);
+    public static final ModRegistry<ItemGroup> CREATIVE_TABS = new ModRegistry<>(Registries.ITEM_GROUP);
     public static final HashMap<String,ModRegistry<?>> REGISTRIES_BY_TYPE = new HashMap<>();
     static {
         REGISTRIES_BY_TYPE.put(SoundEvent.class.getName(),SOUNDS);
@@ -39,6 +41,7 @@ public class ModRegistries {
         REGISTRIES_BY_TYPE.put(StatusEffect.class.getName(),STATUS_EFFECTS);
         REGISTRIES_BY_TYPE.put(Potion.class.getName(),POTIONS);
         REGISTRIES_BY_TYPE.put(EntityType.class.getName(),ENTITIES);
+        REGISTRIES_BY_TYPE.put(ItemGroup.class.getName(),CREATIVE_TABS);
     }
     public static void registerAll() {
         LOGGER.info("[ExclusionZone] Registering Sounds...");
@@ -61,15 +64,16 @@ public class ModRegistries {
     }
 
     @SuppressWarnings("unchecked")
-    static <T> RegistryEntry<T> register(String id, T value) {
+    static <T> ModContent<T> register(String id, T value) {
         for (Map.Entry<String,ModRegistry<?>> type_registry : REGISTRIES_BY_TYPE.entrySet()) {
             try {
                 if (Class.forName(type_registry.getKey()).isInstance(value)) {
-                    return ((ModRegistry<T>)type_registry.getValue()).register(id,value);
+                    RegistryEntry<T> entry = ((ModRegistry<T>)type_registry.getValue()).register(id,value);
+                    return new ModContent<T>(value,id,entry);
                 }
             } catch (Exception e) {
-                LOGGER.error("Expected classname: %s".formatted(value.getClass().getName()));
                 LOGGER.error("DANGER WILL ROBINSON! Failed to register \"exclusionzone:%s\" because of a %s!".formatted(id,e.getClass().descriptorString()));
+                LOGGER.error("Expected classname: %s".formatted(value.getClass().getName()));
                 LOGGER.error(e.getLocalizedMessage());
             }
         }

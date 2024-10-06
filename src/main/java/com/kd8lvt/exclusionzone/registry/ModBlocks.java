@@ -20,14 +20,14 @@ public class ModBlocks {
     public static Block get(String id) {return getEntry(id).value();}
 
     static void register() {
-        registerBlockWithItem("amber_block", new Block(Block.Settings.create().resistance(Blocks.COBBLESTONE.getBlastResistance()).hardness(Blocks.COBBLESTONE.getHardness()).sounds(BlockSoundGroup.TUFF).luminance(state -> 3).nonOpaque()));
-        registerBlockWithItem("mining_simulator", (Block)new BlockBreaker());
-        registerBlockWithItem("interaction_simulator", new BlockPlacer());
-        registerBlockWithItem("muffler", new Muffler());
-        registerBlockWithItem("fluid_pipe",new FluidPipeBlock());
-        register("exclusion_zone_biome_maker", new ExclusionZoneBiomeMaker());
-        register("rift", new RiftBlock());
-        register("plant/enderweed", new Enderweed());
+        AMBER_BLOCK = registerBlockWithItem("amber_block", new Block(Block.Settings.create().resistance(Blocks.COBBLESTONE.getBlastResistance()).hardness(Blocks.COBBLESTONE.getHardness()).sounds(BlockSoundGroup.TUFF).luminance(state -> 3).nonOpaque()));
+        BLOCK_BREAKER = registerBlockWithItem("mining_simulator", (Block)new BlockBreaker());
+        BLOCK_PLACER = registerBlockWithItem("interaction_simulator", new BlockPlacer());
+        MUFFLER = registerBlockWithItem("muffler", new Muffler());
+        FLUID_PIPE = registerBlockWithItem("fluid_pipe",new FluidPipeBlock());
+        EZ_SPREADER = register("exclusion_zone_biome_maker", new ExclusionZoneBiomeMaker());
+        RIFT = register("rift", new RiftBlock());
+        ENDERWEED = register("plant/enderweed", new Enderweed());
 
         //Archaeology\\
         registerBlockWithItem("archaeology/suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));
@@ -36,7 +36,7 @@ public class ModBlocks {
         }
     }
 
-    static RegistryEntry<Block> register(String id, Block block) {
+    static ModContent<Block> register(String id, Block block) {
         return ModRegistries.register(id, block);
     }
 
@@ -48,9 +48,9 @@ public class ModBlocks {
      * @param block Block to generate a BlockItem for and register
      * @return RegistryEntry&lt;Block&gt; corresponding to the registered Block
      */
-    static RegistryEntry<Block> registerBlockWithItem(String id, Block block) {
+    static ModContent<Block> registerBlockWithItem(String id, Block block) {
         BlockItem GENERATED_BLOCK_ITEM = new BlockItem(block, new Item.Settings());
-        ModRegistries.ITEMS.register(id, GENERATED_BLOCK_ITEM);
+        ModRegistries.register(id, GENERATED_BLOCK_ITEM);
         return ModRegistries.register(id, (Block)block);
     }
 
@@ -64,4 +64,13 @@ public class ModBlocks {
     static BrushableBlock brushableBlockGenerator(Block baseBlock) {
         return new BrushableBlock(baseBlock, SoundEvents.ITEM_BRUSH_BRUSHING_GENERIC, baseBlock.getDefaultState().getSoundGroup().getPlaceSound(), Block.Settings.create().sounds(baseBlock.getDefaultState().getSoundGroup()).hardness(baseBlock.getHardness()).resistance(baseBlock.getBlastResistance()));
     }
+
+    public static ModContent<Block> AMBER_BLOCK;
+    public static ModContent<Block> BLOCK_BREAKER;
+    public static ModContent<Block> BLOCK_PLACER;
+    public static ModContent<Block> RIFT;
+    public static ModContent<Block> EZ_SPREADER;
+    public static ModContent<Block> MUFFLER;
+    public static ModContent<Block> FLUID_PIPE;
+    public static ModContent<Block> ENDERWEED;
 }

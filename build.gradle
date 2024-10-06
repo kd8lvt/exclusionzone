@@ -20,6 +20,11 @@ repositories {
 	// for more information about repositories.
 
 	mavenCentral()
+
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com"
+	}
 }
 
 loom {
@@ -42,12 +47,6 @@ loom {
 			vmArg "-Dfabric-api.datagen.modid=${modid}"
 
 			runDir "build/datagen"
-		}
-
-		clientAsKd {
-			inherit client
-			programArg "--mimicPlayer"
-			programArg "kd8lvt"
 		}
 	}
 }

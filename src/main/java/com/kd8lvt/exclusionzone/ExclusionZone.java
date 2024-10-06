@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone;
 
-import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.PersonaWeaponTraits;
+import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -39,7 +39,7 @@ public class ExclusionZone implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		ServerLifecycleEvents.SERVER_STARTING.register(server-> Server = server);
+        ServerLifecycleEvents.SERVER_STARTING.register(server-> Server = server);
 		ModRegistries.registerAll();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

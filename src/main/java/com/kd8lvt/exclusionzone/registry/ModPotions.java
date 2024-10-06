@@ -11,6 +11,8 @@ import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
 
+import java.util.Objects;
+
 @SuppressWarnings("SameParameterValue")
 public class ModPotions {
 
@@ -63,7 +65,7 @@ public class ModPotions {
 
     public static RegistryEntry<Potion> registerPotionWithRecipe(String id, String baseName, RegistryEntry<Potion> bottomInput, Item topInput, StatusEffectInstance effectInstance) {
         Potion result = new Potion(baseName, effectInstance);
-        registerPotionRecipe(bottomInput, topInput, ModRegistries.register(id, result));
+        registerPotionRecipe(bottomInput, topInput, Objects.requireNonNull(ModRegistries.register(id, result)).entry());
         return Registries.POTION.getEntry(result);
     }
 
