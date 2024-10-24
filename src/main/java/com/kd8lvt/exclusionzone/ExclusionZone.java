@@ -1,7 +1,8 @@
 package com.kd8lvt.exclusionzone;
 
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaWeaponTraits;
+import com.kd8lvt.exclusionzone.player.ToxicBuildupTracker;
 import com.kd8lvt.exclusionzone.registry.ModItems;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.PersonaWeaponTraits;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -40,6 +41,9 @@ public class ExclusionZone implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		ServerLifecycleEvents.SERVER_STARTING.register(server-> Server = server);
+
+		//CommandRegistrationCallback.EVENT.register(ModCommands::register);
+
 		ModRegistries.registerAll();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
 			@Override

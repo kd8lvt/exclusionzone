@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.init.status_effects.KillFocusStatusEffect;
-import com.kd8lvt.exclusionzone.init.status_effects.MilkStatusEffect;
+import com.kd8lvt.exclusionzone.status_effects.KillFocusStatusEffect;
+import com.kd8lvt.exclusionzone.status_effects.MilkStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.entry.RegistryEntry;
 

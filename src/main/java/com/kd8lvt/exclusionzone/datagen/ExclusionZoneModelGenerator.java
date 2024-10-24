@@ -2,8 +2,8 @@ package com.kd8lvt.exclusionzone.datagen;
 
 import com.google.gson.JsonObject;
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.blocks.Enderweed;
-import com.kd8lvt.exclusionzone.init.blocks.FluidPipeBlock;
+import com.kd8lvt.exclusionzone.block.Enderweed;
+import com.kd8lvt.exclusionzone.block.FluidPipeBlock;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -20,16 +20,16 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerCrop(ModBlocks.get("enderweed"), Enderweed.AGE,1, 1, 2, 2, 4, 5, 5, 6);
+        blockStateModelGenerator.registerCrop(ModBlocks.get("plant/enderweed"), Enderweed.AGE,1, 1, 2, 2, 4, 5, 5, 6);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("amber_block"));
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("muffler"));
-        BlockStateVariantMap pipe_variants = BlockStateVariantMap.create(FluidPipeBlock.POWER,FluidPipeBlock.POWERED).register((i,b)->BlockStateVariant.create().put(VariantSettings.MODEL, ExclusionZone.id("blocks/fluid_pipe")));
+        BlockStateVariantMap pipe_variants = BlockStateVariantMap.create(FluidPipeBlock.POWER,FluidPipeBlock.POWERED).register((i,b)->BlockStateVariant.create().put(VariantSettings.MODEL, ExclusionZone.id("block/fluid_pipe")));
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.get("fluid_pipe")).coordinate(pipe_variants));
-        blockStateModelGenerator.modelCollector.accept(ExclusionZone.id("blocks/fluid_pipe"),()->{
+        blockStateModelGenerator.modelCollector.accept(ExclusionZone.id("block/fluid_pipe"),()->{
             JsonObject ret = new JsonObject();
-            ret.addProperty("parent","minecraft:blocks/cube_all");
+            ret.addProperty("parent","minecraft:block/cube_all");
             JsonObject textures = new JsonObject();
-            textures.addProperty("all","exclusionzone:blocks/fluid_pipe");
+            textures.addProperty("all","exclusionzone:block/fluid_pipe");
             ret.add("textures",textures);
             return ret;
         });
@@ -59,6 +59,7 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         generated(ModItems.get("omen_of_caro_invictus"));
         handheldRod(ModItems.get("glasscutter"));
         handheldRod(ModItems.get("persona_monosword"));
+        itemGen.register(ModItems.get("logging_axe"),Models.HANDHELD);
         generated(ModItems.get("magnet"));
     }
 

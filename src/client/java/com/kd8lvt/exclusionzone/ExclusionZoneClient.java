@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone;
 
 import com.kd8lvt.exclusionzone.entity.render.CaroInvictusRenderer;
-import com.kd8lvt.exclusionzone.init.entities.CaroInvictusEntity;
+import com.kd8lvt.exclusionzone.entity.CaroInvictusEntity;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModEntities;
 import net.fabricmc.api.ClientModInitializer;

@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.init.blocks.entity.*;
+import com.kd8lvt.exclusionzone.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,6 +16,7 @@ public class ModBlockEntities {
         register("interaction_simulator", FabricBlockEntityTypeBuilder.create(BlockPlacerBE::new, blocks.get("interaction_simulator").value()).build());
         register("mining_simulator", FabricBlockEntityTypeBuilder.create(BlockBreakerBE::new, blocks.get("mining_simulator").value()).build());
         register("fluid_pipe", FabricBlockEntityTypeBuilder.create(FluidPipeBE::new, blocks.get("fluid_pipe").value()).build());
+        register("gradient_glass", FabricBlockEntityTypeBuilder.create(GradientGlassBE::new, blocks.get("gradient_glass").value()).build());
     }
 
     private static void register(String id, BlockEntityType<? extends BlockEntity> value) {

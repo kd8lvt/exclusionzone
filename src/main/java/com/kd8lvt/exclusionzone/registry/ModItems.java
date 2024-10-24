@@ -1,17 +1,18 @@
 package com.kd8lvt.exclusionzone.registry;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.items.*;
-import com.kd8lvt.exclusionzone.init.items.Dolls.BoyDoll;
-import com.kd8lvt.exclusionzone.init.items.Dolls.GirlDoll;
-import com.kd8lvt.exclusionzone.init.items.Dolls.VillagerDoll;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.PersonaMonosword;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.PersonaWeaponTraits;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.Traits.PTraitFastMover;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.Traits.PTraitKillFocused;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.Traits.PTraitLightweight;
-import com.kd8lvt.exclusionzone.init.items.PersonaWeapons.Traits.PTraitMadMuttering;
-import com.kd8lvt.exclusionzone.init.items.Tools.Glasscutter;
+import com.kd8lvt.exclusionzone.item.*;
+import com.kd8lvt.exclusionzone.item.Dolls.BoyDoll;
+import com.kd8lvt.exclusionzone.item.Dolls.GirlDoll;
+import com.kd8lvt.exclusionzone.item.Dolls.VillagerDoll;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaMonosword;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaWeaponTraits;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitFastMover;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitKillFocused;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitLightweight;
+import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitMadMuttering;
+import com.kd8lvt.exclusionzone.item.Tools.Glasscutter;
+import com.kd8lvt.exclusionzone.item.Tools.LoggingAxe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -46,6 +47,7 @@ public class ModItems {
         ModRegistries.register("glasscutter", new Glasscutter());
         ModRegistries.register("persona_monosword", new PersonaMonosword());
         ModRegistries.register("magnet",new Magnet(6));
+        ModRegistries.register("logging_axe",new LoggingAxe());
         //ItemGroup
         ModRegistries.register("creativetab", ItemGroup.create(ItemGroup.Row.TOP, 1).displayName(Text.of("Exclusion Zone")).icon(ModRegistries.ITEMS.get("mysterious_chunk").value()::getDefaultStack).entries(ExclusionZone::TabEntryCollector).build());
 
@@ -135,7 +137,6 @@ public class ModItems {
                 "To initiate the ritual, sneakily apply to an active Beacon, and wait..."
         });
         addToolTip((Artifact) ModRegistries.ITEMS.get("cito_sanitatem_caro").value(), new String[]{
-                "Translation: Rapidly Regenerating Flesh",
                 "A squirming mass of rapidly regenerating flesh.",
                 "Surprisingly, the taste is almost identical to a perfectly cooked steak.",
                 "It is, however, absolutely riddled with the Exclusion Zone's toxins,",

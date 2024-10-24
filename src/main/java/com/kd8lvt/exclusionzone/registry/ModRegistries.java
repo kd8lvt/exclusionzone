@@ -1,5 +1,6 @@
 package com.kd8lvt.exclusionzone.registry;
 
+import com.kd8lvt.exclusionzone.ExclusionZone;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -10,6 +11,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 
@@ -45,7 +47,7 @@ public class ModRegistries {
         ModSounds.register();
         LOGGER.info("[ExclusionZone] Registering Blocks...");
         ModBlocks.register();
-        LOGGER.info("[ExclusionZone] Registering Block entities...");
+        LOGGER.info("[ExclusionZone] Registering Block entity...");
         ModBlockEntities.register();
         LOGGER.info("[ExclusionZone] Registering Not-NBT-Tags...");
         ModDataComponents.register();
@@ -75,5 +77,16 @@ public class ModRegistries {
         }
         return null;
     }
+
+    public static class ModItemRegistry extends ModRegistry<Item> {
+        public ModItemRegistry() {
+            super(Registries.ITEM);
+        }
+
+        public RegistryEntry<Item> register(String id, BlockItem value) {
+            return REGISTRY.getEntry(Registry.register(REGISTRY, ExclusionZone.id(id),value));
+        }
+    }
+
 }
 

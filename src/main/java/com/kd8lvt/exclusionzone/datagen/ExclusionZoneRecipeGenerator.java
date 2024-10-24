@@ -47,6 +47,20 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add(" a ");
                 add("ce ");
             }}.toArray(new String[3]));
+        ExclusionZone.LOGGER.info("Recipe: Logging Axe");
+        shaped(
+                exporter,
+                RecipeCategory.MISC,
+                ModItems.get("logging_axe"),
+                new HashMap<>(){{
+                    put('a',Items.AMETHYST_SHARD);
+                    put('s',Items.STICK);
+                }},
+                new ArrayList<String>(){{
+                    add("aaa");
+                    add("as ");
+                    add(" s ");
+                }}.toArray(new String[3]));
         ExclusionZone.LOGGER.info("Recipe: Persona Monosword");
         shaped(
                 exporter,

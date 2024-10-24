@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.init.blocks.*;
+import com.kd8lvt.exclusionzone.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BrushableBlock;
@@ -28,6 +28,7 @@ public class ModBlocks {
         register("exclusion_zone_biome_maker", new ExclusionZoneBiomeMaker());
         register("rift", new RiftBlock());
         register("plant/enderweed", new Enderweed());
+        register("gradient_glass",new GradientGlass());
 
         //Archaeology\\
         registerBlockWithItem("archaeology/suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));

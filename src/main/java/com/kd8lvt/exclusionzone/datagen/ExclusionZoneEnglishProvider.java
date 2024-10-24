@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.init.items.Artifact;
-import com.kd8lvt.exclusionzone.init.items.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.item.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.item.base.IHasResearchNotes;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -21,11 +21,10 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
         for (Item item: ModRegistries.ITEMS.ENTRIES_BY_VALUE.keySet()) {
-            //For whatever reason this also includes the mod blocks (except Enderweed, which I don't really care about)
             translationBuilder.add(item,toTitleCase(item.getTranslationKey().replaceAll("_"," ")));
-            if (item instanceof Artifact artifact) {
-                for (int i =0;i<artifact.tt.size();i++) {
-                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.tt.get(i).getString());
+            if (item instanceof IHasResearchNotes artifact) {
+                for (int i =0;i<artifact.getTooltips().size();i++) {
+                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.getTooltips().get(i).getString());
                 }
             } else if (item instanceof BlockItemArtifact artifact) {
                 for (int i =0;i<artifact.tt.size();i++) {
