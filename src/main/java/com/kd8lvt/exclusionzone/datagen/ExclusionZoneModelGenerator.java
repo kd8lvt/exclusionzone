@@ -57,6 +57,8 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         generated(ModItems.get("warped_meat"));
         generated(ModItems.get("cito_sanitatem_caro"));
         generated(ModItems.get("omen_of_caro_invictus"));
+        generated(ModItems.get("reinforced_handle"));
+        generated(ModItems.get("logging_axe_head"));
         handheldRod(ModItems.get("glasscutter"));
         handheldRod(ModItems.get("persona_monosword"));
         itemGen.register(ModItems.get("logging_axe"),Models.HANDHELD);

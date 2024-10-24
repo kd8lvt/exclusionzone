@@ -48,6 +48,10 @@ public class ModItems {
         ModRegistries.register("persona_monosword", new PersonaMonosword());
         ModRegistries.register("magnet",new Magnet(6));
         ModRegistries.register("logging_axe",new LoggingAxe());
+        //Misc
+        ModRegistries.register("reinforced_handle",new Artifact());
+        ModRegistries.register("logging_axe_head",new Artifact());
+
         //ItemGroup
         ModRegistries.register("creativetab", ItemGroup.create(ItemGroup.Row.TOP, 1).displayName(Text.of("Exclusion Zone")).icon(ModRegistries.ITEMS.get("mysterious_chunk").value()::getDefaultStack).entries(ExclusionZone::TabEntryCollector).build());
 
@@ -157,6 +161,15 @@ public class ModItems {
         addToolTip((Artifact) ModRegistries.ITEMS.get("villager_doll").value(), new String[]{
                 "A discarded children's toy.",
                 "This one has an enormous nose!"
+        });
+        addToolTip((Artifact) ModRegistries.ITEMS.get("logging_axe_head").value(), new String[]{
+                "An extremely heavy axe head.",
+                "Probably requires something a little tougher than some sticks to wield."
+        });
+        addToolTip((Artifact) ModRegistries.ITEMS.get("reinforced_handle").value(), new String[]{
+                "This should be able to *handle* even the heaviest tool heads!",
+                "...",
+                "I'm sorry, that was terrible."
         });
     }
 }

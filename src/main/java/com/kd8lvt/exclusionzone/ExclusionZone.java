@@ -1,6 +1,7 @@
 package com.kd8lvt.exclusionzone;
 
 import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaWeaponTraits;
+import com.kd8lvt.exclusionzone.item.Tools.LoggingAxe;
 import com.kd8lvt.exclusionzone.player.ToxicBuildupTracker;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
@@ -66,7 +67,14 @@ public class ExclusionZone implements ModInitializer {
 
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> toxTracker.remove(handler.getPlayer()));
 
-		ServerTickEvents.END_SERVER_TICK.register(toxTracker::onTick);
+		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			toxTracker.onTick(server);
+			LoggingAxe.queue.processQueue(server);
+        });
+
+		ServerLifecycleEvents.SERVER_STOPPING.register(server->{
+			LoggingAxe.queue.onServerShuttingDown();
+		});
 	}
 
 	public static void runCommand(String cmd) {

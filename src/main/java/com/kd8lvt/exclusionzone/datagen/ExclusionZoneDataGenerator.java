@@ -7,8 +7,8 @@ public class ExclusionZoneDataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
+        pack.addProvider(ExclusionZoneEnglishProvider::new);
         pack.addProvider(ExclusionZoneRecipeGenerator::new);
         pack.addProvider(ExclusionZoneModelGenerator::new);
-        pack.addProvider(ExclusionZoneEnglishProvider::new);
     }
 }
