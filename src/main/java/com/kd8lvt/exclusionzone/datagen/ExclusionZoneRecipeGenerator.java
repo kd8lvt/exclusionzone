@@ -1,8 +1,8 @@
 package com.kd8lvt.exclusionzone.datagen;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.init.ModBlocks;
-import com.kd8lvt.exclusionzone.init.ModItems;
+import com.kd8lvt.exclusionzone.registry.ModBlocks;
+import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
@@ -30,14 +30,14 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter exporter) {
         ExclusionZone.LOGGER.info("Recipe: Otherworldly Bone->Bone Meal");
-        shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.OTHERWORLDLY_BONE},Items.BONE_MEAL);
+        shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.get("otherworldly_bone")},Items.BONE_MEAL);
         ExclusionZone.LOGGER.info("Recipe: Magnet");
         shaped(
             exporter,
             RecipeCategory.MISC,
-            ModItems.MAGNET,
+            ModItems.get("magnet"),
             new HashMap<>(){{
-                put('c',ModItems.MYSTERIOUS_CHUNK);
+                put('c',ModItems.get("mysterious_chunk"));
                 put('e',Items.ENDER_PEARL);
                 put('a',Items.AMETHYST_SHARD);
                 put('s',Items.STICK);
@@ -47,13 +47,27 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add(" a ");
                 add("ce ");
             }}.toArray(new String[3]));
+        ExclusionZone.LOGGER.info("Recipe: Logging Axe");
+        shaped(
+                exporter,
+                RecipeCategory.MISC,
+                ModItems.get("logging_axe"),
+                new HashMap<>(){{
+                    put('a',Items.AMETHYST_SHARD);
+                    put('s',Items.STICK);
+                }},
+                new ArrayList<String>(){{
+                    add("aaa");
+                    add("as ");
+                    add(" s ");
+                }}.toArray(new String[3]));
         ExclusionZone.LOGGER.info("Recipe: Persona Monosword");
         shaped(
                 exporter,
                 RecipeCategory.MISC,
-                ModItems.PERSONA_MONOSWORD,
+                ModItems.get("persona_monosword"),
                 new HashMap<>(){{
-                    put('g',ModItems.GLASSCUTTER);
+                    put('g',ModItems.get("glasscutter"));
                     put('e',Items.ENDER_EYE);
                     put('a',Items.AMETHYST_SHARD);
                 }},
@@ -66,7 +80,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
         shaped(
             exporter,
             RecipeCategory.MISC,
-            ModBlocks.BLOCK_BREAKER.asItem(),
+            ModBlocks.get("mining_simulator").asItem(),
             new HashMap<>(){{ //Inputs Key
                 put('p',Items.DIAMOND_PICKAXE);
                 put('d', Blocks.DISPENSER.asItem());
@@ -83,7 +97,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
         shapedTags( //Muffler Recipe
             exporter,
             RecipeCategory.MISC,
-            ModBlocks.MUFFLER.asItem(),
+            ModBlocks.get("muffler").asItem(),
             new HashMap<>(){{ //Input Key
                 put('w',ItemTags.WOOL);
                 put('p',ItemTags.PLANKS);
@@ -98,7 +112,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
         shaped(
             exporter,
             RecipeCategory.TOOLS,
-            ModItems.GLASSCUTTER,
+            ModItems.get("glasscutter"),
             new HashMap<>(){{
                 put('s',Items.STICK);
                 put('a',Items.AMETHYST_SHARD);

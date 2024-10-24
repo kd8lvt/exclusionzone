@@ -1,7 +1,9 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.init.ModStatusEffects;
-import com.kd8lvt.exclusionzone.init.registries.ModItemRegistry;
+import com.kd8lvt.exclusionzone.item.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.item.base.IHasResearchNotes;
+import com.kd8lvt.exclusionzone.registry.ModRegistries;
+import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.item.Item;
@@ -17,12 +19,21 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
-        for (Item item: ModItemRegistry.ITEMS) {
-            //For whatever reason this also includes the mod blocks (except Enderweed, which I don't really care about)
-            translationBuilder.add(item,toTitleCase(item.getTranslationKey().replace("item.exclusionzone.","").replace("block.exclusionzone.","").replaceAll("_"," ")));
+        translationBuilder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
+        for (Item item: ModRegistries.ITEMS.ENTRIES_BY_VALUE.keySet()) {
+            translationBuilder.add(item,toTitleCase(item.getTranslationKey().replaceAll("_"," ")));
+            if (item instanceof IHasResearchNotes artifact) {
+                for (int i =0;i<artifact.getTooltips().size();i++) {
+                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.getTooltips().get(i).getString());
+                }
+            } else if (item instanceof BlockItemArtifact artifact) {
+                for (int i =0;i<artifact.tt.size();i++) {
+                    translationBuilder.add(item.getTranslationKey()+".research_notes_"+i,artifact.tt.get(i).getString());
+                }
+            }
         }
-        translationBuilder.add(ModStatusEffects.MILK,"Cleansing");
-        translationBuilder.add(ModStatusEffects.KILL_FOCUS,"Focused");
+        translationBuilder.add(ModStatusEffects.get("milk"),"Cleansing");
+        translationBuilder.add(ModStatusEffects.get("kill_focus"),"Focused");
         translationBuilder.add("item.minecraft.potion.effect.milk","Potion of Cleansing"); //Surely this can be done cleaner
         translationBuilder.add("item.minecraft.splash_potion.effect.milk","Splash Potion of Cleansing");
         translationBuilder.add("item.minecraft.lingering_potion.effect.milk","Lingering Potion of Cleansing");
@@ -33,7 +44,10 @@ public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
         StringBuilder titleCase = new StringBuilder(input.length());
         boolean nextTitleCase = true;
 
-        for (char c:input.toCharArray()) {
+        String target_str = input;
+        if (input.indexOf(".") > 0) target_str = input.split("\\.")[input.split("\\.").length-1];
+
+        for (char c:target_str.toCharArray()) {
             if (Character.isSpaceChar(c)) {
                 nextTitleCase = true;
             } else if (nextTitleCase) {

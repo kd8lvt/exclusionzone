@@ -2,7 +2,7 @@ package com.kd8lvt.exclusionzone.entity.render;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.entity.model.CaroInvictusModel;
-import com.kd8lvt.exclusionzone.init.Entities.CaroInvictusEntity;
+import com.kd8lvt.exclusionzone.entity.CaroInvictusEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
