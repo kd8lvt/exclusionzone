@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -29,9 +28,7 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
-        ExclusionZone.LOGGER.info("Recipe: Otherworldly Bone->Bone Meal");
         shapeless(exporter,RecipeCategory.MISC,new Item[]{ModItems.get("otherworldly_bone")},Items.BONE_MEAL);
-        ExclusionZone.LOGGER.info("Recipe: Magnet");
         shaped(
             exporter,
             RecipeCategory.MISC,
@@ -47,21 +44,40 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add(" a ");
                 add("ce ");
             }}.toArray(new String[3]));
-        ExclusionZone.LOGGER.info("Recipe: Logging Axe");
+        shapeless(
+                exporter,
+                RecipeCategory.MISC,
+                new Item[]{
+                        ModItems.get("logging_axe_head"),
+                        ModItems.get("reinforced_handle")
+                },
+                ModItems.get("logging_axe")
+        );
         shaped(
                 exporter,
                 RecipeCategory.MISC,
-                ModItems.get("logging_axe"),
+                ModItems.get("logging_axe_head"),
                 new HashMap<>(){{
+                    put('A',Items.AMETHYST_BLOCK);
+                    put('e',Items.ENDER_PEARL);
                     put('a',Items.AMETHYST_SHARD);
-                    put('s',Items.STICK);
                 }},
                 new ArrayList<String>(){{
-                    add("aaa");
-                    add("as ");
-                    add(" s ");
+                    add("Aaa");
+                    add("Ae ");
+                    add("   ");
                 }}.toArray(new String[3]));
-        ExclusionZone.LOGGER.info("Recipe: Persona Monosword");
+        shaped(
+                exporter,
+                RecipeCategory.MISC,
+                ModItems.get("reinforced_handle"),
+                new HashMap<>(){{
+                    put('i',Items.IRON_INGOT);
+                }},
+                new ArrayList<String>(){{
+                    add("i");
+                    add("i");
+                }}.toArray(new String[2]));
         shaped(
                 exporter,
                 RecipeCategory.MISC,
@@ -76,7 +92,6 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                     add("ea ");
                     add("ge ");
                 }}.toArray(new String[3]));
-        ExclusionZone.LOGGER.info("Recipe: Block Breaker");
         shaped(
             exporter,
             RecipeCategory.MISC,
@@ -93,7 +108,6 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add("srs");
             }}.toArray(new String[3])
         );
-        ExclusionZone.LOGGER.info("Recipe: Muffler");
         shapedTags( //Muffler Recipe
             exporter,
             RecipeCategory.MISC,
@@ -108,7 +122,6 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
                 add("www");
             }}.toArray(new String[3])
         );
-        ExclusionZone.LOGGER.info("Recipe: Glasscutter");
         shaped(
             exporter,
             RecipeCategory.TOOLS,
@@ -127,6 +140,11 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
 
     @SuppressWarnings("SameParameterValue")
     private void shapeless(RecipeExporter exporter, RecipeCategory category, Item[] inputs, Item output) {
+        try {
+            LOGGER.info("Shaped Recipe: %s".formatted(output.getTranslationKey()));
+        } catch (Exception e) {
+            LOGGER.info("Failed to get shapeless recipe output's translation key, but that's ok :)");
+        }
         ShapelessRecipeJsonBuilder builder = ShapelessRecipeJsonBuilder.create(category,output)
                 .criterion(FabricRecipeProvider.hasItem(output),FabricRecipeProvider.conditionsFromItem(output));
         for (Item item : inputs) {
@@ -137,6 +155,11 @@ public class ExclusionZoneRecipeGenerator extends FabricRecipeProvider {
     }
 
     private void shaped(RecipeExporter exporter, RecipeCategory category, Item output, HashMap<Character,Item> inputs, String[] patternStrs) {
+        try {
+            LOGGER.info("Shaped Recipe: %s".formatted(output.getTranslationKey()));
+        } catch (Exception e) {
+            LOGGER.info("Failed to get shaped recipe output's translation key, but that's ok :)");
+        }
         ShapedRecipeJsonBuilder builder = ShapedRecipeJsonBuilder.create(category, output)
                 .criterion(FabricRecipeProvider.hasItem(output),FabricRecipeProvider.conditionsFromItem(output));
         for (Map.Entry<Character, Item> entry:inputs.entrySet()) {
