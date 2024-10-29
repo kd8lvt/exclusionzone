@@ -27,7 +27,7 @@ public class CaroInvictusSummoner extends Artifact {
         if (!Objects.requireNonNull(context.getPlayer()).isSneaking()) return super.useOnBlock(context);
         if (((BeaconBlockEntity) Objects.requireNonNull(w.getBlockEntity(context.getBlockPos()))).getBeamSegments().isEmpty()) return super.useOnBlock(context);
 
-        w.playSoundAtBlockCenter(context.getBlockPos().up(), ModSounds.get("caro_invictus_music"), SoundCategory.MASTER,1.0f,1.0f,true);
+        w.playSoundAtBlockCenter(context.getBlockPos().up(), ModSounds.get("mob.caro_invictus.music"), SoundCategory.MASTER,1.0f,1.0f,true);
 
         if (w.isClient) return super.useOnBlock(context);
         ServerWorld world = (ServerWorld)w;
