@@ -24,7 +24,6 @@ import net.minecraft.util.ClickType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -138,17 +137,18 @@ public class VoidTear extends Item implements IHasResearchNotes {
         ItemStack thisStack = context.getStack();
         NbtList comp = DeepItemStorageHelper.getComponentFromStack(thisStack).copyNbt().getList("stored",NbtList.COMPOUND_TYPE);
         if (comp.isEmpty()) return ActionResult.FAIL;
-        if (context.getWorld().isClient) return ActionResult.PASS;
-        if (context.getPlayer() == null) return ActionResult.PASS;
+        if (context.getWorld().isClient) return ActionResult.SUCCESS_NO_ITEM_USED;
+        if (context.getPlayer() == null) return ActionResult.FAIL;
         PlayerEntity player = context.getPlayer();
         if (player.isSpectator()) return ActionResult.PASS;
         ItemStack storageStack = DeepItemStorageHelper.takeOneFromStorage(thisStack,0);
+        //Do I *need* to use a fake player? Probably not, no.
         ExclusionZoneFakePlayer fp = new ExclusionZoneFakePlayer((ServerWorld)context.getWorld());
         fp.setPos(player.getPos().x,player.getPos().y,player.getPos().z);
         fp.setCurrentHand(context.getHand());
         fp.setStackInHand(context.getHand(),storageStack);
-        fp.changeGameMode(player.getAbilities().creativeMode? GameMode.CREATIVE:GameMode.DEFAULT);
         storageStack.useOnBlock(new ItemUsageContext(Objects.requireNonNull(fp),context.getHand(),new BlockHitResult(context.getHitPos(),context.getSide(),context.getBlockPos(),context.hitsInsideBlock())));
+        //Add the item back to the tear's inventory if it failed to place
         DeepItemStorageHelper.addToStorage(thisStack,storageStack,MAX_STORED_TYPES,MAX_STORED_COUNT,true);
         fp.discard();
         return ActionResult.SUCCESS_NO_ITEM_USED;
