@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.datagen;
+package com.kd8lvt.exclusionzone.datagen.lang;
 
 import com.kd8lvt.exclusionzone.item.BlockItemArtifact;
 import com.kd8lvt.exclusionzone.item.base.IHasResearchNotes;
@@ -11,9 +11,9 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ExclusionZoneEnglishProvider extends FabricLanguageProvider {
+public class EnglishLangProvider extends FabricLanguageProvider {
 
-    protected ExclusionZoneEnglishProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public EnglishLangProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

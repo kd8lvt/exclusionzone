@@ -6,15 +6,21 @@ import com.kd8lvt.exclusionzone.block.Enderweed;
 import com.kd8lvt.exclusionzone.block.FluidPipeBlock;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
+import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.*;
 import net.minecraft.item.Item;
+import net.minecraft.registry.entry.RegistryEntry;
 
-public class ExclusionZoneModelGenerator extends FabricModelProvider {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class ModelProvider extends FabricModelProvider {
 
     ItemModelGenerator itemGen;
-    public ExclusionZoneModelGenerator(FabricDataOutput output) {
+    public ModelProvider(FabricDataOutput output) {
         super(output);
     }
 
@@ -40,10 +46,12 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         }
     }
 
+    private static final ArrayList<String> alreadyGeneratedItems = new ArrayList<>(List.of("odd_seed"));
+
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemGen = itemModelGenerator;
-        generated(ModItems.get("boy_doll"));
+        /*generated(ModItems.get("boy_doll"));
         generated(ModItems.get("girl_doll"));
         generated(ModItems.get("otherworldly_bone"));
         generated(ModItems.get("chipped_carapace"));
@@ -59,17 +67,28 @@ public class ExclusionZoneModelGenerator extends FabricModelProvider {
         generated(ModItems.get("omen_of_caro_invictus"));
         generated(ModItems.get("reinforced_handle"));
         generated(ModItems.get("logging_axe_head"));
-        handheldRod(ModItems.get("glasscutter"));
-        handheldRod(ModItems.get("persona_monosword"));
-        itemGen.register(ModItems.get("logging_axe"),Models.HANDHELD);
-        generated(ModItems.get("magnet"));
+        generated(ModItems.get("magnet"));*/
+        handheldRod("glasscutter");
+        handheldRod("persona_monosword");
+        handheld("logging_axe");
+
+        for (Map.Entry<Item, RegistryEntry<Item>> entry : ModRegistries.ITEMS.ENTRIES_BY_VALUE.entrySet()) {
+            if (alreadyGeneratedItems.contains(entry.getValue().getKey().orElseThrow().getValue().getPath())) continue;
+            generated(entry.getKey());
+        }
     }
 
     public void generated(Item item) {
         itemGen.register(item, Models.GENERATED);
     }
 
-    public void handheldRod(Item item) {
-        itemGen.register(item,Models.HANDHELD_ROD);
+    public void handheldRod(String id) {
+        itemGen.register(ModItems.get(id),Models.HANDHELD_ROD);
+        alreadyGeneratedItems.add(id);
+    }
+
+    public void handheld(String id) {
+        itemGen.register(ModItems.get(id),Models.HANDHELD);
+        alreadyGeneratedItems.add(id);
     }
 }

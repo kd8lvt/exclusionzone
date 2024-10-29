@@ -55,14 +55,33 @@ public class Glasscutter extends ToolItem {
             return Ingredient.ofItems(Items.AMETHYST_SHARD);
         }
     };
+
+    private static final Settings settings = new Settings();
     public Glasscutter() {
-        super(material, new net.minecraft.item.Item.Settings());
+        super(material, settings);
+        settings.recipeRemainder(this);
     }
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.addAll(Text.of("An amethyst-tipped blade designed to gently remove material.").getWithStyle(Style.EMPTY.withColor(Colors.GRAY).withItalic(true)));
     }
+
+    @Override
+    public ItemStack getRecipeRemainder(ItemStack stack) {
+        ItemStack copy = stack.copy();
+        if (copy.getMaxDamage()>(copy.getDamage()+1)) {
+            copy.setDamage(stack.getDamage()+1);
+            return copy;
+        }
+        return stack;
+    }
+
+    @Override
+    public boolean hasRecipeRemainder() {
+        return true;
+    }
+
     @Override
     public boolean hasGlint(ItemStack stack) {
         return false;

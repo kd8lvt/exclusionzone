@@ -1,5 +1,6 @@
-package com.kd8lvt.exclusionzone.item;
+package com.kd8lvt.exclusionzone.item.Tools;
 
+import com.kd8lvt.exclusionzone.item.Artifact;
 import com.kd8lvt.exclusionzone.registry.ModDataComponents;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.ComponentType;
@@ -22,7 +23,7 @@ import java.util.List;
 public class Magnet extends Artifact {
     final int range;
     @SuppressWarnings("unchecked")
-    private static final ComponentType<? super Boolean> ENABLED_COMPONENT = (ComponentType<? super Boolean>) ModDataComponents.get("magnet_enabled");
+    private static final ComponentType<? super Boolean> ENABLED_COMPONENT = (ComponentType<? super Boolean>) ModDataComponents.get("enabled");
     public Magnet(int range) {
         super(new Settings().rarity(Rarity.UNCOMMON).component(ENABLED_COMPONENT,false).maxCount(1));
         this.range = range;

@@ -13,6 +13,8 @@ import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitLightweight;
 import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitMadMuttering;
 import com.kd8lvt.exclusionzone.item.Tools.Glasscutter;
 import com.kd8lvt.exclusionzone.item.Tools.LoggingAxe;
+import com.kd8lvt.exclusionzone.item.Tools.Magnet;
+import com.kd8lvt.exclusionzone.item.Tools.VoidTear;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -48,9 +50,11 @@ public class ModItems {
         ModRegistries.register("persona_monosword", new PersonaMonosword());
         ModRegistries.register("magnet",new Magnet(6));
         ModRegistries.register("logging_axe",new LoggingAxe());
+        ModRegistries.register("void_tear",new VoidTear());
         //Misc
         ModRegistries.register("reinforced_handle",new Artifact());
         ModRegistries.register("logging_axe_head",new Artifact());
+        ModRegistries.register("leather_scraps",new Artifact());
 
         //ItemGroup
         ModRegistries.register("creativetab", ItemGroup.create(ItemGroup.Row.TOP, 1).displayName(Text.of("Exclusion Zone")).icon(ModRegistries.ITEMS.get("mysterious_chunk").value()::getDefaultStack).entries(ExclusionZone::TabEntryCollector).build());
@@ -170,6 +174,10 @@ public class ModItems {
                 "This should be able to *handle* even the heaviest tool heads!",
                 "...",
                 "I'm sorry, that was terrible."
+        });
+        addToolTip((Artifact) ModRegistries.ITEMS.get("leather_scraps").value(), new String[]{
+                "For when leathers obtained from large animals are too big.",
+                "Makes for a good Rabbit Hide replacement!"
         });
     }
 }

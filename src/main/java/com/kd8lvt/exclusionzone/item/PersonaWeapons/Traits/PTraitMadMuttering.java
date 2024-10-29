@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -55,7 +54,7 @@ public class PTraitMadMuttering extends PTrait {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!(entity instanceof PlayerEntity)) super.inventoryTick(stack, world, entity, slot, selected);
         Random random = world.getRandom();
-        if (random.nextBetween(1, ExclusionZone.muttering_debug ?100:6000) == 1) entity.sendMessage(Text.of("<"+stack.getName().getString()+"> "+mutterings.get(random.nextBetween(0, mutterings.size()-1))));
+        if (random.nextBetween(1, 6000) == 1) entity.sendMessage(Text.of("<"+stack.getName().getString()+"> "+mutterings.get(random.nextBetween(0, mutterings.size()-1))));
         super.inventoryTick(stack, world, entity, slot, selected);
     }
 }
