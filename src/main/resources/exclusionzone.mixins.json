@@ -3,7 +3,8 @@
   "package": "com.kd8lvt.exclusionzone.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "SignBEMixin"
+    "BlockEntityMixin",
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

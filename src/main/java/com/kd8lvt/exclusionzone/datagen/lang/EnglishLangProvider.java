@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone.datagen.lang;
 
-import com.kd8lvt.exclusionzone.item.BlockItemArtifact;
-import com.kd8lvt.exclusionzone.item.base.IHasResearchNotes;
+import com.kd8lvt.exclusionzone.content.item.BlockItemArtifact;
+import com.kd8lvt.exclusionzone.content.item.base.IHasResearchNotes;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

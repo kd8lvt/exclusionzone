@@ -5,13 +5,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.ComponentType;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 
@@ -30,7 +33,11 @@ public class ModRegistries {
     public static final ModRegistry<StatusEffect> STATUS_EFFECTS = new ModRegistry<>(Registries.STATUS_EFFECT);
     public static final ModRegistry<Potion> POTIONS = new ModRegistry<>(Registries.POTION);
     public static final ModRegistry<EntityType<?>> ENTITIES = new ModRegistry<>(Registries.ENTITY_TYPE);
+    public static final ModRegistry<EntityAttribute> ATTRIBUTES = new ModRegistry<>(Registries.ATTRIBUTE);
+    @SuppressWarnings("unchecked")
+    public static final ModRegistry<Enchantment> ENCHANTMENTS = new ModRegistry<>((Registry<Enchantment>) Registries.REGISTRIES.get(RegistryKeys.ENCHANTMENT.getValue()));
     public static final HashMap<String,ModRegistry<?>> REGISTRIES_BY_TYPE = new HashMap<>();
+
     static {
         REGISTRIES_BY_TYPE.put(SoundEvent.class.getName(),SOUNDS);
         REGISTRIES_BY_TYPE.put(Block.class.getName(),BLOCKS);
@@ -41,6 +48,8 @@ public class ModRegistries {
         REGISTRIES_BY_TYPE.put(StatusEffect.class.getName(),STATUS_EFFECTS);
         REGISTRIES_BY_TYPE.put(Potion.class.getName(),POTIONS);
         REGISTRIES_BY_TYPE.put(EntityType.class.getName(),ENTITIES);
+        REGISTRIES_BY_TYPE.put(Enchantment.class.getName(),ENCHANTMENTS);
+        REGISTRIES_BY_TYPE.put(EntityAttribute.class.getName(),ATTRIBUTES);
     }
     public static void registerAll() {
         LOGGER.info("[ExclusionZone] Registering Sounds...");
@@ -59,6 +68,9 @@ public class ModRegistries {
         ModPotions.register();
         LOGGER.info("[ExclusionZone] Registering Entities...");
         ModEntities.register();
+        LOGGER.info("[ExclusionZone] Registering Attributes...");
+        ModAttributes.register();
+
         LOGGER.info("[ExclusionZone] Initialization complete!");
     }
 

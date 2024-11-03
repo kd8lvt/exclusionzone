@@ -1,7 +1,6 @@
 package com.kd8lvt.exclusionzone;
 
-import com.kd8lvt.exclusionzone.handler.ModEventHandlers;
-import com.kd8lvt.exclusionzone.player.ToxicBuildupTracker;
+import com.kd8lvt.exclusionzone.event.ModEventHandlers;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.api.ModInitializer;
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory;
 public class ExclusionZone implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("exclusionzone");
 	public static MinecraftServer Server = null;
-	public static final ToxicBuildupTracker toxTracker = new ToxicBuildupTracker();
 
 	@Override
 	public void onInitialize() {

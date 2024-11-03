@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.entity.model;
 
-import com.kd8lvt.exclusionzone.entity.CaroInvictusEntity;
+import com.kd8lvt.exclusionzone.content.entity.CaroInvictusEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayers;

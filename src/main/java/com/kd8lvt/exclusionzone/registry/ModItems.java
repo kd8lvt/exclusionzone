@@ -1,20 +1,20 @@
 package com.kd8lvt.exclusionzone.registry;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.item.*;
-import com.kd8lvt.exclusionzone.item.Dolls.BoyDoll;
-import com.kd8lvt.exclusionzone.item.Dolls.GirlDoll;
-import com.kd8lvt.exclusionzone.item.Dolls.VillagerDoll;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaMonosword;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.PersonaWeaponTraits;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitFastMover;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitKillFocused;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitLightweight;
-import com.kd8lvt.exclusionzone.item.PersonaWeapons.Traits.PTraitMadMuttering;
-import com.kd8lvt.exclusionzone.item.Tools.Glasscutter;
-import com.kd8lvt.exclusionzone.item.Tools.LoggingAxe;
-import com.kd8lvt.exclusionzone.item.Tools.Magnet;
-import com.kd8lvt.exclusionzone.item.Tools.VoidTear;
+import com.kd8lvt.exclusionzone.content.item.*;
+import com.kd8lvt.exclusionzone.content.item.Dolls.BoyDoll;
+import com.kd8lvt.exclusionzone.content.item.Dolls.GirlDoll;
+import com.kd8lvt.exclusionzone.content.item.Dolls.VillagerDoll;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.PersonaMonosword;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.PersonaWeaponTraits;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitFastMover;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitKillFocused;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitLightweight;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitMadMuttering;
+import com.kd8lvt.exclusionzone.content.item.Tools.Glasscutter;
+import com.kd8lvt.exclusionzone.content.item.Tools.LoggingAxe;
+import com.kd8lvt.exclusionzone.content.item.Tools.Magnet;
+import com.kd8lvt.exclusionzone.content.item.Tools.VoidTear;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -23,7 +23,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 
 public class ModItems {
-    public static final Style ttStyle = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow());
+    public static final Style ttStyle = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true);
 
     static void register() {
         //Artefacts

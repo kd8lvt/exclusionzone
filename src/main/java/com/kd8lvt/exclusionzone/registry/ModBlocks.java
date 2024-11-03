@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.block.*;
+import com.kd8lvt.exclusionzone.content.block.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BrushableBlock;

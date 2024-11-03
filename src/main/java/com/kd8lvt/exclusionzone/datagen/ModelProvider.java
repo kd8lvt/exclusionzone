@@ -2,8 +2,8 @@ package com.kd8lvt.exclusionzone.datagen;
 
 import com.google.gson.JsonObject;
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.block.Enderweed;
-import com.kd8lvt.exclusionzone.block.FluidPipeBlock;
+import com.kd8lvt.exclusionzone.content.block.Enderweed;
+import com.kd8lvt.exclusionzone.content.block.FluidPipeBlock;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;

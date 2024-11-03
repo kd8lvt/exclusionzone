@@ -10,8 +10,10 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class ExclusionZoneDataGenerator implements DataGeneratorEntrypoint {
+    public static boolean isGenerating = false;
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
+        isGenerating=true;
         FabricDataGenerator.Pack pack = generator.createPack();
         //Languages
         pack.addProvider(EnglishLangProvider::new);
