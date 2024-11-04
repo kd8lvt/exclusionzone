@@ -48,7 +48,7 @@ public class VoidTear extends Item implements IHasResearchNotes {
         Text.literal("Shift-right click to enable/disable auto-absorb.")
     );
     public VoidTear() {
-        super(new Settings().component(STORED_ITEMS_COMPONENT,NbtComponent.of(DEFAULT_STORED_ITEMS)).component(ENABLED_COMPONENT,false));
+        super(new net.minecraft.item.Item.Settings().component(STORED_ITEMS_COMPONENT,NbtComponent.of(DEFAULT_STORED_ITEMS)).component(ENABLED_COMPONENT,false));
     }
 
     @Override

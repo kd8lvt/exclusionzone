@@ -45,7 +45,7 @@ public class LoggingAxe extends AxeItem implements IHasResearchNotes {
     public LoggingAxe() {
         super(
                 Glasscutter.material,
-                new Settings()
+                new net.minecraft.item.Item.Settings()
                         .rarity(Rarity.UNCOMMON)
                         .component(DataComponentTypes.TOOL,new ToolComponent(BREAK_RULES,2,1))
                         .customDamage((stack, amount, entity, slot, breakCallback) -> {

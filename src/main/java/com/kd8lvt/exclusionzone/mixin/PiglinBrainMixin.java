@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static com.kd8lvt.exclusionzone.datagen.tag.ArmorTrimTagProvider.DISTRACTING_TRIM;
+import static com.kd8lvt.exclusionzone.registry.ModTags.DISTRACTING_TRIM;
 
 //This Mixin has been shamelessly yoinked from https://github.com/Darkhax-Minecraft/Distracting-Trims/blob/1.20.4/common/src/main/java/net/darkhax/distractingtrims/mixin/MixinPiglinAi.java
 //I'll un-yoink it once darkhax updates his mod :P

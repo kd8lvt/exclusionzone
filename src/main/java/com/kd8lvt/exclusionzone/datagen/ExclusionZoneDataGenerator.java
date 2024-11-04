@@ -1,31 +1,25 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.datagen.lang.EnglishLangProvider;
-import com.kd8lvt.exclusionzone.datagen.loot.ArchaeologyLootProvider;
-import com.kd8lvt.exclusionzone.datagen.loot.BlockLootProvider;
-import com.kd8lvt.exclusionzone.datagen.loot.EntityLootProvider;
-import com.kd8lvt.exclusionzone.datagen.recipe.CraftingRecipeProvider;
+import com.kd8lvt.exclusionzone.datagen.lang.LangProviders;
+import com.kd8lvt.exclusionzone.datagen.loot.LootProviders;
+import com.kd8lvt.exclusionzone.datagen.recipe.RecipeProviders;
 import com.kd8lvt.exclusionzone.datagen.tag.TagProviders;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 public class ExclusionZoneDataGenerator implements DataGeneratorEntrypoint {
-    public static boolean isGenerating = false;
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
-        isGenerating=true;
         FabricDataGenerator.Pack pack = generator.createPack();
         //Languages
-        pack.addProvider(EnglishLangProvider::new);
+        LangProviders.register(pack);
         //Tags
         TagProviders.register(pack);
         //Recipes
-        pack.addProvider(CraftingRecipeProvider::new);
+        pack.addProvider(RecipeProviders::new);
         //Models
         pack.addProvider(ModelProvider::new);
         //Loot Tables
-        pack.addProvider(ArchaeologyLootProvider::new);
-        pack.addProvider(BlockLootProvider::new);
-        pack.addProvider(EntityLootProvider::new);
+        LootProviders.register(pack);
     }
 }

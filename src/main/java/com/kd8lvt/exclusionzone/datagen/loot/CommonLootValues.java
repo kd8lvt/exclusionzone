@@ -21,7 +21,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.state.property.Property;
 
-public class CommonLootValues {
+@SuppressWarnings({"unused","unchecked"})
+public final class CommonLootValues {
     public static final RegistryKey<Registry<LootTable>> LOOT_TABLE_REGISTRY = LootTables.ABANDONED_MINESHAFT_CHEST.getRegistryRef();
 
     public static RegistryKey<LootTable> key(String id) {
@@ -49,7 +50,6 @@ public class CommonLootValues {
             return RandomChanceLootCondition.builder(chance);
         }
         public static LootCondition.Builder fullyGrown(CropBlock block) {
-            //noinspection unchecked
             return BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch((Property<Integer>)block.getStateManager().getProperty("age"),block.getMaxAge()));
         }
     }

@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.event;
 
-import com.kd8lvt.exclusionzone.datagen.tag.ItemTagProvider;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.PersonaWeaponTraits;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -14,6 +13,7 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 import static com.kd8lvt.exclusionzone.ExclusionZone.*;
+import static com.kd8lvt.exclusionzone.registry.ModTags.SMALL_HIDES;
 
 public class ResourceReloadHandlers {
     private ResourceReloadHandlers() {}
@@ -45,7 +45,7 @@ public class ResourceReloadHandlers {
                     if (!entry.value().getIngredients().contains(Ingredient.ofItems(Items.RABBIT_HIDE))) continue;
                     LOGGER.info("Patching %s".formatted(entry.id().toString()));
                     entry.value().getIngredients().replaceAll(ingredient->{
-                        if (ingredient.test(new ItemStack(Items.RABBIT_HIDE))) return Ingredient.fromTag(ItemTagProvider.SMALL_HIDES);
+                        if (ingredient.test(new ItemStack(Items.RABBIT_HIDE))) return Ingredient.fromTag(SMALL_HIDES);
                         return ingredient;
                     });
                 }

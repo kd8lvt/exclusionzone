@@ -5,16 +5,13 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.trim.ArmorTrimMaterial;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.kd8lvt.exclusionzone.ExclusionZone.id;
+import static com.kd8lvt.exclusionzone.registry.ModTags.DISTRACTING_TRIM;
 
 public class ArmorTrimTagProvider extends FabricTagProvider<ArmorTrimMaterial> {
-    public static final TagKey<ArmorTrimMaterial> DISTRACTING_TRIM = TagKey.of(RegistryKeys.TRIM_MATERIAL,id("distracts_piglins"));
-
     public ArmorTrimTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output,RegistryKeys.TRIM_MATERIAL,registriesFuture);
     }
