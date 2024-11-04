@@ -1,5 +1,6 @@
 # Exclusion Zone
-An incredibly cursed pile of spaghetti code that builds into a more-or-less functional mod for Fabric 1.21
+An incredibly cursed pile of spaghetti code that builds into a more-or-less functional mod for Fabric 1.21  
+[![build](https://github.com/kd8lvt/exclusionzone/actions/workflows/build.yml/badge.svg)](https://github.com/kd8lvt/exclusionzone/actions/workflows/build.yml)
 
 ### What does it do?
 - Adds a few utilities that I miss from modded when playing Vanilla
