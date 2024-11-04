@@ -5,7 +5,7 @@ import com.kd8lvt.exclusionzone.datagen.loot.ArchaeologyLootProvider;
 import com.kd8lvt.exclusionzone.datagen.loot.BlockLootProvider;
 import com.kd8lvt.exclusionzone.datagen.loot.EntityLootProvider;
 import com.kd8lvt.exclusionzone.datagen.recipe.CraftingRecipeProvider;
-import com.kd8lvt.exclusionzone.datagen.tag.ItemTagProvider;
+import com.kd8lvt.exclusionzone.datagen.tag.TagProviders;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -18,7 +18,7 @@ public class ExclusionZoneDataGenerator implements DataGeneratorEntrypoint {
         //Languages
         pack.addProvider(EnglishLangProvider::new);
         //Tags
-        pack.addProvider(ItemTagProvider::new);
+        TagProviders.register(pack);
         //Recipes
         pack.addProvider(CraftingRecipeProvider::new);
         //Models

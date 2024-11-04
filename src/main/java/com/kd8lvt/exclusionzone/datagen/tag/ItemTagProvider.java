@@ -16,12 +16,11 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
 
     public ItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output,RegistryKeys.ITEM,registriesFuture);
-        getOrCreateTagBuilder(SMALL_HIDES)
-            .add(Identifier.ofVanilla("rabbit_hide"), ExclusionZone.id("leather_scraps"));
     }
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-
+        getOrCreateTagBuilder(SMALL_HIDES)
+            .add(Identifier.ofVanilla("rabbit_hide"), ExclusionZone.id("leather_scraps"));
     }
 }
