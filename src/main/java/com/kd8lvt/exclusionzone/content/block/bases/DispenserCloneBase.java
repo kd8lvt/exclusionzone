@@ -25,7 +25,7 @@ public class DispenserCloneBase extends DispenserBlock implements BlockEntityPro
     @SuppressWarnings("unused")
     Identifier id;
     public DispenserCloneBase(Identifier id, Text interfaceName) {
-        super(Block.Settings.copy(Blocks.DISPENSER));
+        super(Settings.copy(Blocks.DISPENSER));
         displayName=interfaceName;
         this.id = id;
     }

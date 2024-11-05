@@ -9,7 +9,7 @@ import net.minecraft.registry.tag.TagKey;
 
 public class PersonaMonosword extends PersonaWeapon {
     public PersonaMonosword() {
-        super(new PersonaMonoswordMaterial(), new net.minecraft.item.Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(new PersonaMonoswordMaterial(),2,-2.2f)));
+        super(new PersonaMonoswordMaterial(), new Settings().attributeModifiers(SwordItem.createAttributeModifiers(new PersonaMonoswordMaterial(),2,-2.2f)));
     }
 }
 

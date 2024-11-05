@@ -17,7 +17,7 @@ import net.minecraft.world.WorldView;
 
 public class Enderweed extends CropBlock {
     public Enderweed() {
-        super(Block.Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).pistonBehavior(PistonBehavior.DESTROY).notSolid().nonOpaque());
+        super(Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).pistonBehavior(PistonBehavior.DESTROY).notSolid().nonOpaque());
     }
 
     @Override

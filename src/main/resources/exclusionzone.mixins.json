@@ -1,8 +1,9 @@
 {
   "required": true,
   "package": "com.kd8lvt.exclusionzone.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "plugin": "com.kd8lvt.exclusionzone.mixin.MixinConfigPlugin",
+  "refmap": "exclusionzone.refmap.json",
   "mixins": [
     "BlockEntityMixin",
     "LivingEntityMixin",

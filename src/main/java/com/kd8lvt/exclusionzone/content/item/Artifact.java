@@ -12,9 +12,9 @@ import java.util.List;
 public class Artifact extends Item implements IHasResearchNotes {
     public final List<Text> tt = new ArrayList<>();
     public Artifact() {
-        this(new net.minecraft.item.Item.Settings());
+        this(new Settings());
     }
-    public Artifact(Item.Settings settings) {super(settings);}
+    public Artifact(Settings settings) {super(settings);}
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {

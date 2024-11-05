@@ -25,7 +25,7 @@ public class Magnet extends Artifact {
     @SuppressWarnings("unchecked")
     private static final ComponentType<? super Boolean> ENABLED_COMPONENT = (ComponentType<? super Boolean>) ModDataComponents.get("enabled");
     public Magnet(int range) {
-        super(new net.minecraft.item.Item.Settings().rarity(Rarity.UNCOMMON).component(ENABLED_COMPONENT,false).maxCount(1));
+        super(new Settings().rarity(Rarity.UNCOMMON).component(ENABLED_COMPONENT,false).maxCount(1));
         this.range = range;
     }
 

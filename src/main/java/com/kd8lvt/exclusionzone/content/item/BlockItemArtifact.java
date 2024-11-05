@@ -15,7 +15,7 @@ import static com.kd8lvt.exclusionzone.registry.ModItems.ttStyle;
 public class BlockItemArtifact extends AliasedBlockItem implements IHasResearchNotes {
     public final List<Text> tt = new ArrayList<>();
     public BlockItemArtifact(Block block) {
-        super(block,new net.minecraft.item.Item.Settings());
+        super(block,new Settings());
     }
 
     @Override

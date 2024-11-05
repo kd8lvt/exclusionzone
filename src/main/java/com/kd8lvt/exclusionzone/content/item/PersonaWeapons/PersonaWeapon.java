@@ -37,10 +37,10 @@ import java.util.function.Consumer;
 public class PersonaWeapon extends SwordItem {
     boolean isHeld = false;
     @SuppressWarnings("unchecked")
-    private static final ComponentType<List<Identifier>> TRAITS_COMPONENT = (net.minecraft.component.ComponentType<List<Identifier>>) ModDataComponents.get("persona_weapon_traits");
+    private static final ComponentType<List<Identifier>> TRAITS_COMPONENT = (ComponentType<List<Identifier>>) ModDataComponents.get("persona_weapon_traits");
     @Nullable
     final Integer prevDamage = this.getComponents().get(DataComponentTypes.DAMAGE);
-    public PersonaWeapon(ToolMaterial toolMaterial, net.minecraft.item.Item.Settings settings) {
+    public PersonaWeapon(ToolMaterial toolMaterial, Settings settings) {
         super(toolMaterial, settings);
     }
 

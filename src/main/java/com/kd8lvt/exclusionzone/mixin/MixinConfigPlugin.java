@@ -1,26 +1,14 @@
 package com.kd8lvt.exclusionzone.mixin;
 
-import net.minecraft.MinecraftVersion;
-import org.objectweb.asm.tree.ClassNode;
-import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
-import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 
 import java.util.List;
 import java.util.Set;
 
-public class MixinConfigPlugin implements IMixinConfigPlugin {
-    @Override
-    public void onLoad(String mixinPackage) {}
-
+public class MixinConfigPlugin extends RestrictiveMixinConfigPlugin {
     @Override
     public String getRefMapperConfig() {
         return "";
-    }
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("com.kd8lvt.exclusionzone.mixin.BlockEntityMixin") && MinecraftVersion.CURRENT.getName().equals("1.21")) return false;
-        return true;
     }
 
     @Override
@@ -31,15 +19,5 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public List<String> getMixins() {
         return List.of();
-    }
-
-    @Override
-    public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
-    }
-
-    @Override
-    public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
-
     }
 }

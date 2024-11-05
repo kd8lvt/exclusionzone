@@ -56,7 +56,7 @@ public class Glasscutter extends ToolItem {
         }
     };
 
-    private static final net.minecraft.item.Item.Settings settings = new net.minecraft.item.Item.Settings();
+    private static final Settings settings = new Settings();
     public Glasscutter() {
         super(material, settings);
         settings.recipeRemainder(this);

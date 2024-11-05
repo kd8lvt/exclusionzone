@@ -1,10 +1,25 @@
 //file:noinspection GroovyAssignabilityCheck
 //file:noinspection GrUnresolvedAccess
 plugins { //Incredibly annoying I can't offload this block to a non-build.gradle file :(
-  id 'fabric-loom' version '1.6-SNAPSHOT'
+  id 'fabric-loom' version '1.7-SNAPSHOT'
   id 'maven-publish'
   //Required for versioning.gradle - not loaded if not needed
   id 'org.ajoberstar.grgit' version '5.3.0' apply false
+}
+
+sourceSets {
+  loom.mixin.add(main, "exclusionzone.refmap.json")
+}
+
+repositories {
+  maven { url 'https://maven.fallenbreath.me/releases' }
+}
+
+dependencies {
+  modImplementation 'me.fallenbreath:conditional-mixin-fabric:0.6.3'
+
+  // Suggested, to bundle it into your mod jar. Choose a method your build system provides
+  include 'me.fallenbreath:conditional-mixin-fabric:0.6.3'
 }
 
 //Feel free to download these .gradle files and inspect them :)
