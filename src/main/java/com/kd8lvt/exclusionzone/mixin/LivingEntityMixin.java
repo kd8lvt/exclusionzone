@@ -30,16 +30,17 @@ public abstract class LivingEntityMixin {
     @Inject(at=@At("HEAD"),method="onAttacking")
     private void onAttacking(Entity target, CallbackInfo ci) {
         if (target instanceof LivingEntity entity) {
-            ToxicBuildupTracker.incrementBuildup(
-                entity,
-                (float) asLivingEntity().getAttributeValue(ModAttributes.getEntry(ModAttributes.TOXIN_DAMAGE_ID.toString()))
-            );
+            if (asLivingEntity().getAttributeValue(ModAttributes.getEntry(ModAttributes.TOXIN_DAMAGE_ID.toString())) > 0)
+                ToxicBuildupTracker.incrementBuildup(
+                    entity,
+                    (float) asLivingEntity().getAttributeValue(ModAttributes.getEntry(ModAttributes.TOXIN_DAMAGE_ID.toString()))
+                );
         }
     }
 
     @Inject(method = "createLivingAttributes", require = 1, allow = 1, at = @At("RETURN"))
     private static void createLivingAttributes(final CallbackInfoReturnable<DefaultAttributeContainer.Builder> info) {
-        info.getReturnValue().add(TOXIN_RESISTANCE);
+        info.getReturnValue().add(TOXIN_RESISTANCE,1d);
         info.getReturnValue().add(TOXIN_DAMAGE);
     }
 

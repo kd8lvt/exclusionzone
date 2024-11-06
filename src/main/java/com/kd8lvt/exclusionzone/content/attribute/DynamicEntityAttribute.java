@@ -8,4 +8,7 @@ public class DynamicEntityAttribute extends EntityAttribute {
     public DynamicEntityAttribute(String translationKey) {
         super(translationKey, 0d);
     }
+    public DynamicEntityAttribute(String translationKey,double fallback) {
+        super(translationKey, fallback);
+    }
 }

@@ -21,6 +21,13 @@ public class EnglishLangProvider extends AbstractExclusionZoneLangProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
         super.generateTranslations(registryLookup, builder); //THIS MUST STAY HERE TO PROPERLY CALL THE .onThingFound METHODS
 
+        builder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
+        addAttribute(builder,"generic.toxin_resistance","Toxin Resistance");
+        addAttribute(builder,"generic.toxin_damage","Toxic Damage");
+
+        addEnchantment(builder,"toxicae_praesidium","Toxicae Praesidium");
+        addEnchantment(builder,"toxicus_perditio","Toxicae Perditio");
+
         addPotion(builder,"milk","Cleansing");
         addPotion(builder,"kill_focus","Focused","Focus");
     }

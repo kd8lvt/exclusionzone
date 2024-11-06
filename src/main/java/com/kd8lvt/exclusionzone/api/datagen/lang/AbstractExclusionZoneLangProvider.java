@@ -15,6 +15,8 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
+import static com.kd8lvt.exclusionzone.ExclusionZone.MOD_ID;
+
 public abstract class AbstractExclusionZoneLangProvider extends FabricLanguageProvider {
     public AbstractExclusionZoneLangProvider(FabricDataOutput dataOutput, Locale locale, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, locale.toLanguageTag().toLowerCase().replace("-","_"), registryLookup);
@@ -24,8 +26,6 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
         addAllItems(builder);
         addAllTags(builder);
-
-        builder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
     }
 
     /**
@@ -50,6 +50,18 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
         builder.add("item.minecraft.splash_potion.effect."+id,"Splash Potion of "+name);
         builder.add("item.minecraft.lingering_potion.effect."+id,"Lingering Potion of "+name);
         builder.add("item.minecraft.tipped_arrow.effect."+id,"Tipped Arrow of "+name);
+    }
+
+    public static void addAttribute(TranslationBuilder builder, String id, String translated) {
+        addMisc(builder,"attribute",id,translated);
+    }
+
+    public static void addEnchantment(TranslationBuilder builder, String id, String translated) {
+        addMisc(builder,"enchantment",id,translated);
+    }
+
+    private static void addMisc(TranslationBuilder builder, String pfx, String id, String translated) {
+        builder.add(pfx+"."+MOD_ID+"."+id,translated);
     }
 
     /**

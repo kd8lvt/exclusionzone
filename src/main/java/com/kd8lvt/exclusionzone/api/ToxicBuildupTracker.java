@@ -3,10 +3,11 @@ package com.kd8lvt.exclusionzone.api;
 import com.kd8lvt.exclusionzone.content.entity.CaroInvictusEntity;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.kd8lvt.exclusionzone.ExclusionZone.IN_DEV;
 import static com.kd8lvt.exclusionzone.registry.ModAttributes.TOXIN_RESISTANCE;
 
 @SuppressWarnings("unused")
@@ -32,17 +34,9 @@ public class ToxicBuildupTracker {
         if (buildup > 2000) setBuildup(entity,2000f);
         if (buildup < 0) setBuildup(entity,0f);
 
-        boolean increaseTox = false;
-        if (Objects.equals(entity.getWorld().getBiome(entity.getBlockPos()).getIdAsString(), "exclusionzone:exclusion_zone")) {
-            for (ItemStack stack : entity.getAllArmorItems()) {
-                if (stack.isEmpty()) {
-                    increaseTox = true;
-                    break;
-                }
-            }
-        }
+        boolean increaseTox = (Objects.equals(entity.getWorld().getBiome(entity.getBlockPos()).getIdAsString(), "exclusionzone:exclusion_zone"));
 
-        if (!entity.getWorld().getEntitiesByClass(CaroInvictusEntity.class, new Box(entity.getBlockPos().offset(Direction.DOWN,8).offset(Direction.SOUTH,8).offset(Direction.EAST,8).toCenterPos(),entity.getBlockPos().offset(Direction.UP,8).offset(Direction.NORTH,8).offset(Direction.WEST,8).toCenterPos()), caroInvictusEntity -> caroInvictusEntity.hasDied).isEmpty()) increaseTox = true;
+        if (!increaseTox && !entity.getWorld().getEntitiesByClass(CaroInvictusEntity.class, new Box(entity.getBlockPos().offset(Direction.DOWN,8).offset(Direction.SOUTH,8).offset(Direction.EAST,8).toCenterPos(),entity.getBlockPos().offset(Direction.UP,8).offset(Direction.NORTH,8).offset(Direction.WEST,8).toCenterPos()), caroInvictusEntity -> caroInvictusEntity.hasDied).isEmpty()) increaseTox = true;
 
         if (increaseTox) incrementBuildup(entity);
         else decrementBuildupUnresisted(entity,1f);
@@ -67,17 +61,23 @@ public class ToxicBuildupTracker {
     
     private static void applyEffects(LivingEntity entity) {
         Float buildup = buildupTracker.get(entity.getUuid());
-        if (buildup > 200) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS,20,0,true,false,false));
-        if (buildup > 400) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,20,0,true,false,false));
-        if (buildup > 600) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER,20,0,true,false,false));
-        if (buildup > 800) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE,20,0,true,false,false));
-        if (buildup > 1000) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS,20,1,true,false,false));
-        if (buildup > 1200) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS,200,0,true,false,false));
-        if (buildup > 1400) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,20,0,true,false,false));
-        if (buildup > 1600) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON,20,0,true,false,false));
-        if (buildup > 1800) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON,20,5,true,false,false));
+        if (buildup > 200) applyEffect(entity,StatusEffects.WEAKNESS,20,0);
+        if (buildup > 400) applyEffect(entity,StatusEffects.SLOWNESS,20,0);
+        if (buildup > 600) applyEffect(entity,StatusEffects.HUNGER,20,0);
+        if (buildup > 800) applyEffect(entity,StatusEffects.MINING_FATIGUE,20,0);
+        if (buildup > 1000) applyEffect(entity,StatusEffects.WEAKNESS,20,1);
+        if (buildup > 1400) applyEffect(entity,StatusEffects.NAUSEA,20,0);
+        if (buildup > 1200) applyEffect(entity,StatusEffects.DARKNESS,200,0);
+        if (buildup > 1600 && buildup <= 1800) applyEffect(entity, StatusEffects.POISON, 250, 0);
+        if (buildup > 1800) applyEffect(entity, StatusEffects.POISON, 250, 5);
         //Intentionally > instead of >= to prevent a weird issue with wither only damaging after a few ticks
-        if (buildup > 2000) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER,200,0,true,false,false));
+        if (buildup >= 1900) applyEffect(entity, StatusEffects.WITHER, 250, 0);
+    }
+    
+    private static void applyEffect(LivingEntity entity, RegistryEntry<StatusEffect> effect, int duration, int amplifier) {
+        if (entity.hasStatusEffect(effect) && !entity.getStatusEffect(effect).isDurationBelow(5) && amplifier <= entity.getStatusEffect(effect).getAmplifier()) return;
+        if (IN_DEV) entity.addStatusEffect(new StatusEffectInstance(effect,duration,amplifier));
+        else entity.addStatusEffect(new StatusEffectInstance(effect,duration,amplifier,true,false,false));
     }
 
     /**
@@ -93,7 +93,8 @@ public class ToxicBuildupTracker {
      * @return delta, after resistance has been applied
      */
     public static Float applyResistance(LivingEntity entity,Float delta) {
-        return (float) (delta * (1-entity.getAttributes().getValue(TOXIN_RESISTANCE)));
+        //toxin resist is 1 by default, to allow for percentage modifications. hence TOXIN_RESISTANCE-1
+        return (float) (delta * (1-(entity.getAttributes().getValue(TOXIN_RESISTANCE)-1)));
     }
 
     /**

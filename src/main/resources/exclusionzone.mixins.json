@@ -6,6 +6,7 @@
   "refmap": "exclusionzone.refmap.json",
   "mixins": [
     "BlockEntityMixin",
+    "ArmorItemMixin",
     "LivingEntityMixin",
     "PiglinBrainMixin"
   ],

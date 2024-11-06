@@ -4,6 +4,7 @@ import com.kd8lvt.exclusionzone.event.ModEventHandlers;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
@@ -11,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ExclusionZone implements ModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("exclusionzone");
+	public static final String MOD_ID = "exclusionzone";
+	public static final boolean IN_DEV = FabricLoader.getInstance().isDevelopmentEnvironment();
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static MinecraftServer Server = null;
 
 	@Override
@@ -21,6 +24,8 @@ public class ExclusionZone implements ModInitializer {
 
 		//Event Handlers
 		ModEventHandlers.registerAll();
+
+		LOGGER.info("Dev Environment According To Fabric: "+IN_DEV);
 	}
 
 	//TODO: Get rid of this and do things properly
@@ -30,7 +35,7 @@ public class ExclusionZone implements ModInitializer {
 	}
 
 	public static Identifier id(String id) {
-		return Identifier.of("exclusionzone",id);
+		return Identifier.of(MOD_ID,id);
 	}
 
 	public static void setServer(MinecraftServer server) {
