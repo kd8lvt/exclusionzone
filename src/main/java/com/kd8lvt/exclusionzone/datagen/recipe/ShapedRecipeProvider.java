@@ -162,5 +162,20 @@ public class ShapedRecipeProvider extends AbstractExclusionZoneRecipeProvider {
                         "lll"
                 }
         );
+        shaped(
+            exporter,
+            RecipeCategory.TOOLS,
+            ModItems.get("guster_jar"),
+            new HashMap<>(){{
+                put('t',Items.WHITE_TERRACOTTA);
+                put('p',Items.DECORATED_POT);
+                put('w',Items.WIND_CHARGE);
+            }},
+            new String[]{
+                "t t",
+                "twt",
+                "tpt"
+            }
+        );
     }
 }

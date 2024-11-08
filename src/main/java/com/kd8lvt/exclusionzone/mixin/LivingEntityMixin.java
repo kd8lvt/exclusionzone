@@ -1,5 +1,6 @@
 package com.kd8lvt.exclusionzone.mixin;
 
+import com.kd8lvt.exclusionzone.api.GusterTracker;
 import com.kd8lvt.exclusionzone.api.ToxicBuildupTracker;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
 import net.minecraft.entity.Entity;
@@ -19,6 +20,7 @@ import static com.kd8lvt.exclusionzone.registry.ModAttributes.TOXIN_RESISTANCE;
 public abstract class LivingEntityMixin {
     @Inject(at=@At("HEAD"), method="tick")
     private void tick(CallbackInfo ci) {
+        GusterTracker.entityTick(asLivingEntity());
         ToxicBuildupTracker.tickFor(asLivingEntity());
     }
 

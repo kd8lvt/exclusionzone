@@ -11,10 +11,7 @@ import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitFastMov
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitKillFocused;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitLightweight;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitMadMuttering;
-import com.kd8lvt.exclusionzone.content.item.Tools.Glasscutter;
-import com.kd8lvt.exclusionzone.content.item.Tools.LoggingAxe;
-import com.kd8lvt.exclusionzone.content.item.Tools.Magnet;
-import com.kd8lvt.exclusionzone.content.item.Tools.VoidTear;
+import com.kd8lvt.exclusionzone.content.item.Tools.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -51,6 +48,7 @@ public class ModItems {
         ModRegistries.register("magnet",new Magnet(6));
         ModRegistries.register("logging_axe",new LoggingAxe());
         ModRegistries.register("void_tear",new VoidTear());
+        ModRegistries.register("guster_jar",new GusterJar());
         //Misc
         ModRegistries.register("reinforced_handle",new Artifact());
         ModRegistries.register("logging_axe_head",new Artifact());

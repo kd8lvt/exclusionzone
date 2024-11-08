@@ -13,6 +13,7 @@ public class ModDataComponents {
         ModRegistries.register("enabled", new ComponentType.Builder<Boolean>().codec(Codec.BOOL).build());
         ModRegistries.register("persona_weapon_traits", new ComponentType.Builder<List<Identifier>>().codec(Codec.list(Codec.stringResolver(Identifier::toString, Identifier::of))).build());
         ModRegistries.register("deep_storage", new ComponentType.Builder<NbtComponent>().codec(NbtComponent.CODEC).packetCodec(NbtComponent.PACKET_CODEC).build());
+        ModRegistries.register("stored_energy",new ComponentType.Builder<Float>().codec(Codec.FLOAT).build());
     }
 
     public static RegistryEntry<ComponentType<?>> getEntry(String id) {return ModRegistries.COMPONENT_TYPES.get(id);}
