@@ -11,6 +11,8 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
+import static com.kd8lvt.exclusionzone.api.datagen.lang.TranslationKeys.*;
+
 public class EnglishLangProvider extends AbstractExclusionZoneLangProvider {
 
     public EnglishLangProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -21,12 +23,19 @@ public class EnglishLangProvider extends AbstractExclusionZoneLangProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
         super.generateTranslations(registryLookup, builder); //THIS MUST STAY HERE TO PROPERLY CALL THE .onThingFound METHODS
 
-        builder.add("tooltips.exclusionzone.research_notes.header","Research Notes:");
-        addAttribute(builder,"generic.toxin_resistance","Toxin Resistance");
-        addAttribute(builder,"generic.toxin_damage","Toxic Damage");
+        builder.add(ITEM_GROUPS.MAIN.toTranslationKey(),"Exclusion Zone");
+        builder.add(TOOLTIPS.RESEARCH_HEADER.toTranslationKey(),"Research Notes:");
+        builder.add(DEATH_MESSAGES.TOXIC_ENVIRONMENT.toTranslationKey(),"%s was magically irradiated");
+        builder.add(DEATH_MESSAGES.TOXIC_ENVIRONMENT_PLAYER.toTranslationKey(),"%s succumbed to the Exclusion Zone whilst trying to escape %s");
+        builder.add(DEATH_MESSAGES.TOXIC_ENTITY.toTranslationKey(),"%s got turned into a SuperFund project by %s");
+        builder.add(DEATH_MESSAGES.TOXIC_ENTITY_ITEM.toTranslationKey(),"%s succumbed to toxic buildup inflicted by %s using %s");
+        builder.add(DEATH_MESSAGES.TOXIC_ENTITY_PLAYER.toTranslationKey(),"%s was magically irradiated whilst trying to escape %s");
 
-        addEnchantment(builder,"toxicae_praesidium","Toxicae Praesidium");
-        addEnchantment(builder,"toxicus_perditio","Toxicae Perditio");
+        builder.add(ATTRIBUTES.TOXIN_RESISTANCE.toTranslationKey(),"Toxin Resistance");
+        builder.add(ATTRIBUTES.TOXIC_DAMAGE.toTranslationKey(),"Toxic Damage");
+
+        builder.add(ENCHANTMENTS.TOXIC_RESISTANCE.toTranslationKey(),"Toxicae Praesidium");
+        builder.add(ENCHANTMENTS.TOXIC_DAMAGE.toTranslationKey(),"Toxicae Perditio");
 
         addPotion(builder,"milk","Cleansing");
         addPotion(builder,"kill_focus","Focused","Focus");
@@ -37,7 +46,11 @@ public class EnglishLangProvider extends AbstractExclusionZoneLangProvider {
     }
 
     public void onItemFound(TranslationBuilder builder, Item item) {
-        builder.add(item,toTitleCase(Registries.ITEM.getId(item).getPath().replaceAll("_"," ")));
+        String id = Registries.ITEM.getId(item).getPath();
+        builder.add(item,toTitleCase(
+            id.replaceAll("_"," ")
+                .substring(id.lastIndexOf('/')+1)
+        ));
     }
 
     public <T extends Item> void onTooltipFound(TranslationBuilder builder, T item, String translationKey, int tooltipIdx) {

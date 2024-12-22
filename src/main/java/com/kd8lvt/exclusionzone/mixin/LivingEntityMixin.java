@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone.mixin;
 
-import com.kd8lvt.exclusionzone.api.GusterTracker;
-import com.kd8lvt.exclusionzone.api.ToxicBuildupTracker;
+import com.kd8lvt.exclusionzone.api.trackers.GusterTracker;
+import com.kd8lvt.exclusionzone.api.trackers.ToxicBuildupTracker;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

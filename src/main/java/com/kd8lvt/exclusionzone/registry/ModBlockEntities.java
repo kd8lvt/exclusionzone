@@ -1,6 +1,11 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.content.entity.*;
+import com.kd8lvt.exclusionzone.content.block.BlockBreaker.BlockBreakerEntity;
+import com.kd8lvt.exclusionzone.content.block.BlockPlacer.BlockPlacerEntity;
+import com.kd8lvt.exclusionzone.content.block.ExclusionZoneBiomeMaker.ExclusionZoneBiomeMakerEntity;
+import com.kd8lvt.exclusionzone.content.block.GradientGlass.GradientGlassEntity;
+import com.kd8lvt.exclusionzone.content.block.Muffler.MufflerEntity;
+import com.kd8lvt.exclusionzone.content.block.Rift.RiftEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -10,13 +15,13 @@ import net.minecraft.registry.entry.RegistryEntry;
 public class ModBlockEntities {
     static final ModRegistry<Block> blocks = ModRegistries.BLOCKS;
     static void register() {
-        register("exclusionzonemaker", FabricBlockEntityTypeBuilder.create(ExclusionZoneBiomeMakerBE::new, blocks.get("exclusion_zone_biome_maker").value()).build());
-        register("rift", FabricBlockEntityTypeBuilder.create(RiftBE::new, blocks.get("rift").value()).build());
-        register("muffler", FabricBlockEntityTypeBuilder.create(MufflerBE::new, blocks.get("muffler").value()).build());
-        register("interaction_simulator", FabricBlockEntityTypeBuilder.create(BlockPlacerBE::new, blocks.get("interaction_simulator").value()).build());
-        register("mining_simulator", FabricBlockEntityTypeBuilder.create(BlockBreakerBE::new, blocks.get("mining_simulator").value()).build());
-        register("fluid_pipe", FabricBlockEntityTypeBuilder.create(FluidPipeBE::new, blocks.get("fluid_pipe").value()).build());
-        register("gradient_glass", FabricBlockEntityTypeBuilder.create(GradientGlassBE::new, blocks.get("gradient_glass").value()).build());
+        register("exclusionzonemaker", FabricBlockEntityTypeBuilder.create(ExclusionZoneBiomeMakerEntity::new, blocks.get("exclusion_zone_biome_maker").value()).build());
+        register("rift", FabricBlockEntityTypeBuilder.create(RiftEntity::new, blocks.get("rift").value()).build());
+        register("muffler", FabricBlockEntityTypeBuilder.create(MufflerEntity::new, blocks.get("muffler").value()).build());
+        register("interaction_simulator", FabricBlockEntityTypeBuilder.create(BlockPlacerEntity::new, blocks.get("interaction_simulator").value()).build());
+        register("mining_simulator", FabricBlockEntityTypeBuilder.create(BlockBreakerEntity::new, blocks.get("mining_simulator").value()).build());
+        register("gradient_glass", FabricBlockEntityTypeBuilder.create(GradientGlassEntity::new, blocks.get("gradient_glass").value()).build());
+        //register("coordinated_distributor", FabricBlockEntityTypeBuilder.create(CoordinatedDistributorEntity::new, blocks.get("coordinated_distributor").value()).build());
     }
 
     private static void register(String id, BlockEntityType<? extends BlockEntity> value) {

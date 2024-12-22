@@ -1,6 +1,12 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.content.block.*;
+import com.kd8lvt.exclusionzone.content.block.BlockBreaker.BlockBreaker;
+import com.kd8lvt.exclusionzone.content.block.BlockPlacer.BlockPlacer;
+import com.kd8lvt.exclusionzone.content.block.Enderweed.Enderweed;
+import com.kd8lvt.exclusionzone.content.block.ExclusionZoneBiomeMaker.ExclusionZoneBiomeMaker;
+import com.kd8lvt.exclusionzone.content.block.GradientGlass.GradientGlassBlock;
+import com.kd8lvt.exclusionzone.content.block.Muffler.MufflerBlock;
+import com.kd8lvt.exclusionzone.content.block.Rift.RiftBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BrushableBlock;
@@ -23,12 +29,11 @@ public class ModBlocks {
         registerBlockWithItem("amber_block", new Block(Block.Settings.create().resistance(Blocks.COBBLESTONE.getBlastResistance()).hardness(Blocks.COBBLESTONE.getHardness()).sounds(BlockSoundGroup.TUFF).luminance(state -> 3).nonOpaque()));
         registerBlockWithItem("mining_simulator", (Block)new BlockBreaker());
         registerBlockWithItem("interaction_simulator", new BlockPlacer());
-        registerBlockWithItem("muffler", new Muffler());
-        registerBlockWithItem("fluid_pipe",new FluidPipeBlock());
+        registerBlockWithItem("muffler", new MufflerBlock());
         register("exclusion_zone_biome_maker", new ExclusionZoneBiomeMaker());
         register("rift", new RiftBlock());
         register("plant/enderweed", new Enderweed());
-        register("gradient_glass",new GradientGlass());
+        register("gradient_glass",new GradientGlassBlock());
 
         //Archaeology\\
         registerBlockWithItem("archaeology/suspicious_moss", brushableBlockGenerator(Blocks.MOSS_BLOCK));

@@ -1,29 +1,26 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.content.item.*;
 import com.kd8lvt.exclusionzone.content.item.Dolls.BoyDoll;
 import com.kd8lvt.exclusionzone.content.item.Dolls.GirlDoll;
 import com.kd8lvt.exclusionzone.content.item.Dolls.VillagerDoll;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.PersonaMonosword;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.PersonaWeaponTraits;
-import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitFastMover;
-import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitKillFocused;
-import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitLightweight;
-import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTraitMadMuttering;
+import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.*;
 import com.kd8lvt.exclusionzone.content.item.Tools.*;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 
+import static com.kd8lvt.exclusionzone.ExclusionZone.id;
+
+
 public class ModItems {
     public static final Style ttStyle = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()).withItalic(true);
 
     static void register() {
-        //Artefacts
         //Dolls
         ModRegistries.register("boy_doll", new BoyDoll());
         ModRegistries.register("girl_doll", new GirlDoll());
@@ -53,14 +50,14 @@ public class ModItems {
         ModRegistries.register("reinforced_handle",new Artifact());
         ModRegistries.register("logging_axe_head",new Artifact());
         ModRegistries.register("leather_scraps",new Artifact());
+        //Utility
+        ModRegistries.register("mini_coal",new FuelItem(1));
+        ModRegistries.register("mini_charcoal",new FuelItem(1));
 
-        //ItemGroup
-        ModRegistries.register("creativetab", ItemGroup.create(ItemGroup.Row.TOP, 1).displayName(Text.of("Exclusion Zone")).icon(ModRegistries.ITEMS.get("mysterious_chunk").value()::getDefaultStack).entries(ExclusionZone::TabEntryCollector).build());
-
-        PersonaWeaponTraits.register(ExclusionZone.id("fast_mover"), new PTraitFastMover());
-        PersonaWeaponTraits.register(ExclusionZone.id("kill_focused"), new PTraitKillFocused());
-        PersonaWeaponTraits.register(ExclusionZone.id("mad_muttering"), new PTraitMadMuttering());
-        PersonaWeaponTraits.register(ExclusionZone.id("lightweight"), new PTraitLightweight());
+        PersonaWeaponTraits.register(id("fast_mover"), new PTraitFastMover());
+        PersonaWeaponTraits.register(id("kill_focused"), new PTraitKillFocused());
+        PersonaWeaponTraits.register(id("mad_muttering"), new PTraitMadMuttering());
+        PersonaWeaponTraits.register(id("lightweight"), new PTraitLightweight());
 
         generateTooltips();
     }
@@ -68,10 +65,6 @@ public class ModItems {
 
     public static RegistryEntry<Item> getEntry(String id) {return ModRegistries.ITEMS.get(id);}
     public static Item get(String id) {return getEntry(id).value();}
-
-    public static void CreativeTabSetup(ItemGroup.Entries entries) {
-        for (Item item : ModRegistries.ITEMS.ENTRIES_BY_VALUE.keySet()) entries.add(item);
-    }
 
     public static void addToolTip(BlockItemArtifact item, String[] strs) {
         for (String str : strs) {

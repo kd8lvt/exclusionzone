@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.content.item;
 
-import com.kd8lvt.exclusionzone.api.ToxicBuildupTracker;
+import com.kd8lvt.exclusionzone.api.trackers.ToxicBuildupTracker;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;

@@ -53,15 +53,18 @@ public class Magnet extends Artifact {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (isAttracting(stack)) {
-            List<ItemEntity> entities = world.getEntitiesByClass(ItemEntity.class, Box.enclosing(entity.getBlockPos().offset(Direction.DOWN,this.range).offset(Direction.EAST,this.range).offset(Direction.NORTH,this.range),entity.getBlockPos().offset(Direction.UP,this.range).offset(Direction.WEST,this.range).offset(Direction.SOUTH,this.range)),(item)-> !(item.cannotPickup() || item.age < 60));
-            for (ItemEntity item : entities) {
-                Vec3d v = entity.getPos().offset(Direction.UP,1).subtract(item.getPos()).normalize().multiply(Math.log(item.getPos().distanceTo(entity.getPos())));
-                item.setVelocity(v);
-                item.velocityModified=true;
-                item.velocityDirty=true;
-            }
-        }
+        if (isAttracting(stack)) attract(world,entity);
+
         super.inventoryTick(stack, world, entity, slot, selected);
+    }
+
+    public void attract(World world,Entity entity) {
+        List<ItemEntity> entities = world.getEntitiesByClass(ItemEntity.class, Box.enclosing(entity.getBlockPos().offset(Direction.DOWN,this.range).offset(Direction.EAST,this.range).offset(Direction.NORTH,this.range),entity.getBlockPos().offset(Direction.UP,this.range).offset(Direction.WEST,this.range).offset(Direction.SOUTH,this.range)),(item)-> !(item.cannotPickup() || item.age < 60));
+        for (ItemEntity item : entities) {
+            Vec3d v = entity.getPos().offset(Direction.UP,1).subtract(item.getPos()).normalize().multiply(Math.log(item.getPos().distanceTo(entity.getPos())));
+            item.setVelocity(v);
+            item.velocityModified=true;
+            item.velocityDirty=true;
+        }
     }
 }

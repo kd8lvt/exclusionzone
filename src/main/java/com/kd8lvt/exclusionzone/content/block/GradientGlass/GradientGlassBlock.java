@@ -1,7 +1,6 @@
-package com.kd8lvt.exclusionzone.content.block;
+package com.kd8lvt.exclusionzone.content.block.GradientGlass;
 
 import com.kd8lvt.exclusionzone.content.block.bases.EZBlockEntityBlock;
-import com.kd8lvt.exclusionzone.content.entity.GradientGlassBE;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
@@ -15,13 +14,13 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GradientGlass extends EZBlockEntityBlock<GradientGlassBE> {
+public class GradientGlassBlock extends EZBlockEntityBlock<GradientGlassEntity> {
     @SuppressWarnings("unchecked")
-    protected GradientGlass(Settings settings) {
-        super(settings, ()-> (BlockEntityType<GradientGlassBE>)ModBlockEntities.get("gradient_glass"),true);
+    protected GradientGlassBlock(Settings settings) {
+        super(settings, ()-> (BlockEntityType<GradientGlassEntity>)ModBlockEntities.get("gradient_glass"),true);
     }
 
-    public GradientGlass() {
+    public GradientGlassBlock() {
         this(Settings.copy(Blocks.WHITE_STAINED_GLASS));
     }
 
@@ -33,6 +32,6 @@ public class GradientGlass extends EZBlockEntityBlock<GradientGlassBE> {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return GradientGlass.createCodec(GradientGlass::new);
+        return GradientGlassBlock.createCodec(GradientGlassBlock::new);
     }
 }

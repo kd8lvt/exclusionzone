@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.content.entity;
+package com.kd8lvt.exclusionzone.content.block.BlockBreaker;
 
 import com.kd8lvt.exclusionzone.content.block.bases.entity.DispenserCloneBaseBE;
 import com.kd8lvt.exclusionzone.content.block.util.ExclusionZoneFakePlayer;
@@ -19,12 +19,12 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import static net.minecraft.state.property.Properties.FACING;
 
-public class BlockBreakerBE extends DispenserCloneBaseBE {
+public class BlockBreakerEntity extends DispenserCloneBaseBE {
     public final int size = 1;
     public boolean breaking;
     public BlockPointer breakingPointer;
     public ExclusionZoneFakePlayer player;
-    public BlockBreakerBE(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+    public BlockBreakerEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
         setDisplayName("Mining Simulator");
     }
@@ -54,7 +54,7 @@ public class BlockBreakerBE extends DispenserCloneBaseBE {
         return progress;
     }
 
-    public static void tryHarvestBlock(BlockBreakerBE be, BlockPos pos) {
+    public static void tryHarvestBlock(BlockBreakerEntity be, BlockPos pos) {
         ExclusionZoneFakePlayer player = be.player;
         ServerWorld world = player.getServerWorld();
         BlockState blockstate = world.getBlockState(pos);
@@ -71,7 +71,7 @@ public class BlockBreakerBE extends DispenserCloneBaseBE {
 
     public static <T extends BlockEntity> BlockEntityTicker<T> tick() {
         return (world, pos, state, be) -> {
-            BlockBreakerBE blockEntity = (BlockBreakerBE)be;
+            BlockBreakerEntity blockEntity = (BlockBreakerEntity)be;
             if (!blockEntity.breaking) return;
             float progress = blockEntity.updateBreakProgress();
             BlockPos targetPos = pos.offset(state.get(FACING),1);
@@ -93,7 +93,7 @@ public class BlockBreakerBE extends DispenserCloneBaseBE {
         };
     }
 
-    public BlockBreakerBE(BlockPos pos, BlockState state) {
+    public BlockBreakerEntity(BlockPos pos, BlockState state) {
         this(ModBlockEntities.get("mining_simulator"), pos, state);
     }
 }

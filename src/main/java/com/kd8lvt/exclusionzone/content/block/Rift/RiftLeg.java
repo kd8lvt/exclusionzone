@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.content.block.util;
+package com.kd8lvt.exclusionzone.content.block.Rift;
 
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;

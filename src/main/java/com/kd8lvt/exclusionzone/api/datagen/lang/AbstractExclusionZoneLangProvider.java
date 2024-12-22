@@ -1,21 +1,26 @@
 package com.kd8lvt.exclusionzone.api.datagen.lang;
 
+import com.kd8lvt.exclusionzone.content.item.BlockItemArtifact;
 import com.kd8lvt.exclusionzone.content.item.base.IHasResearchNotes;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import com.kd8lvt.exclusionzone.registry.ModStatusEffects;
 import com.kd8lvt.exclusionzone.registry.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.block.Block;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
-import static com.kd8lvt.exclusionzone.ExclusionZone.MOD_ID;
+import static com.kd8lvt.exclusionzone.api.CommonConstants.MOD_ID;
 
 public abstract class AbstractExclusionZoneLangProvider extends FabricLanguageProvider {
     public AbstractExclusionZoneLangProvider(FabricDataOutput dataOutput, Locale locale, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -36,6 +41,10 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
         addPotion(builder,id,name,name);
     }
 
+    public static void add(TranslationBuilder builder, Identifier id, String translation) {
+        builder.add(id.toTranslationKey(),translation);
+    }
+
     /**
      * Adds translations for the various minecraft-generated potion types, all in one go.
      * @param builder The {@link TranslationBuilder} to add translations to
@@ -50,14 +59,6 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
         builder.add("item.minecraft.splash_potion.effect."+id,"Splash Potion of "+name);
         builder.add("item.minecraft.lingering_potion.effect."+id,"Lingering Potion of "+name);
         builder.add("item.minecraft.tipped_arrow.effect."+id,"Tipped Arrow of "+name);
-    }
-
-    public static void addAttribute(TranslationBuilder builder, String id, String translated) {
-        addMisc(builder,"attribute",id,translated);
-    }
-
-    public static void addEnchantment(TranslationBuilder builder, String id, String translated) {
-        addMisc(builder,"enchantment",id,translated);
     }
 
     private static void addMisc(TranslationBuilder builder, String pfx, String id, String translated) {
@@ -75,6 +76,16 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
             if (item instanceof IHasResearchNotes artifact) {
                 for (int i =0;i<artifact.getTooltips().size();i++) {
                     this.onTooltipFound(builder,item,item.getTranslationKey()+".research_notes_"+i,i);
+                }
+            }
+        }
+        for (Block block: ModRegistries.BLOCKS.ENTRIES_BY_VALUE.keySet()) {
+            if (new ItemStack(block).getItem() == Items.AIR) continue;
+            if (block.asItem() instanceof BlockItemArtifact) continue;
+            this.onItemFound(builder, block.asItem());
+            if (block instanceof IHasResearchNotes artifact) {
+                for (int i =0;i<artifact.getTooltips().size();i++) {
+                    this.onTooltipFound(builder,block.asItem(),block.getTranslationKey()+".research_notes_"+i,i);
                 }
             }
         }

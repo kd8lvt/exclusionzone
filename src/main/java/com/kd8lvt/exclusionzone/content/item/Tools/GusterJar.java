@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.content.item.Tools;
 
-import com.kd8lvt.exclusionzone.api.GusterTracker;
+import com.kd8lvt.exclusionzone.api.trackers.GusterTracker;
 import com.kd8lvt.exclusionzone.content.item.base.IHasResearchNotes;
 import com.kd8lvt.exclusionzone.registry.ModDataComponents;
 import net.minecraft.component.ComponentType;

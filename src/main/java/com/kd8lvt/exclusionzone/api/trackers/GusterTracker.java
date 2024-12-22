@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.api;
+package com.kd8lvt.exclusionzone.api.trackers;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleTypes;

@@ -30,5 +30,11 @@ public class ShapelessRecipeProvider extends AbstractExclusionZoneRecipeProvider
             },
             ModItems.get("void_tear")
         );
+        Item mini_coal = ModItems.get("mini_coal");
+        Item mini_charcoal = ModItems.get("mini_charcoal");
+        shapeless(exporter,RecipeCategory.MISC,new Item[]{Items.COAL},mini_coal,8);
+        shapeless(exporter,RecipeCategory.MISC,new Item[]{Items.CHARCOAL},mini_charcoal,8);
+        shapeless(exporter,RecipeCategory.MISC,new Item[]{mini_coal,mini_coal,mini_coal,mini_coal,mini_coal,mini_coal,mini_coal,mini_coal},Items.COAL);
+        shapeless(exporter,RecipeCategory.MISC,new Item[]{mini_charcoal,mini_charcoal,mini_charcoal,mini_charcoal,mini_charcoal,mini_charcoal,mini_charcoal,mini_charcoal},Items.CHARCOAL);
     }
 }

@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.content.entity;
+package com.kd8lvt.exclusionzone.content.block.GradientGlass;
 
 import com.kd8lvt.exclusionzone.content.block.bases.entity.EZBlockEntityEntity;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
@@ -16,18 +16,18 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Objects;
 
-public class GradientGlassBE extends EZBlockEntityEntity {
+public class GradientGlassEntity extends EZBlockEntityEntity {
     private int ticks = 0;
     public boolean direction = true;
     public static final int ticksPerCycle = 20;//*15;
     public boolean hasReported = false;
     public int gradientStart = DyeColor.BLACK.getEntityColor();
     public int gradientEnd = DyeColor.CYAN.getEntityColor();
-    protected GradientGlassBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    protected GradientGlassEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
-    public GradientGlassBE(BlockPos pos, BlockState state) {
+    public GradientGlassEntity(BlockPos pos, BlockState state) {
         this(ModBlockEntities.get("gradient_glass"),pos,state);
     }
 

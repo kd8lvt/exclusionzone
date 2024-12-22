@@ -1,15 +1,14 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.google.gson.JsonObject;
-import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.content.block.Enderweed;
-import com.kd8lvt.exclusionzone.content.block.FluidPipeBlock;
+import com.kd8lvt.exclusionzone.content.block.Enderweed.Enderweed;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import com.kd8lvt.exclusionzone.registry.ModRegistries;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.*;
+import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
 import net.minecraft.item.Item;
 import net.minecraft.registry.entry.RegistryEntry;
 
@@ -29,16 +28,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCrop(ModBlocks.get("plant/enderweed"), Enderweed.AGE,1, 1, 2, 2, 4, 5, 5, 6);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("amber_block"));
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.get("muffler"));
-        BlockStateVariantMap pipe_variants = BlockStateVariantMap.create(FluidPipeBlock.POWER,FluidPipeBlock.POWERED).register((i,b)->BlockStateVariant.create().put(VariantSettings.MODEL, ExclusionZone.id("block/fluid_pipe")));
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.get("fluid_pipe")).coordinate(pipe_variants));
-        blockStateModelGenerator.modelCollector.accept(ExclusionZone.id("block/fluid_pipe"),()->{
-            JsonObject ret = new JsonObject();
-            ret.addProperty("parent","minecraft:block/cube_all");
-            JsonObject textures = new JsonObject();
-            textures.addProperty("all","exclusionzone:block/fluid_pipe");
-            ret.add("textures",textures);
-            return ret;
-        });
+
         blockStateModelGenerator.registerBrushableBlock(ModBlocks.get("archaeology/suspicious_moss"));
         //Why did I not do this initially lol
         for (String color : ModBlocks.VANILLA_COLORS) {

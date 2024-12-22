@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.content.item.PersonaWeapons;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.content.item.PersonaWeapons.Traits.PTrait;
 import com.kd8lvt.exclusionzone.registry.ModDataComponents;
 import net.minecraft.block.BlockState;
@@ -17,6 +16,7 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
+import net.minecraft.server.function.CommandFunctionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -34,8 +34,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import static com.kd8lvt.exclusionzone.api.CommonConstants.SERVER;
+
 public class PersonaWeapon extends SwordItem {
     boolean isHeld = false;
+    private static CommandFunctionManager cfm;
     @SuppressWarnings("unchecked")
     private static final ComponentType<List<Identifier>> TRAITS_COMPONENT = (ComponentType<List<Identifier>>) ModDataComponents.get("persona_weapon_traits");
     @Nullable
@@ -46,6 +49,7 @@ public class PersonaWeapon extends SwordItem {
 
     @SuppressWarnings("unchecked")
     public void generateTraits(ItemStack stack) {
+        if (cfm == null) cfm = SERVER.getCommandFunctionManager();
         ComponentMap comps = stack.getComponents();
         Random random = Random.create();
         int traitsToGen = random.nextBetween(1,3);
@@ -73,16 +77,16 @@ public class PersonaWeapon extends SwordItem {
         applyTraits(stack, trait->{
             trait.onHit(stack,target,attacker);
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnHitAttacker)) {
-                ExclusionZone.runCommand("execute as "+attacker.getUuid()+" at @s run function "+trait.functions.get(PersonaWeaponFunctionEvents.OnHitAttacker).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnHitAttacker)).get(),SERVER.getCommandSource());
             }
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnHitVictim)) {
-                ExclusionZone.runCommand("execute as " + target.getUuid() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnHitVictim).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnHitVictim)).get(),SERVER.getCommandSource());
             }
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnEntityKilled) && target.getHealth() <= 0) {
-                ExclusionZone.runCommand("execute as " + target.getUuid() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnEntityKilled).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnEntityKilled)).get(),SERVER.getCommandSource());
             }
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnDurabilityLost) && shouldDamageItem) {
-                ExclusionZone.runCommand("execute as " + attacker.getUuid() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnDurabilityLost).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnDurabilityLost)).get(),SERVER.getCommandSource());
             }
         });
         return shouldDamageItem;
@@ -94,7 +98,7 @@ public class PersonaWeapon extends SwordItem {
         applyTraits(context.getStack(), trait->{
             trait.onUseOnBlock(context);
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnUseOnBlock)) {
-                ExclusionZone.runCommand("execute positioned "+context.getBlockPos().getX()+" "+context.getBlockPos().getY()+" "+context.getBlockPos().getZ()+" as "+ Objects.requireNonNull(context.getPlayer()).getUuidAsString()+" run function "+trait.functions.get(PersonaWeaponFunctionEvents.OnUseOnBlock).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnUseOnBlock)).get(),SERVER.getCommandSource());
             }
         });
         return ar;
@@ -106,7 +110,8 @@ public class PersonaWeapon extends SwordItem {
         applyTraits(stack, trait->{
             trait.onUseOnEntity(stack,user,entity,hand);
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnUseOnEntity)) {
-                ExclusionZone.runCommand("execute  as "+entity.getUuidAsString()+" at @s run function "+trait.functions.get(PersonaWeaponFunctionEvents.OnUseOnEntity).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnUseOnEntity)).get(),SERVER.getCommandSource());
+
             }
         });
         return ar;
@@ -118,7 +123,7 @@ public class PersonaWeapon extends SwordItem {
         if (stack.getComponents().get(TRAITS_COMPONENT) == null) generateTraits(stack);
         applyTraits(stack, trait->{
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnInventoryTick)) {
-                ExclusionZone.runCommand("execute as "+entity.getUuidAsString()+" at @s run function "+trait.functions.get(PersonaWeaponFunctionEvents.OnInventoryTick).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnInventoryTick)).get(),SERVER.getCommandSource());
             }
 
             if (!this.isHeld && selected) trait.onHeld(stack,world,entity,slot);
@@ -126,26 +131,25 @@ public class PersonaWeapon extends SwordItem {
 
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnHeld)) {
                 if (!this.isHeld && selected) {
-                    ExclusionZone.runCommand("execute as " + entity.getUuidAsString() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnHeld).toString());
+                    cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnHeld)).get(),SERVER.getCommandSource());
                     this.isHeld = true;
                 }
             }
 
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnUnHeld)) {
                 if (this.isHeld && !selected) {
-                    ExclusionZone.runCommand("execute as " + entity.getUuidAsString() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnUnHeld).toString());
+                    cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnUnHeld)).get(),SERVER.getCommandSource());
                     this.isHeld = false;
                 }
             }
 
             if (trait.functions.containsKey(PersonaWeaponFunctionEvents.OnDurabilityLost) && !Objects.equals(this.prevDamage, this.getComponents().get(DataComponentTypes.DAMAGE))) {
-                ExclusionZone.runCommand("execute as " + entity.getUuidAsString() + " at @s run function " + trait.functions.get(PersonaWeaponFunctionEvents.OnDurabilityLost).toString());
+                cfm.execute(cfm.getFunction(trait.functions.get(PersonaWeaponFunctionEvents.OnDurabilityLost)).get(),SERVER.getCommandSource());
             }
 
             trait.inventoryTick(stack,world,entity,slot,selected);
 
             if (!Objects.equals(this.prevDamage, this.getComponents().get(DataComponentTypes.DAMAGE))) trait.onDurabilityLost(stack,world,entity,slot,selected);
-
         });
     }
 

@@ -1,6 +1,5 @@
 package com.kd8lvt.exclusionzone.datagen;
 
-import com.kd8lvt.exclusionzone.datagen.enchantment.EnchantmentGenerator;
 import com.kd8lvt.exclusionzone.datagen.lang.LangProviders;
 import com.kd8lvt.exclusionzone.datagen.loot.LootProviders;
 import com.kd8lvt.exclusionzone.datagen.recipe.RecipeProviders;
@@ -22,7 +21,7 @@ public class ExclusionZoneDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModelProvider::new);
         //Loot Tables
         LootProviders.register(pack);
-        //Enchantments
-        pack.addProvider(EnchantmentGenerator::new);
+        //Enchantments (Broken w/ vanilla clients, disabled for now)
+        //pack.addProvider(EnchantmentGenerator::new);
     }
 }

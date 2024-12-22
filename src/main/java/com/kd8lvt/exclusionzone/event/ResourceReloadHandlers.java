@@ -13,6 +13,7 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 import static com.kd8lvt.exclusionzone.ExclusionZone.*;
+import static com.kd8lvt.exclusionzone.api.CommonConstants.SERVER;
 import static com.kd8lvt.exclusionzone.registry.ModTags.SMALL_HIDES;
 
 public class ResourceReloadHandlers {
@@ -38,10 +39,10 @@ public class ResourceReloadHandlers {
 
             @Override
             public void reload(ResourceManager manager) {
-                if (Server == null) {
+                if (SERVER == null) {
                     return;
                 }
-                for (RecipeEntry<?> entry : Server.getRecipeManager().values()) {
+                for (RecipeEntry<?> entry : SERVER.getRecipeManager().values()) {
                     if (!entry.value().getIngredients().contains(Ingredient.ofItems(Items.RABBIT_HIDE))) continue;
                     LOGGER.info("Patching %s".formatted(entry.id().toString()));
                     entry.value().getIngredients().replaceAll(ingredient->{

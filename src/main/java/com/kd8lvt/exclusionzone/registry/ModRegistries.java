@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.registry;
 
-import com.kd8lvt.exclusionzone.ExclusionZone;
+import com.kd8lvt.exclusionzone.api.datagen.lang.TranslationKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -9,19 +9,20 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.kd8lvt.exclusionzone.ExclusionZone.LOGGER;
+import static com.kd8lvt.exclusionzone.ExclusionZone.id;
 
 @SuppressWarnings("Convert2Diamond")
 public class ModRegistries {
@@ -73,6 +74,15 @@ public class ModRegistries {
         LOGGER.info("[ExclusionZone] Registering Enchantments...");
         ModEnchantments.register();
 
+        Registry.register(
+                Registries.ITEM_GROUP,
+                TranslationKeys.ITEM_GROUPS.MAIN.get(),
+                new ItemGroup.Builder(ItemGroups.getGroups().getLast().getRow(),ItemGroups.getGroups().getLast().getColumn()+1)
+                        .displayName(Text.translatable(TranslationKeys.ITEM_GROUPS.MAIN.toTranslationKey()))
+                        .icon(()->new ItemStack(ModItems.get("cito_sanitatem_caro")))
+                        .entries(ModRegistries::CreativeTabSetup)
+                        .build()
+        );
 
         LOGGER.info("[ExclusionZone] Initialization complete!");
     }
@@ -99,8 +109,23 @@ public class ModRegistries {
         }
 
         public RegistryEntry<Item> register(String id, BlockItem value) {
-            return REGISTRY.getEntry(Registry.register(REGISTRY, ExclusionZone.id(id),value));
+            return REGISTRY.getEntry(Registry.register(REGISTRY, id(id),value));
         }
+    }
+
+    public static void CreativeTabSetup(ItemGroup.DisplayContext displayContext, ItemGroup.Entries entries) {
+        ModRegistries.ITEMS.ENTRIES_BY_VALUE
+                .keySet()
+                .forEach(entries::add);
+        ModRegistries.BLOCKS.ENTRIES_BY_VALUE
+                .keySet()
+                .stream()
+                .map(Block::asItem)
+                .filter(item ->!(item==Items.AIR)&&!ModRegistries.ITEMS.ENTRIES_BY_VALUE.containsKey(item))
+                .map(ItemStack::new)
+                .peek(stack-> stack.setCount(1))
+                .toList()
+                .forEach(entries::add);
     }
 
 }

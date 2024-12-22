@@ -1,8 +1,6 @@
-package com.kd8lvt.exclusionzone.content.entity;
+package com.kd8lvt.exclusionzone.content.block.Rift;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
-import com.kd8lvt.exclusionzone.content.block.util.RiftLeg;
-import com.kd8lvt.exclusionzone.content.block.util.RiftShape;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,11 +20,11 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class RiftBE extends BlockEntity {
+public class RiftEntity extends BlockEntity {
     private static final Random random = Random.create();
     private final RiftShape shape;
 
-    public RiftBE(BlockPos pos, BlockState state) {
+    public RiftEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.get("rift"), pos, state);
         random.setSeed(pos.asLong());
         random.skip((int) (pos.getX()*pos.getY()/(pos.getZ()+1)+Math.round(pos.toCenterPos().distanceTo(new Vec3d(0,0,0)))));
@@ -35,20 +33,20 @@ public class RiftBE extends BlockEntity {
 
     public static <T extends BlockEntity> BlockEntityTicker<T> tick() {
         return (world1, pos, state1, be) -> {
-            ((RiftBE)be).shape.wiggle();
+            ((RiftEntity)be).shape.wiggle();
             if (world1.isClient()) return;
             ServerWorld world = (ServerWorld)world1;
             summonParticles(world,pos);
             world.iterateEntities().forEach((Entity entity)->{
                 if (pos.isWithinDistance(entity.getPos(),5)) {
-                    pullInEntities(pos,entity,(RiftBE)be);
+                    pullInEntities(pos,entity,(RiftEntity)be);
                     damageEntities(pos,entity);
                 }
             });
         };
     }
 
-    private static void pullInEntities(BlockPos pos, Entity entity, RiftBE ignoredBe) {
+    private static void pullInEntities(BlockPos pos, Entity entity, RiftEntity ignoredBe) {
         if (entity instanceof ItemEntity) return;
         Vec3d ePos = entity.getPos();
         Vec3d bPos = pos.toCenterPos();
@@ -63,8 +61,8 @@ public class RiftBE extends BlockEntity {
     }
 
     private static void summonParticles(World world, BlockPos pos) {
-        for (int legIdx = 0; ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.containsKey(legIdx); legIdx++) {
-            RiftLeg leg = ((RiftBE) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.get(legIdx);
+        for (int legIdx = 0; ((RiftEntity) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.containsKey(legIdx); legIdx++) {
+            RiftLeg leg = ((RiftEntity) Objects.requireNonNull(world.getBlockEntity(pos))).shape.legs.get(legIdx);
             for (double i=0d;i<1d;i+=0.05d) {
                 ExclusionZone.runCommand("execute in "+world.getDimensionEntry().getIdAsString()+" positioned "+pos.toCenterPos().x+" "+pos.toCenterPos().y+" "+pos.toCenterPos().z+" run particle dust{color:[0f,"+(1-(i))/2+"f,"+(1-(i))/2+"f],scale:1.0} ~"+leg.endpoint.x*i+" ~"+leg.endpoint.y*i+" ~"+leg.endpoint.z*i+" 0 0 0 0 1 force");
             }

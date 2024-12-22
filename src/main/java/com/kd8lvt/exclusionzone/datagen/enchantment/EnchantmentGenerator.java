@@ -23,7 +23,8 @@ import net.minecraft.registry.tag.TagKey;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.kd8lvt.exclusionzone.ExclusionZone.MOD_ID;
+import static com.kd8lvt.exclusionzone.api.CommonConstants.MOD_ID;
+
 
 public class EnchantmentGenerator extends FabricDynamicRegistryProvider {
 

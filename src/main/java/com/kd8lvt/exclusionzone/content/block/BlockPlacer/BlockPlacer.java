@@ -1,8 +1,7 @@
-package com.kd8lvt.exclusionzone.content.block;
+package com.kd8lvt.exclusionzone.content.block.BlockPlacer;
 
 import com.kd8lvt.exclusionzone.content.block.bases.DispenserCloneBase;
 import com.kd8lvt.exclusionzone.content.block.bases.entity.DispenserCloneBaseBE;
-import com.kd8lvt.exclusionzone.content.entity.BlockPlacerBE;
 import com.kd8lvt.exclusionzone.content.block.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
 import net.minecraft.block.entity.BlockEntityType;
@@ -31,7 +30,7 @@ public class BlockPlacer extends DispenserCloneBase {
 
     @Override
     public ItemStack onDispense(BlockPointer pointer, ItemStack stack1) {
-        BlockPlacerBE be = (BlockPlacerBE) pointer.blockEntity();
+        BlockPlacerEntity be = (BlockPlacerEntity) pointer.blockEntity();
         if (be.player == null) be.player = new ExclusionZoneFakePlayer(pointer.world());
         be.player.setSneaking(pointer.world().getReceivedRedstonePower(pointer.pos()) < 7);
         ItemStack stack = stack1.copy();

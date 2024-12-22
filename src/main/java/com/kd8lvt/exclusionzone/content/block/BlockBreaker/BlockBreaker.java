@@ -1,9 +1,8 @@
-package com.kd8lvt.exclusionzone.content.block;
+package com.kd8lvt.exclusionzone.content.block.BlockBreaker;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.content.block.bases.DispenserCloneBase;
 import com.kd8lvt.exclusionzone.content.block.bases.entity.DispenserCloneBaseBE;
-import com.kd8lvt.exclusionzone.content.entity.BlockBreakerBE;
 import com.kd8lvt.exclusionzone.content.block.util.ExclusionZoneFakePlayer;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
@@ -52,7 +51,7 @@ public class BlockBreaker extends DispenserCloneBase {
         if (pointer.world().isClient) return stack1;
         if (pointer.state().getBlock() == Blocks.AIR) return stack1;
         ServerWorld world = pointer.world();
-        BlockBreakerBE be = (BlockBreakerBE) pointer.blockEntity();
+        BlockBreakerEntity be = (BlockBreakerEntity) pointer.blockEntity();
         if (be.breaking) return stack1;
         if (be.player == null) be.player = new ExclusionZoneFakePlayer(world);
         ExclusionZoneFakePlayer player = be.player;
@@ -80,7 +79,7 @@ public class BlockBreaker extends DispenserCloneBase {
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         super.neighborUpdate(state,world,pos,sourceBlock,sourcePos,notify);
         if (world.isClient) return;
-        BlockBreakerBE be = (BlockBreakerBE) world.getBlockEntity(pos);
+        BlockBreakerEntity be = (BlockBreakerEntity) world.getBlockEntity(pos);
         if (be != null && be.player == null) be.player = new ExclusionZoneFakePlayer((ServerWorld)world);
         ItemStack item = Objects.requireNonNull(be).player.getStackInHand(Hand.MAIN_HAND);
         for (int i=0;i<be.size;i++) {
@@ -95,6 +94,6 @@ public class BlockBreaker extends DispenserCloneBase {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         if (world.isClient()) return null;
-        return BlockBreakerBE.tick();
+        return BlockBreakerEntity.tick();
     }
 }

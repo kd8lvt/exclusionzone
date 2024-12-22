@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.api;
+package com.kd8lvt.exclusionzone.api.trackers;
 
 import com.kd8lvt.exclusionzone.content.entity.CaroInvictusEntity;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
@@ -28,7 +28,6 @@ import static com.kd8lvt.exclusionzone.registry.ModAttributes.TOXIN_RESISTANCE;
 public class ToxicBuildupTracker {
     private static final HashMap<UUID,Float> buildupTracker = new HashMap<>();
 
-    @SuppressWarnings("unused")
     public static void tickFor(LivingEntity entity) {
         Float buildup = buildupTracker.getOrDefault(entity.getUuid(),0f);
         if (buildup > 2000) setBuildup(entity,2000f);

@@ -8,6 +8,8 @@
     "sky_color": 35505,
     "water_color": 38321,
     "water_fog_color": 29045,
+    "foliage_color": 488296,
+    "grass_color": 488296,
     "particle": {
       "probability": 0.2,
       "options": {

@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.datagen.loot;
 
-import com.kd8lvt.exclusionzone.content.block.Enderweed;
+import com.kd8lvt.exclusionzone.content.block.Enderweed.Enderweed;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

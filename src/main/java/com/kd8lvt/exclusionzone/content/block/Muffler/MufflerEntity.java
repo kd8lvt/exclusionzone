@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.content.entity;
+package com.kd8lvt.exclusionzone.content.block.Muffler;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
 import com.kd8lvt.exclusionzone.registry.ModBlockEntities;
@@ -9,8 +9,8 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Objects;
 
-public class MufflerBE extends BlockEntity {
-    public MufflerBE(BlockPos pos, BlockState state) {
+public class MufflerEntity extends BlockEntity {
+    public MufflerEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.get("muffler"), pos, state);
     }
 
