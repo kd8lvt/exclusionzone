@@ -1,7 +1,9 @@
 package com.kd8lvt.exclusionzone.content.block.Enderweed;
 
 import com.kd8lvt.exclusionzone.ExclusionZone;
+import com.kd8lvt.exclusionzone.api.CommonConstants;
 import com.kd8lvt.exclusionzone.api.helpers.BiomeHelper;
+import com.kd8lvt.exclusionzone.api.helpers.WorldHelper;
 import com.kd8lvt.exclusionzone.registry.ModBlocks;
 import com.kd8lvt.exclusionzone.registry.ModItems;
 import net.minecraft.block.*;
@@ -11,6 +13,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -39,7 +42,7 @@ public class Enderweed extends CropBlock {
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.random.nextBetween(1,3) == 3) {
-//            super.randomTick(state, world, pos, random);
+//          super.randomTick(state, world, pos, random);
             this.superRandomTick(state,world,pos,random);
             if (world.isClient) return;
 
@@ -51,14 +54,11 @@ public class Enderweed extends CropBlock {
             while (world.isOutOfHeightLimit(pos.getY() + yChange)) yChange--;
             while (world.isOutOfHeightLimit(pos.getY() - yChange)) yChange++;
 
-
-
             BiomeHelper.fill(
                     world,
                     pos.south(radius).west(radius).down(radius),
                     pos.north(radius).east(radius).up(radius),
-                    ExclusionZone.BIOME,
-                    (biome)->true);
+                    CommonConstants.BIOME.get());
         }
     }
 

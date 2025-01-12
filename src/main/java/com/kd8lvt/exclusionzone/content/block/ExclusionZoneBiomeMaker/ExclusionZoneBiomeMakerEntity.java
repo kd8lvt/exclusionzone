@@ -21,9 +21,14 @@ public class ExclusionZoneBiomeMakerEntity extends BlockEntity {
     public static <T extends BlockEntity> void tick(World w, BlockPos pos, BlockState state, T be) {
         if (!(w instanceof ServerWorld world)) return;
         //Make sure that a 3x3 area of chunks around the block are generated
-        if (!WorldHelper.surroundingChunksGenerated(world,new ChunkPos(pos))) return;
+        if (!WorldHelper.surroundingChunksGenerated(world,new ChunkPos(pos))) {
+            //If they're not, make sure they get loaded at some point
+            WorldHelper.loadSurroundingChunks(world,new ChunkPos(pos));
+            //Wait until next tick to try again
+            return;
+        };
         //Fill in the biome
-        BiomeHelper.fillRadius(world,pos,radius, CommonConstants.BIOME.get());
+        BiomeHelper.fillCenteredRect(world,pos,radius, CommonConstants.BIOME.get());
         //Replace yourself with air
         world.setBlockState(pos, Blocks.AIR.getDefaultState());
     }
