@@ -5,8 +5,9 @@
   "plugin": "com.kd8lvt.exclusionzone.mixin.MixinConfigPlugin",
   "refmap": "exclusionzone.refmap.json",
   "mixins": [
-    "BlockEntityMixin",
     "ArmorItemMixin",
+    "BlockEntityMixin",
+    "EntityDataSaverMixin",
     "LivingEntityMixin",
     "PiglinBrainMixin"
   ],

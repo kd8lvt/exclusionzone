@@ -75,7 +75,8 @@ public class BiomeHelper {
             chunk.populateBiomes(createBiomeSupplier(mutableInt, chunk, blockBox, biome, filter), world.getChunkManager().getNoiseConfig().getMultiNoiseSampler());
             chunk.setNeedsSaving(true);
         }
-
+        //TODO: investigate crash with polymc
+        //https://github.com/kd8lvt/exclusionzone/issues/6
         world.getChunkManager().chunkLoadingManager.sendChunkBiomePackets(list);
     }
 

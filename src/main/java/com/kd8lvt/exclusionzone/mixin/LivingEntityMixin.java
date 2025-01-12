@@ -1,7 +1,7 @@
 package com.kd8lvt.exclusionzone.mixin;
 
-import com.kd8lvt.exclusionzone.api.trackers.GusterTracker;
-import com.kd8lvt.exclusionzone.api.trackers.ToxicBuildupTracker;
+import com.kd8lvt.exclusionzone.api.helpers.GusterHelper;
+import com.kd8lvt.exclusionzone.api.helpers.ToxicBuildupHelper;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,20 +20,15 @@ import static com.kd8lvt.exclusionzone.registry.ModAttributes.TOXIN_RESISTANCE;
 public abstract class LivingEntityMixin {
     @Inject(at=@At("HEAD"), method="tick")
     private void tick(CallbackInfo ci) {
-        GusterTracker.entityTick(asLivingEntity());
-        ToxicBuildupTracker.tickFor(asLivingEntity());
-    }
-
-    @Inject(at=@At("HEAD"),method="onRemoval")
-    private void onRemove(Entity.RemovalReason reason, CallbackInfo ci) {
-        ToxicBuildupTracker.remove(asLivingEntity());
+        GusterHelper.entityTick(asLivingEntity());
+        ToxicBuildupHelper.tickFor(asLivingEntity());
     }
 
     @Inject(at=@At("HEAD"),method="onAttacking")
     private void onAttacking(Entity target, CallbackInfo ci) {
         if (target instanceof LivingEntity entity) {
             if (asLivingEntity().getAttributeValue(ModAttributes.getEntry(ModAttributes.TOXIN_DAMAGE_ID.toString())) > 0)
-                ToxicBuildupTracker.incrementBuildup(
+                ToxicBuildupHelper.incrementBuildup(
                     entity,
                     (float) asLivingEntity().getAttributeValue(ModAttributes.getEntry(ModAttributes.TOXIN_DAMAGE_ID.toString()))
                 );

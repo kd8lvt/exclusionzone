@@ -12,6 +12,6 @@ public final class CommonConstants {
     public static final String MOD_ID = "exclusionzone";
     public static MinecraftServer SERVER;
     public static final CachedValue<RegistryEntry<Biome>> BIOME = new CachedValue<>(
-            ()-> SERVER.getOverworld().getRegistryManager().get(RegistryKeys.BIOME).getEntry(id("exclusionzone")).get()
+            ()-> SERVER.getOverworld().getRegistryManager().get(RegistryKeys.BIOME).getEntry(id("exclusion_zone")).get()
     );
 }

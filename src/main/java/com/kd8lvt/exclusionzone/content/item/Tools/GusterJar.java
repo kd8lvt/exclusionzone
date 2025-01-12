@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.content.item.Tools;
 
-import com.kd8lvt.exclusionzone.api.trackers.GusterTracker;
+import com.kd8lvt.exclusionzone.api.helpers.GusterHelper;
 import com.kd8lvt.exclusionzone.content.item.base.IHasResearchNotes;
 import com.kd8lvt.exclusionzone.registry.ModDataComponents;
 import net.minecraft.component.ComponentType;
@@ -66,7 +66,7 @@ public class GusterJar extends Item implements IHasResearchNotes {
         if (user.isFallFlying()) {
             if (!world.isClient) {
                 useEnergy(stack);
-                GusterTracker.refreshTimer(user);
+                GusterHelper.refreshTimer(user);
                 user.incrementStat(Stats.USED.getOrCreateStat(this));
             }
             user.getWorld().addParticle(ParticleTypes.GUST,user.getX(),user.getY(),user.getZ(),0d,0d,0d);

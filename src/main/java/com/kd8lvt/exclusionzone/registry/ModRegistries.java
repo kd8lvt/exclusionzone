@@ -71,8 +71,8 @@ public class ModRegistries {
         ModEntities.register();
         LOGGER.info("[ExclusionZone] Registering Attributes...");
         ModAttributes.register();
-        LOGGER.info("[ExclusionZone] Registering Enchantments...");
-        ModEnchantments.register();
+        //LOGGER.info("[ExclusionZone] Registering Enchantments...");
+        //ModEnchantments.register();
 
         Registry.register(
                 Registries.ITEM_GROUP,

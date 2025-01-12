@@ -127,6 +127,7 @@ public abstract class AbstractExclusionZoneLangProvider extends FabricLanguagePr
      * @return {@link String} the converted string
      */
     public static String toTitleCase(String input) {
+        //Todo: make a KdLib
         StringBuilder titleCase = new StringBuilder(input.length());
         boolean nextTitleCase = true;
 

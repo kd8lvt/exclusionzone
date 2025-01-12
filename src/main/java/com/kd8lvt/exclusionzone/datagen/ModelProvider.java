@@ -41,23 +41,6 @@ public class ModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemGen = itemModelGenerator;
-        /*generated(ModItems.get("boy_doll"));
-        generated(ModItems.get("girl_doll"));
-        generated(ModItems.get("otherworldly_bone"));
-        generated(ModItems.get("chipped_carapace"));
-        generated(ModItems.get("enormous_tardigrade"));
-        generated(ModItems.get("hunk_of_amber"));
-        generated(ModItems.get("moss_sample"));
-        generated(ModItems.get("mysterious_chunk"));
-        generated(ModItems.get("quickmetal"));
-        generated(ModItems.get("scrap_metal"));
-        generated(ModItems.get("villager_doll"));
-        generated(ModItems.get("warped_meat"));
-        generated(ModItems.get("cito_sanitatem_caro"));
-        generated(ModItems.get("omen_of_caro_invictus"));
-        generated(ModItems.get("reinforced_handle"));
-        generated(ModItems.get("logging_axe_head"));
-        generated(ModItems.get("magnet"));*/
         handheldRod("glasscutter");
         handheldRod("persona_monosword");
         handheld("logging_axe");

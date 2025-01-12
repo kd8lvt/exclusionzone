@@ -1,4 +1,4 @@
-package com.kd8lvt.exclusionzone.api.trackers;
+package com.kd8lvt.exclusionzone.api.helpers;
 
 import com.kd8lvt.exclusionzone.content.entity.CaroInvictusEntity;
 import com.kd8lvt.exclusionzone.registry.ModAttributes;
@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.nbt.NbtFloat;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,21 +18,16 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
-import java.util.UUID;
 
 import static com.kd8lvt.exclusionzone.ExclusionZone.IN_DEV;
 import static com.kd8lvt.exclusionzone.registry.ModAttributes.TOXIN_RESISTANCE;
 
 @SuppressWarnings("unused")
-public class ToxicBuildupTracker {
-    private static final HashMap<UUID,Float> buildupTracker = new HashMap<>();
-
+public class ToxicBuildupHelper {
+    private static final String KEY = "toxic_buildup";
     public static void tickFor(LivingEntity entity) {
-        Float buildup = buildupTracker.getOrDefault(entity.getUuid(),0f);
-        if (buildup > 2000) setBuildup(entity,2000f);
-        if (buildup < 0) setBuildup(entity,0f);
+        Float buildup = getOrDefault(entity,0f);
 
         boolean increaseTox = (Objects.equals(entity.getWorld().getBiome(entity.getBlockPos()).getIdAsString(), "exclusionzone:exclusion_zone"));
 
@@ -42,6 +38,10 @@ public class ToxicBuildupTracker {
 
         applyEffects(entity);
         trySendActionbar(entity, buildup);
+    }
+
+    public static Float getOrDefault(LivingEntity entity, Float default_) {
+        return IEntityDataHelper.getOrDefault(entity,KEY, NbtFloat.of(default_)).floatValue();
     }
 
     private static void trySendActionbar(LivingEntity entity, Float buildup) {
@@ -59,7 +59,7 @@ public class ToxicBuildupTracker {
     }
     
     private static void applyEffects(LivingEntity entity) {
-        Float buildup = buildupTracker.get(entity.getUuid());
+        float buildup = getOrDefault(entity,0f);
         if (buildup > 200) applyEffect(entity,StatusEffects.WEAKNESS,20,0);
         if (buildup > 400) applyEffect(entity,StatusEffects.SLOWNESS,20,0);
         if (buildup > 600) applyEffect(entity,StatusEffects.HUNGER,20,0);
@@ -74,7 +74,7 @@ public class ToxicBuildupTracker {
     }
     
     private static void applyEffect(LivingEntity entity, RegistryEntry<StatusEffect> effect, int duration, int amplifier) {
-        if (entity.hasStatusEffect(effect) && !entity.getStatusEffect(effect).isDurationBelow(5) && amplifier <= entity.getStatusEffect(effect).getAmplifier()) return;
+        if (entity.hasStatusEffect(effect) && !Objects.requireNonNull(entity.getStatusEffect(effect)).isDurationBelow(5) && amplifier <= Objects.requireNonNull(entity.getStatusEffect(effect)).getAmplifier()) return;
         if (IN_DEV) entity.addStatusEffect(new StatusEffectInstance(effect,duration,amplifier));
         else entity.addStatusEffect(new StatusEffectInstance(effect,duration,amplifier,true,false,false));
     }
@@ -86,7 +86,7 @@ public class ToxicBuildupTracker {
      * Another entity with a toxin resistance of 0.75 will take 25% (100-75=25) toxin damage<br />
      * That said, *negative* resistance values also apply, making you take *more* toxin damage.<br />
      * Technically, that also means you can recover damage instead of taking it with resistance values > 1<br />
-     * But, that could be an interesting mechanic so I'm calling it a feature not a bug.<br />
+     * But, that could be an interesting mechanic, so I'm calling it a feature.<br />
      * @param entity The entity to apply the resistance of
      * @param delta The amount of toxic buildup to apply resistance to
      * @return delta, after resistance has been applied
@@ -97,32 +97,23 @@ public class ToxicBuildupTracker {
     }
 
     /**
-     * Removes an entity from the tracker.<br />
-     * Only worth doing if the entity isn't going to be around next tick, and you aren't using {@link net.minecraft.entity.Entity#discard()}
-     * @param entity The entity to remove
-     * @return Their toxic buildup prior to being removed
-     */
-    public static Float remove(LivingEntity entity) {
-        return buildupTracker.remove(entity.getUuid());
-    }
-
-    /**
      * Gets the toxic buildup for {@code entity}.
      * @param entity the entity to get the toxic buildup of
      * @return {@code entity}'s toxic buildup
      */
     public static Float get(LivingEntity entity) {
-        return buildupTracker.get(entity.getUuid());
+        return getOrDefault(entity,0f);
     }
 
     /**
      * Sets the toxic buildup of {@code entity}.<br />
      * {@code entity} does not need to be in the tracker already.
      * @param entity The entity to set the toxic buildup of
-     * @param amt The amount to set {@code entity}'s toxic buildup to.
+     * @param amt The amount to set {@code entity}'s toxic buildup to. Clamped to 0-2000 (inclusive)
      */
     public static void setBuildup(LivingEntity entity, Float amt) {
-        buildupTracker.merge(entity.getUuid(),amt,(_a,_b)->amt);
+        amt = Math.max(0,Math.min(2000,amt));
+        IEntityDataHelper.set(entity,KEY,NbtFloat.of(amt));
     }
 
     /**
@@ -151,7 +142,7 @@ public class ToxicBuildupTracker {
      * @param delta the amount to increment by
      */
     public static void incrementBuildupUnresisted(LivingEntity entity, Float delta) {
-        buildupTracker.merge(entity.getUuid(), delta, Float::sum);
+        setBuildup(entity,getOrDefault(entity,0f)+delta);
     }
     /**
      * Decrements {@code entity}'s toxic buildup by one.<br />
@@ -180,7 +171,7 @@ public class ToxicBuildupTracker {
      * @param delta the amount to decrement by
      */
     public static void decrementBuildupUnresisted(LivingEntity entity, Float delta) {
-        buildupTracker.merge(entity.getUuid(), -delta, Float::sum); // negating input args instead of subtracting, because why not
+        setBuildup(entity,getOrDefault(entity,0f)-delta);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.kd8lvt.exclusionzone.content.item;
 
-import com.kd8lvt.exclusionzone.api.trackers.ToxicBuildupTracker;
+import com.kd8lvt.exclusionzone.api.helpers.ToxicBuildupHelper;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -62,6 +62,6 @@ public class InfiniteFoodArtifact extends EdibleArtifact {
 
     public void applyToxicBuildup(LivingEntity entity,World world) {
         if (world.isClient) return;
-        if (entity instanceof ServerPlayerEntity) ToxicBuildupTracker.incrementBuildup(entity,this.toxicBuildupWhenEaten);
+        if (entity instanceof ServerPlayerEntity) ToxicBuildupHelper.incrementBuildup(entity,this.toxicBuildupWhenEaten);
     }
 }
