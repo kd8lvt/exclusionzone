@@ -45,3 +45,4 @@ replay_*.log
 /remappedSrc/
 /src/main/generated/
 vanilla_assets
+/.noai
