@@ -39,15 +39,17 @@ public class GusterJar extends Item implements IHasResearchNotes {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        if (entity instanceof BreezeEntity breeze && stack.get(STORED_ENERGY) <= 0) {
-            user.getWorld().addParticle(ParticleTypes.GUST,breeze.getX(),breeze.getY(),breeze.getZ(),0d,0d,0d);
+        if (entity instanceof BreezeEntity breeze && stack.getOrDefault(STORED_ENERGY,1f) <= 0) {
+            user.getWorld().addParticle(ParticleTypes.GUST,breeze.getX(),breeze.getY()+(breeze.getEyeY()/2),breeze.getZ(),0d,0d,0d);
             breeze.discard();
             user.playSound(SoundEvents.ENTITY_CHICKEN_EGG);
             user.playSound(SoundEvents.ENTITY_BREEZE_DEATH,0.5f,1f);
             user.playSound(SoundEvents.ENTITY_BREEZE_INHALE,0.5f,1f);
             stack.set(STORED_ENERGY,1f);
+            user.setStackInHand(hand,stack);
             return ActionResult.SUCCESS;
-        } else if (stack.get(STORED_ENERGY) > 0 && entity.isPushable()){
+        }
+        if (stack.getOrDefault(STORED_ENERGY,1f) > 0 && entity.isPushable()){
             user.playSound(SoundEvents.ENTITY_BREEZE_JUMP);
             entity.takeKnockback(0.5, user.getX() - entity.getX(), user.getZ() - entity.getZ());
             useEnergy(stack);
